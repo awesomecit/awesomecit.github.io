@@ -8,7 +8,6 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Configurazione Tailwind personalizzata
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -26,11 +25,14 @@
     
     <!-- Lit -->
     <script type="module">
-        import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
-        console.log('Lit loaded:', { LitElement, html, css });
-        window.lit = { LitElement, html, css };
+        import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+        window.lit = { LitElement, html };
     </script>
     
+    <!-- Translations -->
+    <script src="./translations.js"></script>
+    
+    <!-- Components -->
     <script type="module" src="./components/my-portfolio.js"></script>
 
     <style>
@@ -41,7 +43,7 @@
         }
     </style>
 </head>
-<body>
+<body class="bg-bg-main">
     <my-portfolio></my-portfolio>
 </body>
 </html>
