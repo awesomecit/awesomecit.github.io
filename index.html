@@ -1,7 +1,270 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="PORTFOLIO_TITLE"></title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+        <div class="container-fluid">
+            <!-- Pulsante hamburger -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu collassabile -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Left side menu -->
+                <div class="navbar-nav me-auto">
+                    <a class="nav-link" href="#home" data-translate="HOME"></a>
+                    <a class="nav-link" href="#about" data-translate="ABOUT"></a>
+                    <a class="nav-link" href="#tech-skills" data-translate="SKILLS"></a>
+                    <a class="nav-link" href="#contacts" data-translate="CONTACTS"></a>
+                </div>
+            </div>
+
+            <!-- Right side controls rimane fuori dal collapse -->
+            <div class="top-controls">
+                <select id="languageSelector" class="form-select form-select-sm">
+                    <option value="it" selected>🇮🇹</option>
+                    <option value="en">🇬🇧</option>
+                </select>
+
+                <button id="themeToggle" class="theme-toggle">
+                    <i class="bi bi-moon-fill"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <div class="profile-container">
+                        <div class="profile-image">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <h1 class="mt-4" data-translate="DEVELOPER_NAME">Developer Name</h1>
+                        <p class="lead" data-translate="DEVELOPER_TITLE">Full Stack Developer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="text-center mb-4" data-translate="ABOUT">About Me</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="about-content text-center">
+                        <p class="about-text" data-translate="ABOUT_TEXT">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section id="tech-skills">
+        <div class="container">
+            <h2 class="text-center mb-4" data-translate="TECH_SKILLS">Technical Skills</h2>
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="carousel-container">
+                        <!-- Carousel Controls -->
+                        <button class="carousel-control prev">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="carousel-control next">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                        
+                        <!-- Skills Carousel -->
+                        <div class="skills-carousel">
+                            <!-- Original Cards -->
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="bi bi-filetype-html"></i>
+                                </div>
+                                <h3>HTML5</h3>
+                                <p>Frontend Development</p>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="bi bi-filetype-css"></i>
+                                </div>
+                                <h3>CSS3</h3>
+                                <p>Styling & Animations</p>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="bi bi-filetype-js"></i>
+                                </div>
+                                <h3>JavaScript</h3>
+                                <p>Dynamic Interfaces</p>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="bi bi-database"></i>
+                                </div>
+                                <h3>SQL</h3>
+                                <p>Database Management</p>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="bi bi-git"></i>
+                                </div>
+                                <h3>Git</h3>
+                                <p>Version Control</p>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="bi bi-cloud"></i>
+                                </div>
+                                <h3>Cloud</h3>
+                                <p>AWS Services</p>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="bi bi-phone"></i>
+                                </div>
+                                <h3>Mobile</h3>
+                                <p>Responsive Design</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soft Skills Section -->
+    <section id="soft-skills">
+        <div class="container">
+            <h2 class="text-center mb-4" data-translate="SOFT_SKILLS">Soft Skills</h2>
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="soft-carousel-container">
+                        <!-- Carousel Controls -->
+                        <button class="carousel-control prev">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="carousel-control next">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                        
+                        <!-- Soft Skills Carousel -->
+                        <div class="soft-skills-carousel">
+                            <!-- Card 1 -->
+                            <div class="soft-skill-card">
+                                <div class="soft-skill-icon">
+                                    <i class="bi bi-people-fill"></i>
+                                </div>
+                                <h3>Team Work</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                            </div>
+                            
+                            <!-- Card 2 -->
+                            <div class="soft-skill-card">
+                                <div class="soft-skill-icon">
+                                    <i class="bi bi-lightbulb-fill"></i>
+                                </div>
+                                <h3>Problem Solving</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                            </div>
+                            
+                            <!-- Card 3 -->
+                            <div class="soft-skill-card">
+                                <div class="soft-skill-icon">
+                                    <i class="bi bi-clock-history"></i>
+                                </div>
+                                <h3>Time Management</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                            </div>
+                            
+                            <!-- Card 4 -->
+                            <div class="soft-skill-card">
+                                <div class="soft-skill-icon">
+                                    <i class="bi bi-chat-dots-fill"></i>
+                                </div>
+                                <h3>Communication</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                            </div>
+                            
+                            <!-- Card 5 -->
+                            <div class="soft-skill-card">
+                                <div class="soft-skill-icon">
+                                    <i class="bi bi-graph-up-arrow"></i>
+                                </div>
+                                <h3>Leadership</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts Section -->
+    <section id="contacts" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4" data-translate="CONTACTS">Contacts</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="d-flex justify-content-center gap-4">
+                        <!-- Email -->
+                        <a href="mailto:your.email@example.com" class="contact-link" title="Email">
+                            <i class="bi bi-envelope-fill"></i>
+                        </a>
+
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-link" title="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+
+                        <!-- GitHub -->
+                        <a href="https://github.com/yourusername" target="_blank" class="contact-link" title="GitHub">
+                            <i class="bi bi-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">
+                        © <span id="currentYear">2024</span> 
+                        <span data-translate="COPYRIGHT">All rights reserved</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="./translations.js"></script>
+    <script src="./main.js"></script>
 </body>
 </html>
