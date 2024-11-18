@@ -5,14 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
     
-    <!-- Debug: aggiungiamo console.log per verificare il caricamento -->
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configurazione Tailwind personalizzata
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-main': '#1a365d',
+                        'bg-navbar': '#2b6cb0',
+                        'bg-main-dark': '#0f172a',
+                        'bg-navbar-dark': '#1e293b'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lit -->
     <script type="module">
         import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
         console.log('Lit loaded:', { LitElement, html, css });
         window.lit = { LitElement, html, css };
     </script>
     
-    <!-- Debug: verifichiamo il caricamento del componente -->
     <script type="module" src="./components/my-portfolio.js"></script>
 
     <style>
@@ -21,26 +39,11 @@
             padding: 0;
             box-sizing: border-box;
         }
-
-        body {
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-            /* Debug: aggiungiamo un colore di sfondo per vedere se il body viene renderizzato */
-            background-color: #f0f0f0;
-        }
     </style>
 </head>
 <body>
-    <!-- Debug: aggiungiamo un elemento di fallback -->
     <my-portfolio>
         <p>Loading portfolio...</p>
     </my-portfolio>
-
-    <!-- Debug: script per verificare errori -->
-    <script>
-        window.addEventListener('error', (e) => {
-            console.error('Script error:', e);
-        });
-    </script>
 </body>
 </html>

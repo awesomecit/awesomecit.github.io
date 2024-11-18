@@ -12,75 +12,35 @@ export class NavBar extends LitElement {
         this.theme = 'light';
     }
 
-    static styles = css`
-        :host {
-            display: block;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        nav {
-            background-color: var(--bg-navbar, #2b6cb0);
-            height: 48px;
-            padding: 0 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 2px solid var(--border-color, #ffffff);
-            border-radius: 8px;
-            margin: 0.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        a {
-            color: var(--text-color, #ffffff);
-            text-decoration: none;
-            padding: 0.5rem;
-            border: 2px solid var(--border-color, #ffffff);
-            border-radius: 4px;
-        }
-
-        select, button {
-            background: transparent;
-            border: 2px solid var(--border-color, #ffffff);
-            border-radius: 4px;
-            color: var(--text-color, #ffffff);
-            padding: 0.25rem;
-            cursor: pointer;
-        }
-    `;
+    createRenderRoot() {
+        return this;
+    }
 
     render() {
+        const navBg = this.theme === 'dark' ? 'bg-bg-navbar-dark' : 'bg-bg-navbar';
+        
         return html`
-            <nav>
-                <div class="nav-links">
-                    <a href="#home">Home</a>
-                    <a href="#about">Chi Sono</a>
-                    <a href="#tech-skills">Competenze</a>
-                    <a href="#contacts">Contatti</a>
-                </div>
-                
-                <div class="nav-controls">
-                    <select @change=${this._handleLanguageChange}>
-                        <option value="it" ?selected=${this.currentLang === 'it'}>🇮🇹</option>
-                        <option value="en" ?selected=${this.currentLang === 'en'}>🇬🇧</option>
-                    </select>
+            <nav class="fixed top-0 left-0 right-0 z-50 p-2">
+                <div class="${navBg} border-2 border-white rounded-lg p-2 transition-colors duration-300">
+                    <div class="flex gap-4">
+                        <a href="#home" class="text-white px-2 py-1 border-2 border-white rounded hover:bg-white/10">Home</a>
+                        <a href="#about" class="text-white px-2 py-1 border-2 border-white rounded hover:bg-white/10">Chi Sono</a>
+                        <a href="#tech-skills" class="text-white px-2 py-1 border-2 border-white rounded hover:bg-white/10">Competenze</a>
+                        <a href="#contacts" class="text-white px-2 py-1 border-2 border-white rounded hover:bg-white/10">Contatti</a>
+                    </div>
                     
-                    <button @click=${this._toggleTheme}>
-                        ${this.theme === 'dark' ? '☀️' : '🌙'}
-                    </button>
+                    <div class="flex items-center gap-2">
+                        <select @change=${this._handleLanguageChange} 
+                                class="bg-transparent border-2 border-white rounded text-white px-1 cursor-pointer">
+                            <option value="it" ?selected=${this.currentLang === 'it'}>🇮🇹</option>
+                            <option value="en" ?selected=${this.currentLang === 'en'}>🇬🇧</option>
+                        </select>
+                        
+                        <button @click=${this._toggleTheme} 
+                                class="bg-transparent border-2 border-white rounded text-white p-1 cursor-pointer hover:bg-white/10">
+                            ${this.theme === 'dark' ? '☀️' : '🌙'}
+                        </button>
+                    </div>
                 </div>
             </nav>
         `;
