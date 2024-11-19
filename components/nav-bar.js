@@ -21,23 +21,24 @@ export class NavBar extends LitElement {
     }
 
     render() {
+        const textColor = this.theme === 'dark' ? 'text-bg-navbar' : 'text-bg-main';
         const navBg = this.theme === 'dark' ? 'bg-bg-navbar-dark' : 'bg-bg-navbar';
         const t = this.translations;
         
         return html`
-            <nav class="fixed top-0 left-0 right-0 z-50 m-2">
-                <div class="${navBg} border-2 border-white rounded-lg transition-colors duration-300">
+            <nav class="fixed top-0 left-0 right-0 z-50">
+                <div class="${navBg} transition-colors duration-300">
                     <div class="px-4 h-12 flex justify-between items-center">
                         <button @click=${this._toggleMenu} 
-                                class="md:hidden text-white hover:bg-white/10 p-2 rounded">
+                                class="md:hidden ${textColor} hover:bg-white/10 p-2">
                             ${this.isMenuOpen ? 'X' : '☰'}
                         </button>
 
                         <div class="hidden md:flex items-center space-x-3">
-                            <a href="#home" class="text-white px-3 py-1.5 rounded hover:bg-white/10">${t.HOME}</a>
-                            <a href="#about" class="text-white px-3 py-1.5 rounded hover:bg-white/10">${t.ABOUT}</a>
-                            <a href="#tech-skills" class="text-white px-3 py-1.5 rounded hover:bg-white/10">${t.SKILLS}</a>
-                            <a href="#contacts" class="text-white px-3 py-1.5 rounded hover:bg-white/10">${t.CONTACTS}</a>
+                            <a href="#home" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.HOME}</a>
+                            <a href="#about" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.ABOUT}</a>
+                            <a href="#tech-skills" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.SKILLS}</a>
+                            <a href="#contacts" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.CONTACTS}</a>
                         </div>
                         
                         <div class="flex items-center space-x-3">
@@ -57,10 +58,10 @@ export class NavBar extends LitElement {
                     ${this.isMenuOpen ? html`
                         <div class="md:hidden px-4 py-2 border-t-2 border-white">
                             <div class="flex flex-col space-y-2">
-                                <a href="#home" class="text-white px-3 py-1.5 rounded hover:bg-white/10">${t.HOME}</a>
-                                <a href="#about" class="text-white px-3 py-1.5 rounded hover:bg-white/10">${t.ABOUT}</a>
-                                <a href="#tech-skills" class="text-white px-3 py-1.5 rounded hover:bg-white/10">${t.SKILLS}</a>
-                                <a href="#contacts" class="text-white px-3 py-1.5 rounded hover:bg-white/10">${t.CONTACTS}</a>
+                                <a href="#home" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.HOME}</a>
+                                <a href="#about" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.ABOUT}</a>
+                                <a href="#tech-skills" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.SKILLS}</a>
+                                <a href="#contacts" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.CONTACTS}</a>
                             </div>
                         </div>
                     ` : ''}

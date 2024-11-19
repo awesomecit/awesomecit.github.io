@@ -1,5 +1,11 @@
 import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
 import './nav-bar.js';
+import './sections/hero-section.js';
+// import './sections/about-section.js';  // Commenta questa riga
+import './sections/tech-skills-section.js';
+import './sections/soft-skills-section.js';
+import './sections/contacts-section.js';
+import './sections/footer-section.js';
 
 class MyPortfolio extends LitElement {
     static properties = {
@@ -16,24 +22,20 @@ class MyPortfolio extends LitElement {
     }
 
     render() {
-        const bgColor = this.theme === 'dark' ? 'bg-bg-main-dark' : 'bg-bg-main';
-        
         return html`
-            <main class="min-h-screen ${bgColor} transition-colors duration-300">
+            <div class="min-h-screen bg-bg-main dark:bg-bg-main-dark ${this.theme === 'dark' ? 'dark' : ''}">
                 <nav-bar 
-                    .theme=${this.theme}
-                    @theme-change=${this._handleThemeChange}>
+                    .theme=${this.theme} 
+                    .currentLang=${this.currentLang}
+                    @theme-change=${this._handleThemeChange}
+                    @language-change=${this._handleLanguageChange}>
                 </nav-bar>
-                <div class="container mx-auto px-4 pt-16">
-                    <div class="flex items-center justify-center min-h-[calc(100vh-4rem)]">
-                        <div class="w-48 h-48 rounded-full bg-white/10 border-4 border-white flex items-center justify-center">
-                            <svg class="w-24 h-24 text-white/60" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </main>
+                <hero-section .theme=${this.theme}></hero-section>
+                <tech-skills-section .theme=${this.theme}></tech-skills-section>
+                <soft-skills-section .theme=${this.theme}></soft-skills-section>
+                <contacts-section .theme=${this.theme}></contacts-section>
+                <footer-section .theme=${this.theme}></footer-section>
+            </div>
         `;
     }
 
@@ -43,3 +45,4 @@ class MyPortfolio extends LitElement {
 }
 
 customElements.define('my-portfolio', MyPortfolio);
+
