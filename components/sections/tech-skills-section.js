@@ -47,6 +47,7 @@ export class TechSkillsSection extends LitElement {
                         .rows=${1}
                         .cols=${5}
                         .theme=${this.theme}
+                        .showPageCounter=${false}
                         gap="1.5rem">
                     </my-carousel>
                 </div>

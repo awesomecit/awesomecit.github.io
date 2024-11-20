@@ -7,7 +7,8 @@ export class Carousel extends LitElement {
         cols: { type: Number },
         gap: { type: String },
         currentPage: { type: Number },
-        theme: { type: String }
+        theme: { type: String },
+        showPageCounter: { type: Boolean }
     };
 
     constructor() {
@@ -18,6 +19,7 @@ export class Carousel extends LitElement {
         this.gap = '1.5rem';
         this.currentPage = 0;
         this.theme = 'dark';
+        this.showPageCounter = true;
     }
 
     createRenderRoot() {
@@ -70,9 +72,13 @@ export class Carousel extends LitElement {
                         ?disabled=${this.currentPage === 0}>
                         ←
                     </button>
-                    <span class="${textColor}">
-                        ${this.currentPage + 1} / ${this.totalPages}
-                    </span>
+                    ${this.showPageCounter ? html`
+                        <span class="${textColor}">
+                            ${this.currentPage + 1} / ${this.totalPages}
+                        </span>
+                    ` : html`
+                        <span></span>
+                    `}
                     <button 
                         @click=${this.nextPage}
                         class="${textColor} px-4 py-2 rounded-lg ${this.currentPage === this.totalPages - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/10'}"
