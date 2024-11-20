@@ -1,61 +1,46 @@
-// Valori comuni per tutte le lingue
-const common = {
-    DEVELOPER_NAME: "Marco Rossi",
-    DEVELOPER_TITLE: "Full Stack Developer",
-    ABOUT_TEXT: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+// Esportiamo l'oggetto delle traduzioni
+export const translations = {
+    it: null,
+    en: null
 };
 
-// Definizione delle traduzioni specifiche per lingua
-const translations = {
-    it: {
-        PORTFOLIO_TITLE: "Portfolio",
-        HOME: "Home",
-        ABOUT: "Chi Sono",
-        SKILLS: "Competenze",
-        TECH_SKILLS: "Competenze Tecniche",
-        SOFT_SKILLS: "Competenze Trasversali",
-        CONTACTS: "Contatti",
-        COPYRIGHT: "Tutti i diritti riservati",
-        ...common  // Spread operator per includere i valori comuni
-    },
-    en: {
-        PORTFOLIO_TITLE: "Portfolio",
-        HOME: "Home",
-        ABOUT: "About",
-        SKILLS: "Skills",
-        TECH_SKILLS: "Technical Skills",
-        SOFT_SKILLS: "Soft Skills",
-        CONTACTS: "Contacts",
-        COPYRIGHT: "All rights reserved",
-        ...common  // Spread operator per includere i valori comuni
-    }
-};
+let translationsLoaded = false;
+let loadingPromise = null;
 
-// Funzione per la traduzione
-function translatePage(language) {
-    console.log('Translating to:', language);
+export async function loadTranslations() {
+    if (translationsLoaded) return;
     
-    // Verifica che la lingua selezionata esista nelle traduzioni
-    if (!translations[language]) {
-        console.error('Language not found:', language);
-        return;
+    if (loadingPromise) {
+        return loadingPromise;
     }
 
-    // Ottieni le traduzioni per la lingua selezionata
-    const currentTranslations = translations[language];
-
-    // Trova tutti gli elementi con attributo data-translate
-    document.querySelectorAll('[data-translate]').forEach(element => {
-        const key = element.getAttribute('data-translate');
-        if (currentTranslations[key]) {
-            element.textContent = currentTranslations[key];
-            console.log(`Translated ${key} to: ${currentTranslations[key]}`);
-        } else {
-            console.warn(`Translation not found for key: ${key}`);
+    loadingPromise = new Promise(async (resolve) => {
+        try {
+            const [itResponse, enResponse] = await Promise.all([
+                fetch('translations/it.json'),
+                fetch('translations/en.json')
+            ]);
+            
+            translations.it = await itResponse.json();
+            translations.en = await enResponse.json();
+            translationsLoaded = true;
+            resolve();
+        } catch (error) {
+            console.error('Errore nel caricamento delle traduzioni:', error);
+            resolve();
         }
     });
+
+    return loadingPromise;
 }
 
-// Rendi disponibili le funzioni e le variabili globalmente
-window.translations = translations;
-window.translatePage = translatePage; 
+export function translate(key, lang = 'it') {
+    if (!translations[lang]) {
+        return key;
+    }
+    return translations[lang][key] || key;
+}
+
+// Inizializzazione immediata
+loadTranslations();
+

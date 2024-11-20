@@ -1,22 +1,32 @@
 import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+import { translate } from '../../translations.js';
 
 export class FooterSection extends LitElement {
     static properties = {
-        theme: { type: String }
+        theme: { type: String },
+        currentLang: { type: String }
     };
+
+    constructor() {
+        super();
+        this.theme = 'light';
+        this.currentLang = 'it';
+    }
 
     createRenderRoot() {
         return this;
     }
 
     render() {
-        const textColor = this.theme === 'dark' ? 'text-bg-navbar' : 'text-bg-navbar';
-        
+        const textColor = this.theme === 'dark' ? 'text-gray-300' : 'text-bg-navbar/90';
+        const currentYear = new Date().getFullYear();
+
         return html`
             <footer class="container mx-auto px-4 py-8 text-center">
-                <div class="w-full p-6">
-                    <p class="${textColor} font-bold text-sm">© ${new Date().getFullYear()} - Tutti i diritti riservati</p>
-                </div>
+                <p class="${textColor}">
+                    © ${currentYear} ${translate('DEVELOPER_NAME', this.currentLang)} - 
+                    ${translate('COPYRIGHT', this.currentLang)}
+                </p>
             </footer>
         `;
     }

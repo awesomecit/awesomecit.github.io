@@ -1,11 +1,11 @@
 import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+import { translate } from '../translations.js';
 
 export class NavBar extends LitElement {
     static properties = {
         currentLang: { type: String },
         theme: { type: String },
-        isMenuOpen: { type: Boolean },
-        translations: { type: Object }
+        isMenuOpen: { type: Boolean }
     };
 
     constructor() {
@@ -13,7 +13,6 @@ export class NavBar extends LitElement {
         this.currentLang = 'it';
         this.theme = 'light';
         this.isMenuOpen = false;
-        this.translations = window.translations[this.currentLang];
     }
 
     createRenderRoot() {
@@ -23,7 +22,6 @@ export class NavBar extends LitElement {
     render() {
         const textColor = this.theme === 'dark' ? 'text-bg-navbar' : 'text-bg-main';
         const navBg = this.theme === 'dark' ? 'bg-bg-navbar-dark' : 'bg-bg-navbar';
-        const t = this.translations;
         
         return html`
             <nav class="fixed top-0 left-0 right-0 z-50">
@@ -35,10 +33,15 @@ export class NavBar extends LitElement {
                         </button>
 
                         <div class="hidden md:flex items-center space-x-3">
-                            <a href="#home" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.HOME}</a>
-                            <a href="#about" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.ABOUT}</a>
-                            <a href="#tech-skills" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.SKILLS}</a>
-                            <a href="#contacts" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.CONTACTS}</a>
+                            <a href="#home" class="${textColor} px-3 py-1.5 hover:bg-white/10">
+                                ${translate('HOME', this.currentLang)}
+                            </a>
+                            <a href="#tech-skills" class="${textColor} px-3 py-1.5 hover:bg-white/10">
+                                ${translate('SKILLS', this.currentLang)}
+                            </a>
+                            <a href="#contacts" class="${textColor} px-3 py-1.5 hover:bg-white/10">
+                                ${translate('CONTACTS', this.currentLang)}
+                            </a>
                         </div>
                         
                         <div class="flex items-center space-x-3">
@@ -72,7 +75,6 @@ export class NavBar extends LitElement {
 
     _handleLanguageChange(e) {
         this.currentLang = e.target.value;
-        this.translations = window.translations[this.currentLang];
         this.dispatchEvent(new CustomEvent('language-change', {
             detail: { language: this.currentLang },
             bubbles: true,

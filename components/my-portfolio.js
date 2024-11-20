@@ -1,20 +1,31 @@
 import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
 import './nav-bar.js';
 import './sections/hero-section.js';
-// import './sections/about-section.js';  // Commenta questa riga
 import './sections/tech-skills-section.js';
 import './sections/soft-skills-section.js';
 import './sections/contacts-section.js';
 import './sections/footer-section.js';
+import { loadTranslations } from '../translations.js';
 
 class MyPortfolio extends LitElement {
     static properties = {
-        theme: { type: String }
+        theme: { type: String },
+        currentLang: { type: String },
+        translationsReady: { type: Boolean }
     };
 
     constructor() {
         super();
         this.theme = 'light';
+        this.currentLang = 'it';
+        this.translationsReady = false;
+        this._initializeTranslations();
+    }
+
+    async _initializeTranslations() {
+        await loadTranslations();
+        this.translationsReady = true;
+        this.requestUpdate();
     }
 
     createRenderRoot() {
@@ -22,25 +33,49 @@ class MyPortfolio extends LitElement {
     }
 
     render() {
+        if (!this.translationsReady) {
+            return html`<div>Loading...</div>`;
+        }
+
         return html`
             <div class="min-h-screen bg-bg-main dark:bg-bg-main-dark ${this.theme === 'dark' ? 'dark' : ''}">
                 <nav-bar 
-                    .theme=${this.theme} 
+                    .theme=${this.theme}
                     .currentLang=${this.currentLang}
                     @theme-change=${this._handleThemeChange}
                     @language-change=${this._handleLanguageChange}>
                 </nav-bar>
-                <hero-section .theme=${this.theme}></hero-section>
-                <tech-skills-section .theme=${this.theme}></tech-skills-section>
-                <soft-skills-section .theme=${this.theme}></soft-skills-section>
-                <contacts-section .theme=${this.theme}></contacts-section>
-                <footer-section .theme=${this.theme}></footer-section>
+                <hero-section 
+                    .theme=${this.theme}
+                    .currentLang=${this.currentLang}>
+                </hero-section>
+                <tech-skills-section 
+                    .theme=${this.theme}
+                    .currentLang=${this.currentLang}>
+                </tech-skills-section>
+                <soft-skills-section 
+                    .theme=${this.theme}
+                    .currentLang=${this.currentLang}>
+                </soft-skills-section>
+                <contacts-section 
+                    .theme=${this.theme}
+                    .currentLang=${this.currentLang}>
+                </contacts-section>
+                <footer-section 
+                    .theme=${this.theme}
+                    .currentLang=${this.currentLang}>
+                </footer-section>
             </div>
         `;
     }
 
     _handleThemeChange(event) {
         this.theme = event.detail.theme;
+    }
+
+    _handleLanguageChange(event) {
+        this.currentLang = event.detail.language;
+        this.requestUpdate();
     }
 }
 
