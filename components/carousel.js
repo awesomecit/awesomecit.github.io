@@ -63,30 +63,7 @@ export class Carousel extends LitElement {
         `;
 
         return html`
-            <div class="w-full">
-                <!-- Navigation -->
-                <div class="flex justify-between items-center mb-4">
-                    <button 
-                        @click=${this.prevPage}
-                        class="${textColor} px-4 py-2 rounded-lg ${this.currentPage === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/10'}"
-                        ?disabled=${this.currentPage === 0}>
-                        ←
-                    </button>
-                    ${this.showPageCounter ? html`
-                        <span class="${textColor}">
-                            ${this.currentPage + 1} / ${this.totalPages}
-                        </span>
-                    ` : html`
-                        <span></span>
-                    `}
-                    <button 
-                        @click=${this.nextPage}
-                        class="${textColor} px-4 py-2 rounded-lg ${this.currentPage === this.totalPages - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/10'}"
-                        ?disabled=${this.currentPage === this.totalPages - 1}>
-                        →
-                    </button>
-                </div>
-
+            <div class="w-full relative">
                 <!-- Grid Container -->
                 <div style=${gridStyle} class="w-full">
                     ${this.currentItems.map(item => html`
@@ -97,6 +74,42 @@ export class Carousel extends LitElement {
                         </div>
                     `)}
                 </div>
+
+                <!-- Navigation Buttons -->
+                <div class="absolute inset-y-0 left-0 flex items-center -ml-12">
+                    <button 
+                        @click=${this.prevPage}
+                        class="${textColor} w-10 h-10 rounded-full flex items-center justify-center 
+                        ${this.currentPage === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/10'} 
+                        ${backgroundStyle} transition-all duration-300"
+                        ?disabled=${this.currentPage === 0}>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="absolute inset-y-0 right-0 flex items-center -mr-12">
+                    <button 
+                        @click=${this.nextPage}
+                        class="${textColor} w-10 h-10 rounded-full flex items-center justify-center 
+                        ${this.currentPage === this.totalPages - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/10'} 
+                        ${backgroundStyle} transition-all duration-300"
+                        ?disabled=${this.currentPage === this.totalPages - 1}>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Page Counter -->
+                ${this.showPageCounter ? html`
+                    <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
+                        <span class="${textColor}">
+                            ${this.currentPage + 1} / ${this.totalPages}
+                        </span>
+                    </div>
+                ` : ''}
             </div>
         `;
     }
