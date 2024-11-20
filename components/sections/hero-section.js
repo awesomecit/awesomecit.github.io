@@ -9,17 +9,16 @@ export class HeroSection extends LitElement {
 
     constructor() {
         super();
-        this.theme = 'light';
+        this.theme = 'dark';
         this.currentLang = 'it';
     }
 
-    // Questo permette di mantenere gli stili Tailwind
     createRenderRoot() {
         return this;
     }
 
     render() {
-        const textColor = this.theme === 'dark' ? 'text-gray-300' : 'text-bg-navbar/90';
+        const textColor = this.theme === 'dark' ? 'text-gray-300' : 'text-gray-300';
         
         return html`
             <section class="container mx-auto px-4 pt-32 min-h-screen flex flex-col items-center justify-center text-center mb-16">
@@ -29,7 +28,7 @@ export class HeroSection extends LitElement {
                     </svg>
                 </div>
 
-                <h1 class="${textColor} text-4xl font-bold mb-4">
+                <h1 class="${textColor} text-4xl font-semibold mb-4">
                     ${translate('DEVELOPER_NAME', this.currentLang)}
                 </h1>
                 <p class="${textColor} text-xl">

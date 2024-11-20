@@ -16,7 +16,7 @@ class MyPortfolio extends LitElement {
 
     constructor() {
         super();
-        this.theme = 'light';
+        this.theme = 'dark';
         this.currentLang = 'it';
         this.translationsReady = false;
         this._initializeTranslations();

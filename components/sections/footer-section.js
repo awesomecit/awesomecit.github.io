@@ -18,7 +18,7 @@ export class FooterSection extends LitElement {
     }
 
     render() {
-        const textColor = this.theme === 'dark' ? 'text-gray-300' : 'text-bg-navbar/90';
+        const textColor = this.theme === 'dark' ? 'text-gray-300' : 'text-gray-300';
         const currentYear = new Date().getFullYear();
 
         return html`

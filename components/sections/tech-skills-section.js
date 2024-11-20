@@ -6,7 +6,7 @@ export class TechSkillsSection extends LitElement {
     }
 
     render() {
-        const textColor = this.theme === 'dark' ? 'text-bg-main-dark' : 'text-bg-main';
+        const textColor = this.theme === 'dark' ? 'text-bg-navbar/90' : 'text-bg-main';
         return html`
             <section id="techskills" class="container mx-auto px-4 py-8 flex flex-col items-center text-center">
                 <div class="w-full p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-lg border border-gray-200 dark:border-gray-700">
