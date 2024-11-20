@@ -1,5 +1,6 @@
 import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
 import { translate } from '../../translations.js';
+import '../carousel.js';
 
 export class TechSkillsSection extends LitElement {
     static properties = {
@@ -11,6 +12,18 @@ export class TechSkillsSection extends LitElement {
         super();
         this.theme = 'dark';
         this.currentLang = 'it';
+        this.techSkills = [
+            'JavaScript',
+            'TypeScript',
+            'React',
+            'Node.js',
+            'Python',
+            'Java',
+            'Docker',
+            'AWS',
+            'MongoDB',
+            'PostgreSQL'
+        ];
     }
 
     createRenderRoot() {
@@ -29,6 +42,13 @@ export class TechSkillsSection extends LitElement {
                     <h2 class="${textColor} text-3xl font-bold mb-8">
                         ${translate('TECH_SKILLS', this.currentLang)}
                     </h2>
+                    <my-carousel
+                        .items=${this.techSkills}
+                        .rows=${1}
+                        .cols=${5}
+                        .theme=${this.theme}
+                        gap="1.5rem">
+                    </my-carousel>
                 </div>
             </section>
         `;
