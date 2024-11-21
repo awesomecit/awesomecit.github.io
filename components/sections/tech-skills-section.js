@@ -5,8 +5,7 @@ import '../carousel.js';
 export class TechSkillsSection extends LitElement {
     static properties = {
         theme: { type: String },
-        currentLang: { type: String },
-        cardProps: { type: Object }
+        currentLang: { type: String }
     };
 
     constructor() {
@@ -14,27 +13,31 @@ export class TechSkillsSection extends LitElement {
         this.theme = 'dark';
         this.currentLang = 'it';
         this.techSkills = [
-            'JavaScript',
-            'TypeScript',
-            'React',
-            'Node.js',
-            'Python',
-            'Java',
-            'Docker',
-            'AWS',
-            'MongoDB',
-            'PostgreSQL'
+            '1JavaScript',
+            '2TypeScript',
+            '3React',
+            '4Node.js',
+            '5Python',
+            '6Java',
+            '7Docker',
+            '8AWS',
+            '9MongoDB',
+            '10PostgreSQL'
         ];
-        this.cardProps = {
-            backgroundColor: 'bg-gray-900',
-            textColor: 'text-white',
-            backgroundOpacity: '80',
-            hoverEffect: true
-        };
     }
 
     createRenderRoot() {
         return this;
+    }
+
+    get cardProps() {
+        return {
+            backgroundColor: this.theme === 'dark' ? 'bg-gray-900' : 'bg-white',
+            textColor: this.theme === 'dark' ? 'text-white' : 'text-bg-navbar/90',
+            backgroundOpacity: '80',
+            hoverEffect: true,
+            borderColor: this.theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+        };
     }
 
     render() {

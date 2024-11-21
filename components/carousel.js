@@ -7,7 +7,7 @@ export class Carousel extends LitElement {
         rows: { type: Number },
         cols: { type: Number },
         gap: { type: String },
-        currentPage: { type: Number },
+        currentIndex: { type: Number },
         theme: { type: String },
         showPageCounter: { type: Boolean },
         cardProps: { type: Object }
@@ -19,7 +19,7 @@ export class Carousel extends LitElement {
         this.rows = 1;
         this.cols = 5;
         this.gap = '1.5rem';
-        this.currentPage = 0;
+        this.currentIndex = 0;
         this.theme = 'dark';
         this.showPageCounter = true;
         this.cardProps = {
@@ -34,27 +34,27 @@ export class Carousel extends LitElement {
         return this;
     }
 
-    get totalPages() {
-        const itemsPerPage = this.rows * this.cols;
-        return Math.ceil(this.items.length / itemsPerPage);
-    }
-
-    get currentItems() {
-        const itemsPerPage = this.rows * this.cols;
-        const start = this.currentPage * itemsPerPage;
-        return this.items.slice(start, start + itemsPerPage);
+    get visibleItems() {
+        const result = [];
+        const totalItems = this.items.length;
+        
+        // Prendiamo cols elementi a partire da currentIndex
+        for (let i = 0; i < this.cols; i++) {
+            const index = (this.currentIndex + i) % totalItems;
+            result.push(this.items[index]);
+        }
+        
+        return result;
     }
 
     nextPage() {
-        if (this.currentPage < this.totalPages - 1) {
-            this.currentPage++;
-        }
+        this.currentIndex = (this.currentIndex + 1) % this.items.length;
     }
 
     prevPage() {
-        if (this.currentPage > 0) {
-            this.currentPage--;
-        }
+        this.currentIndex = this.currentIndex === 0 ? 
+            this.items.length - 1 : 
+            this.currentIndex - 1;
     }
 
     render() {
@@ -74,7 +74,7 @@ export class Carousel extends LitElement {
             <div class="w-full relative group px-16">
                 <!-- Grid Container -->
                 <div style=${gridStyle} class="w-full">
-                    ${this.currentItems.map(item => html`
+                    ${this.visibleItems.map(item => html`
                         <carousel-card
                             .content=${item}
                             .theme=${this.theme}
@@ -91,9 +91,7 @@ export class Carousel extends LitElement {
                     <button 
                         @click=${this.prevPage}
                         class="${textColor} w-10 h-10 rounded-full flex items-center justify-center 
-                        ${this.currentPage === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/10'} 
-                        ${buttonBgStyle} transition-all duration-300"
-                        ?disabled=${this.currentPage === 0}>
+                        hover:bg-white/10 ${buttonBgStyle} transition-all duration-300">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                         </svg>
@@ -104,9 +102,7 @@ export class Carousel extends LitElement {
                     <button 
                         @click=${this.nextPage}
                         class="${textColor} w-10 h-10 rounded-full flex items-center justify-center 
-                        ${this.currentPage === this.totalPages - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/10'} 
-                        ${buttonBgStyle} transition-all duration-300"
-                        ?disabled=${this.currentPage === this.totalPages - 1}>
+                        hover:bg-white/10 ${buttonBgStyle} transition-all duration-300">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
@@ -117,7 +113,7 @@ export class Carousel extends LitElement {
                 ${this.showPageCounter ? html`
                     <div class="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
                         <span class="${textColor}">
-                            ${this.currentPage + 1} / ${this.totalPages}
+                            ${this.currentIndex + 1} / ${this.items.length}
                         </span>
                     </div>
                 ` : ''}
