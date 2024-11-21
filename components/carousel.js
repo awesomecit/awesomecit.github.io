@@ -50,15 +50,20 @@ export class Carousel extends LitElement {
     _updateVisibleCols() {
         const width = window.innerWidth;
         if (width < 640) { // sm
-            this.cols = 1;
-        } else if (width < 768) { // md
             this.cols = 2;
-        } else if (width < 1024) { // lg
+            this.gap = '0.5rem';
+        } else if (width < 768) { // md
             this.cols = 3;
+            this.gap = '0.75rem';
+        } else if (width < 1024) { // lg
+            this.cols = 4;
+            this.gap = '1rem';
         } else if (width < 1280) { // xl
             this.cols = 4;
+            this.gap = '1.25rem';
         } else { // 2xl
             this.cols = 5;
+            this.gap = '1.5rem';
         }
         this.requestUpdate();
     }
@@ -119,9 +124,10 @@ export class Carousel extends LitElement {
 
         const gridStyle = `
             display: grid;
-            grid-template-columns: repeat(${this.cols}, 1fr);
+            grid-template-columns: repeat(${this.cols}, minmax(0, 1fr));
             grid-template-rows: repeat(${this.rows}, 1fr);
             gap: ${this.gap};
+            width: 100%;
         `;
 
         return html`
