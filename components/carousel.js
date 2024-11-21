@@ -1,4 +1,5 @@
 import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+import './carousel-card.js';
 
 export class Carousel extends LitElement {
     static properties = {
@@ -8,7 +9,8 @@ export class Carousel extends LitElement {
         gap: { type: String },
         currentPage: { type: Number },
         theme: { type: String },
-        showPageCounter: { type: Boolean }
+        showPageCounter: { type: Boolean },
+        cardProps: { type: Object }
     };
 
     constructor() {
@@ -20,6 +22,12 @@ export class Carousel extends LitElement {
         this.currentPage = 0;
         this.theme = 'dark';
         this.showPageCounter = true;
+        this.cardProps = {
+            backgroundColor: 'bg-gray-900',
+            textColor: 'text-white',
+            backgroundOpacity: '80',
+            hoverEffect: true
+        };
     }
 
     createRenderRoot() {
@@ -51,7 +59,7 @@ export class Carousel extends LitElement {
 
     render() {
         const textColor = this.theme === 'dark' ? 'text-white' : 'text-bg-navbar/90';
-        const backgroundStyle = this.theme === 'dark' ? 
+        const buttonBgStyle = this.theme === 'dark' ? 
             'bg-gray-900/80 border-gray-700' : 
             'bg-white/80 border-gray-200';
 
@@ -67,11 +75,14 @@ export class Carousel extends LitElement {
                 <!-- Grid Container -->
                 <div style=${gridStyle} class="w-full">
                     ${this.currentItems.map(item => html`
-                        <div class="p-4 ${backgroundStyle} rounded-lg border hover:bg-white/10 transition-colors duration-300">
-                            <div class="${textColor} text-center">
-                                ${item}
-                            </div>
-                        </div>
+                        <carousel-card
+                            .content=${item}
+                            .theme=${this.theme}
+                            .backgroundColor=${this.cardProps.backgroundColor}
+                            .textColor=${this.cardProps.textColor}
+                            .backgroundOpacity=${this.cardProps.backgroundOpacity}
+                            .hoverEffect=${this.cardProps.hoverEffect}>
+                        </carousel-card>
                     `)}
                 </div>
 
@@ -81,7 +92,7 @@ export class Carousel extends LitElement {
                         @click=${this.prevPage}
                         class="${textColor} w-10 h-10 rounded-full flex items-center justify-center 
                         ${this.currentPage === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/10'} 
-                        ${backgroundStyle} transition-all duration-300"
+                        ${buttonBgStyle} transition-all duration-300"
                         ?disabled=${this.currentPage === 0}>
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -94,7 +105,7 @@ export class Carousel extends LitElement {
                         @click=${this.nextPage}
                         class="${textColor} w-10 h-10 rounded-full flex items-center justify-center 
                         ${this.currentPage === this.totalPages - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/10'} 
-                        ${backgroundStyle} transition-all duration-300"
+                        ${buttonBgStyle} transition-all duration-300"
                         ?disabled=${this.currentPage === this.totalPages - 1}>
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

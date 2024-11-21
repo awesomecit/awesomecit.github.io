@@ -5,7 +5,8 @@ import '../carousel.js';
 export class TechSkillsSection extends LitElement {
     static properties = {
         theme: { type: String },
-        currentLang: { type: String }
+        currentLang: { type: String },
+        cardProps: { type: Object }
     };
 
     constructor() {
@@ -24,6 +25,12 @@ export class TechSkillsSection extends LitElement {
             'MongoDB',
             'PostgreSQL'
         ];
+        this.cardProps = {
+            backgroundColor: 'bg-gray-900',
+            textColor: 'text-white',
+            backgroundOpacity: '80',
+            hoverEffect: true
+        };
     }
 
     createRenderRoot() {
@@ -47,6 +54,7 @@ export class TechSkillsSection extends LitElement {
                         .rows=${1}
                         .cols=${5}
                         .theme=${this.theme}
+                        .cardProps=${this.cardProps}
                         .showPageCounter=${false}
                         gap="1.5rem">
                     </my-carousel>
