@@ -63,7 +63,7 @@ export class Carousel extends LitElement {
         `;
 
         return html`
-            <div class="w-full relative">
+            <div class="w-full relative group px-16">
                 <!-- Grid Container -->
                 <div style=${gridStyle} class="w-full">
                     ${this.currentItems.map(item => html`
@@ -76,7 +76,7 @@ export class Carousel extends LitElement {
                 </div>
 
                 <!-- Navigation Buttons -->
-                <div class="absolute inset-y-0 left-0 flex items-center -ml-12">
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <button 
                         @click=${this.prevPage}
                         class="${textColor} w-10 h-10 rounded-full flex items-center justify-center 
@@ -89,7 +89,7 @@ export class Carousel extends LitElement {
                     </button>
                 </div>
 
-                <div class="absolute inset-y-0 right-0 flex items-center -mr-12">
+                <div class="absolute right-0 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <button 
                         @click=${this.nextPage}
                         class="${textColor} w-10 h-10 rounded-full flex items-center justify-center 
