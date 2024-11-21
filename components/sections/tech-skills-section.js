@@ -59,6 +59,7 @@ export class TechSkillsSection extends LitElement {
                         .theme=${this.theme}
                         .cardProps=${this.cardProps}
                         .showPageCounter=${false}
+                        .autoScroll=${3}
                         gap="1.5rem">
                     </my-carousel>
                 </div>

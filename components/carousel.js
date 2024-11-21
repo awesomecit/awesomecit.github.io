@@ -10,7 +10,8 @@ export class Carousel extends LitElement {
         currentIndex: { type: Number },
         theme: { type: String },
         showPageCounter: { type: Boolean },
-        cardProps: { type: Object }
+        cardProps: { type: Object },
+        autoScroll: { type: Number }
     };
 
     constructor() {
@@ -22,12 +23,46 @@ export class Carousel extends LitElement {
         this.currentIndex = 0;
         this.theme = 'dark';
         this.showPageCounter = true;
+        this.autoScroll = 0;
         this.cardProps = {
             backgroundColor: 'bg-gray-900',
             textColor: 'text-white',
             backgroundOpacity: '80',
             hoverEffect: true
         };
+        this._intervalId = null;
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+        this.startAutoScroll();
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.stopAutoScroll();
+    }
+
+    updated(changedProperties) {
+        if (changedProperties.has('autoScroll')) {
+            this.stopAutoScroll();
+            this.startAutoScroll();
+        }
+    }
+
+    startAutoScroll() {
+        if (this.autoScroll > 0) {
+            this._intervalId = setInterval(() => {
+                this.nextPage();
+            }, this.autoScroll * 1000);
+        }
+    }
+
+    stopAutoScroll() {
+        if (this._intervalId) {
+            clearInterval(this._intervalId);
+            this._intervalId = null;
+        }
     }
 
     createRenderRoot() {
