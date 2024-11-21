@@ -31,16 +31,48 @@ export class Carousel extends LitElement {
             hoverEffect: true
         };
         this._intervalId = null;
+        this._updateVisibleCols = this._updateVisibleCols.bind(this);
     }
 
     connectedCallback() {
         super.connectedCallback();
         this.startAutoScroll();
+        window.addEventListener('resize', this._updateVisibleCols);
+        this._updateVisibleCols();
     }
 
     disconnectedCallback() {
         super.disconnectedCallback();
         this.stopAutoScroll();
+        window.removeEventListener('resize', this._updateVisibleCols);
+    }
+
+    _updateVisibleCols() {
+        const width = window.innerWidth;
+        if (width < 640) { // sm
+            this.cols = 1;
+        } else if (width < 768) { // md
+            this.cols = 2;
+        } else if (width < 1024) { // lg
+            this.cols = 3;
+        } else if (width < 1280) { // xl
+            this.cols = 4;
+        } else { // 2xl
+            this.cols = 5;
+        }
+        this.requestUpdate();
+    }
+
+    get visibleItems() {
+        const result = [];
+        const totalItems = this.items.length;
+        
+        for (let i = 0; i < this.cols; i++) {
+            const index = (this.currentIndex + i) % totalItems;
+            result.push(this.items[index]);
+        }
+        
+        return result;
     }
 
     updated(changedProperties) {
@@ -69,19 +101,6 @@ export class Carousel extends LitElement {
         return this;
     }
 
-    get visibleItems() {
-        const result = [];
-        const totalItems = this.items.length;
-        
-        // Prendiamo cols elementi a partire da currentIndex
-        for (let i = 0; i < this.cols; i++) {
-            const index = (this.currentIndex + i) % totalItems;
-            result.push(this.items[index]);
-        }
-        
-        return result;
-    }
-
     nextPage() {
         this.currentIndex = (this.currentIndex + 1) % this.items.length;
     }
@@ -106,11 +125,12 @@ export class Carousel extends LitElement {
         `;
 
         return html`
-            <div class="w-full relative group px-16">
+            <div class="w-full relative group px-4 sm:px-8 md:px-12 lg:px-16">
                 <!-- Grid Container -->
-                <div style=${gridStyle} class="w-full">
+                <div style=${gridStyle} class="w-full transition-all duration-300">
                     ${this.visibleItems.map(item => html`
                         <carousel-card
+                            class="transition-all duration-300"
                             .content=${item}
                             .theme=${this.theme}
                             .backgroundColor=${this.cardProps.backgroundColor}
@@ -125,9 +145,9 @@ export class Carousel extends LitElement {
                 <div class="absolute left-0 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <button 
                         @click=${this.prevPage}
-                        class="${textColor} w-10 h-10 rounded-full flex items-center justify-center 
+                        class="${textColor} w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center 
                         hover:bg-white/10 ${buttonBgStyle} transition-all duration-300">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                         </svg>
                     </button>
@@ -136,9 +156,9 @@ export class Carousel extends LitElement {
                 <div class="absolute right-0 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <button 
                         @click=${this.nextPage}
-                        class="${textColor} w-10 h-10 rounded-full flex items-center justify-center 
+                        class="${textColor} w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center 
                         hover:bg-white/10 ${buttonBgStyle} transition-all duration-300">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
                     </button>
