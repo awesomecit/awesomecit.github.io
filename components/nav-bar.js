@@ -1,4 +1,5 @@
 import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+import { THEMES, THEME_CONFIG } from '../constants.js';
 import { translate } from '../translations.js';
 
 export class NavBar extends LitElement {
@@ -11,7 +12,7 @@ export class NavBar extends LitElement {
     constructor() {
         super();
         this.currentLang = 'it';
-        this.theme = 'light';
+        this.theme = THEMES.LIGHT;
         this.isMenuOpen = false;
     }
 
@@ -20,8 +21,8 @@ export class NavBar extends LitElement {
     }
 
     render() {
-        const textColor = this.theme === 'dark' ? 'text-bg-navbar' : 'text-bg-main';
-        const navBg = this.theme === 'dark' ? 'bg-bg-navbar-dark' : 'bg-bg-navbar';
+        const textColor = THEME_CONFIG[this.theme].textColor;
+        const navBg = THEME_CONFIG[this.theme].mainBackground;
         
         return html`
             <nav class="fixed top-0 left-0 right-0 z-50">
@@ -51,9 +52,9 @@ export class NavBar extends LitElement {
                                 <option value="en" ?selected=${this.currentLang === 'en'}>🇬🇧</option>
                             </select>
                             
-                            <button @click=${this._toggleTheme} 
+                            <button @click=${this._handleThemeToggle} 
                                     class="bg-transparent text-white px-3 py-1.5 cursor-pointer hover:bg-white/10 rounded">
-                                ${this.theme === 'dark' ? '☀️' : '🌙'}
+                                ${this.theme === THEMES.DARK ? '☀️' : '🌙'}
                             </button>
                         </div>
                     </div>
@@ -82,12 +83,10 @@ export class NavBar extends LitElement {
         }));
     }
 
-    _toggleTheme() {
-        this.theme = this.theme === 'dark' ? 'light' : 'dark';
-        this.dispatchEvent(new CustomEvent('theme-change', {
-            detail: { theme: this.theme },
-            bubbles: true,
-            composed: true
+    _handleThemeToggle() {
+        const newTheme = this.theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
+        this.dispatchEvent(new CustomEvent('theme-change', { 
+            detail: { theme: newTheme }
         }));
     }
 

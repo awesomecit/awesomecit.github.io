@@ -6,31 +6,10 @@ import './sections/soft-skills-section.js';
 import './sections/contacts-section.js';
 import './sections/footer-section.js';
 import { loadTranslations } from '../translations.js';
-
-/**
- * Definisce i temi disponibili nell'applicazione.
- * L'oggetto è "congelato" tramite Object.freeze() per:
- * 1. Garantire l'immutabilità: impedisce modifiche alle proprietà esistenti
- * 2. Sicurezza: previene l'aggiunta o eliminazione di proprietà
- * 3. Chiarezza: comunica agli sviluppatori che è una collezione di costanti
- * 4. Prestazioni: permette possibili ottimizzazioni del browser
- * 
- * @constant {Object}
- * @property {string} LIGHT - Tema chiaro dell'applicazione
- * @property {string} DARK - Tema scuro dell'applicazione
- */
-const THEMES = Object.freeze({
-    LIGHT: 'light',
-    DARK: 'dark'
-});
+import { THEMES, THEME_CONFIG } from '../constants.js';
 
 /**
  * Definisce le lingue supportate nell'applicazione.
- * L'oggetto è "congelato" tramite Object.freeze() per:
- * 1. Garantire l'immutabilità: impedisce modifiche alle proprietà esistenti
- * 2. Sicurezza: previene l'aggiunta o eliminazione di proprietà
- * 3. Chiarezza: comunica agli sviluppatori che è una collezione di costanti
- * 4. Prestazioni: permette possibili ottimizzazioni del browser
  * 
  * @constant {Object}
  * @property {string} IT - Lingua italiana
@@ -119,6 +98,10 @@ class MyPortfolio extends LitElement {
             return html`<div>Loading translations...</div>`;
         }
 
+        const currentThemeConfig = THEME_CONFIG[this.theme];
+        console.log('Current theme:', this.theme);
+        console.log('Theme config:', currentThemeConfig);
+        
         /**
          * Il metodo render utilizza il tag html di Lit.
          * 
@@ -135,32 +118,38 @@ class MyPortfolio extends LitElement {
          * html`<div ?hidden=${this.isHidden}>`             // Attributi booleani
          */
         return html`
-            <div class="min-h-screen bg-bg-main dark:bg-bg-main-dark ${this.theme === THEMES.DARK ? THEMES.DARK : THEMES.LIGHT}">
+            <div class="min-h-screen ${currentThemeConfig.mainBackground} ${currentThemeConfig.textColor}">
                 <nav-bar 
                     .theme=${this.theme}
                     .currentLang=${this.currentLang}
+                    .themeConfig=${currentThemeConfig}
                     @theme-change=${this._handleThemeChange}
                     @language-change=${this._handleLanguageChange}>
                 </nav-bar>
                 <hero-section 
                     .theme=${this.theme}
-                    .currentLang=${this.currentLang}>
+                    .currentLang=${this.currentLang}
+                    .themeConfig=${currentThemeConfig}>
                 </hero-section>
                 <tech-skills-section 
                     .theme=${this.theme}
-                    .currentLang=${this.currentLang}>
+                    .currentLang=${this.currentLang}
+                    .themeConfig=${currentThemeConfig}>
                 </tech-skills-section>
                 <soft-skills-section 
                     .theme=${this.theme}
-                    .currentLang=${this.currentLang}>
+                    .currentLang=${this.currentLang}
+                    .themeConfig=${currentThemeConfig}>
                 </soft-skills-section>
                 <contacts-section 
                     .theme=${this.theme}
-                    .currentLang=${this.currentLang}>
+                    .currentLang=${this.currentLang}
+                    .themeConfig=${currentThemeConfig}>
                 </contacts-section>
                 <footer-section 
                     .theme=${this.theme}
-                    .currentLang=${this.currentLang}>
+                    .currentLang=${this.currentLang}
+                    .themeConfig=${currentThemeConfig}>
                 </footer-section>
             </div>
         `;
