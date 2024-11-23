@@ -29,7 +29,8 @@ export const THEMES = Object.freeze({
  */
 export const LANGUAGES = Object.freeze({
     IT: '🇮🇹',
-    EN: '🇺🇸'
+    EN: '🇺🇸',
+    FR: '🇫🇷'
 });
 
 /**
@@ -41,7 +42,8 @@ export const LANGUAGES = Object.freeze({
  */
 export const LANGUAGE_CODES = Object.freeze({
     IT: 'it',
-    EN: 'en'
+    EN: 'en',
+    FR: 'fr'
 });
 
 /**
