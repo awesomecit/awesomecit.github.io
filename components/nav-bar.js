@@ -1,5 +1,5 @@
 import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
-import { THEMES, THEME_CONFIG } from '../constants.js';
+import { THEMES, THEME_CONFIG, LANGUAGES } from '../constants.js';
 import { translate } from '../translations.js';
 
 export class NavBar extends LitElement {
@@ -48,8 +48,8 @@ export class NavBar extends LitElement {
                         <div class="flex items-center space-x-3">
                             <select @change=${this._handleLanguageChange} 
                                     class="bg-transparent text-white px-3 py-1.5 cursor-pointer hover:bg-white/10 rounded">
-                                <option value="it" ?selected=${this.currentLang === 'it'}>🇮🇹</option>
-                                <option value="en" ?selected=${this.currentLang === 'en'}>🇬🇧</option>
+                                <option value="it" ?selected=${this.currentLang === 'it'}>${LANGUAGES.IT}</option>
+                                <option value="en" ?selected=${this.currentLang === 'en'}>${LANGUAGES.EN}</option>
                             </select>
                             
                             <button @click=${this._handleThemeToggle} 
@@ -62,10 +62,10 @@ export class NavBar extends LitElement {
                     ${this.isMenuOpen ? html`
                         <div class="md:hidden px-4 py-2 border-t-2 border-white">
                             <div class="flex flex-col space-y-2">
-                                <a href="#home" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.HOME}</a>
-                                <a href="#about" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.ABOUT}</a>
-                                <a href="#tech-skills" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.SKILLS}</a>
-                                <a href="#contacts" class="${textColor} px-3 py-1.5 hover:bg-white/10">${t.CONTACTS}</a>
+                                <a href="#home" class="${textColor} px-3 py-1.5 hover:bg-white/10">${translate('HOME', this.currentLang)}</a>
+                                <a href="#about" class="${textColor} px-3 py-1.5 hover:bg-white/10">${translate('ABOUT', this.currentLang)}</a>
+                                <a href="#tech-skills" class="${textColor} px-3 py-1.5 hover:bg-white/10">${translate('SKILLS', this.currentLang)}</a>
+                                <a href="#contacts" class="${textColor} px-3 py-1.5 hover:bg-white/10">${translate('CONTACTS', this.currentLang)}</a>
                             </div>
                         </div>
                     ` : ''}

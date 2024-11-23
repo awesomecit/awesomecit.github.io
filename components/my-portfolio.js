@@ -6,19 +6,7 @@ import './sections/soft-skills-section.js';
 import './sections/contacts-section.js';
 import './sections/footer-section.js';
 import { loadTranslations } from '../translations.js';
-import { THEMES, THEME_CONFIG } from '../constants.js';
-
-/**
- * Definisce le lingue supportate nell'applicazione.
- * 
- * @constant {Object}
- * @property {string} IT - Lingua italiana
- * @property {string} EN - Lingua inglese
- */
-const LANGUAGES = Object.freeze({
-    IT: 'it',
-    EN: 'en'
-});
+import { THEMES, THEME_CONFIG, LANGUAGES, LANGUAGE_CODES, DEFAULT_LANGUAGE } from '../constants.js';
 
 class MyPortfolio extends LitElement {
     
@@ -51,15 +39,25 @@ class MyPortfolio extends LitElement {
     constructor() {
         super();
         this.theme = THEMES.DARK;
-        this.currentLang = LANGUAGES.IT;
+        this.currentLang = DEFAULT_LANGUAGE;
         this.translationsReady = false;
-        this._initializeTranslations();
+    }
+
+    /**
+     * Metodo del lifecycle che viene chiamato dopo la prima renderizzazione
+     */
+    async firstUpdated() {
+        await this._initializeTranslations();
     }
 
     async _initializeTranslations() {
-        await loadTranslations();
-        this.translationsReady = true;
-        this.requestUpdate();
+        try {
+            await loadTranslations();
+            this.translationsReady = true;
+            this.requestUpdate();
+        } catch (error) {
+            console.error('Failed to load translations:', error);
+        }
     }
 
     /**
