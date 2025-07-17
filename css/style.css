@@ -1,0 +1,370 @@
+.crowdfunding-contact h2 {
+  color: var(--primary-color);
+  font-family: var(--font-title);
+  margin-bottom: 16px;
+}
+.crowdfunding-contact p,
+.crowdfunding-contact .crowd-lead {
+  color: var(--text-gray);
+  font-family: var(--font-body);
+}
+.crowdfunding-contact .cta-btn {
+  color: var(--accent);
+  background: var(--secondary-color);
+}
+.crowdfunding-contact .cta-btn:hover {
+  background: var(--primary-color);
+  color: var(--white);
+}
+.crowdfunding-contact .contact-list li,
+.crowdfunding-contact .contact-list a {
+  color: var(--accent);
+  font-family: var(--font-body);
+}
+.crowdfunding-contact .contact-list a:hover {
+  color: var(--primary-color);
+}
+/* Centra la sezione crowdfunding-contact */
+.crowdfunding-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin: 32px 0;
+  padding: 32px 0;
+  text-align: center;
+}
+.crowdfunding-contact .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.crowdfunding-contact h2,
+.crowdfunding-contact p,
+.crowdfunding-contact .cta-btn,
+.crowdfunding-contact .contact-list {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.crowdfunding-contact .contact-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 16px;
+}
+.crowdfunding-contact .contact-list li {
+  margin-bottom: 6px;
+}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap');
+
+:root {
+  --primary-color: #0057b8;
+  --secondary-color: #ffd200;
+  --accent: #0a2540;
+  --text-gray: #333;
+  --background: #f7f9fb;
+  --white: #fff;
+  --font-title: 'Montserrat', Arial, sans-serif;
+  --font-body: 'Open Sans', Arial, sans-serif;
+  --shadow: 0 2px 16px 0 rgba(10,37,64,0.08);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--background);
+  color: var(--text-gray);
+  line-height: 1.6;
+  padding-top: 150px;
+}
+
+html {
+  scroll-padding-top: 150px;
+}
+
+.navbar-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  padding: 0;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+body {
+  padding-top: 80px;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.navbar-fixed .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.logo {
+  display: block;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 8px auto !important;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px 0 rgba(10,37,64,0.10);
+}
+nav ul {
+  justify-content: center;
+  width: 100%;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+nav a {
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+  font-family: var(--font-title);
+  transition: color 0.2s;
+}
+nav a:hover {
+  color: var(--primary-color);
+}
+
+.logo {
+  vertical-align: middle;
+  margin-right: 24px;
+}
+
+.hero {
+  text-align: center;
+  padding: 64px 0 40px 0;
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: var(--white);
+}
+.hero h1 {
+  font-family: var(--font-title);
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+}
+.hero .subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 24px;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  background: var(--secondary-color);
+  color: var(--accent);
+  border-radius: 24px;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: var(--font-title);
+  box-shadow: var(--shadow);
+  margin-top: 12px;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.cta-btn:hover {
+  background: var(--primary-color);
+  color: var(--white);
+  transform: translateY(-2px) scale(1.04);
+}
+
+
+.about-short, .mission-crowdfunding, .support-us, .book-demo, .contact-us {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin: 32px 0;
+  padding: 32px 0;
+  text-align: center;
+}
+.about-short h2, .mission-crowdfunding h2, .support-us h2, .book-demo h2, .contact-us h2 {
+  font-family: var(--font-title);
+  color: var(--primary-color);
+  margin-bottom: 16px;
+  text-align: center;
+}
+.about-short p, .mission-crowdfunding p, .support-us p, .book-demo p, .contact-us p {
+  text-align: center;
+}
+
+.services {
+  margin: 32px 0;
+}
+.services h2 {
+  font-family: var(--font-title);
+  color: var(--primary-color);
+  margin-bottom: 24px;
+  text-align: center;
+}
+.services-grid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.service-card {
+  flex: 1 1 260px;
+  min-width: 220px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 24px 20px;
+  margin-bottom: 12px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.service-card h3 {
+  font-family: var(--font-title);
+  color: var(--primary-color);
+  margin-top: 0;
+  text-align: center;
+}
+.service-card p {
+  text-align: center;
+}
+.service-card:hover {
+  box-shadow: 0 4px 24px 0 rgba(0,87,184,0.15);
+  transform: translateY(-4px) scale(1.03);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.contact-form label {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+.contact-form input, .contact-form textarea {
+  padding: 10px;
+  border: 1px solid #dbe2ea;
+  border-radius: 6px;
+  font-size: 1em;
+  font-family: var(--font-body);
+}
+.contact-form button {
+  margin-top: 8px;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.95em;
+  padding: 24px 0 12px 0;
+  background: var(--white);
+  border-top: 1px solid #e5e9f2;
+}
+.social-links {
+  margin-top: 8px;
+}
+.social-links a {
+  margin: 0 8px;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+.social-links a:hover {
+  transform: scale(1.15);
+}
+
+.site-title {
+  font-family: var(--font-title);
+  font-size: 2.1rem;
+  color: var(--primary-color);
+  margin: 0 0 8px 0;
+  text-align: center;
+  letter-spacing: 1px;
+  width: 100%;
+  display: block;
+}
+
+.our-team {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin: 32px 0;
+  padding: 32px 0;
+  text-align: center;
+}
+.our-team h2 {
+  font-family: var(--font-title);
+  color: var(--primary-color);
+  margin-bottom: 24px;
+}
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 24px;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 16px;
+}
+.team-member {
+  flex: 1 1 180px;
+  max-width: 220px;
+  background: var(--background);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 24px 12px 18px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.team-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 12px;
+  background: var(--white);
+  box-shadow: 0 2px 8px 0 rgba(10,37,64,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.team-member h3 {
+  font-family: var(--font-title);
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  margin: 0 0 4px 0;
+}
+.team-member p {
+  font-size: 0.98em;
+  color: var(--accent);
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .team-grid {
+    gap: 20px 8px;
+  }
+  .team-member {
+    max-width: 180px;
+    padding: 18px 6px 14px 6px;
+  }
+}
+@media (max-width: 600px) {
+  .team-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .team-member {
+    max-width: 100%;
+    width: 90vw;
+  }
+}

@@ -1,0 +1,69 @@
+/* Responsive styles for mobile and tablet */
+@media (max-width: 1024px) {
+  .container {
+    padding: 8px;
+  }
+  .services-grid {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  header nav ul {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .hero {
+    padding: 32px 0 16px 0;
+  }
+  .services-grid {
+    flex-direction: column;
+  }
+  .service-card {
+    min-width: 0;
+    width: 100%;
+  }
+  .about-short, .mission-crowdfunding, .support-us, .book-demo, .contact-us {
+    padding: 8px 0;
+  }
+  .cta-btn {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .contact-form input, .contact-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-fixed .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  #main-menu.menu-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(36px, auto);
+    gap: 4px 8px;
+    width: 100%;
+    padding: 0 8px;
+    justify-items: center;
+  }
+  #main-menu.menu-list li {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
+  #main-menu.menu-list a {
+    font-size: 1em;
+    padding: 8px 0;
+    display: block;
+    width: 100%;
+  }
+}
