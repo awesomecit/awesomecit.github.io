@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="🚀 Sviluppatore Backend Senior | Trasformo idee in soluzioni digitali robuste | Node.js, NestJS, TypeScript | Disponibile per progetti">
+    <meta name="description" content="Sviluppatore Backend Senior | Trasformo idee in soluzioni digitali robuste | Node.js, NestJS, TypeScript | Disponibile per progetti">
     <meta name="keywords" content="sviluppatore backend freelance, node.js developer, nestjs expert, typescript specialist, consulente tecnico, sviluppo api, microservizi">
     <meta name="author" content="Antonio Cittadino">
     <meta name="robots" content="index, follow">
@@ -11,23 +11,22 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
-    <!-- <link rel="manifest" href="/manifest.json"> Disabled to avoid CORS errors in local development -->
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://awesomecit.github.io/">
     <meta property="og:title" content="Antonio Cittadino - Sviluppatore Backend Senior | Disponibile per Progetti">
-    <meta property="og:description" content="🚀 Trasformo le tue idee in soluzioni backend robuste e scalabili. Specializzato in Node.js, NestJS e architetture moderne.">
+    <meta property="og:description" content="Trasformo le tue idee in soluzioni backend robuste e scalabili. Specializzato in Node.js, NestJS e architetture moderne.">
     <meta property="og:image" content="https://awesomecit.github.io/og-image.jpg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://awesomecit.github.io/">
     <meta property="twitter:title" content="Antonio Cittadino - Sviluppatore Backend Senior">
-    <meta property="twitter:description" content="🚀 Trasformo idee in soluzioni backend robuste | Node.js, NestJS, TypeScript | Disponibile per progetti">
+    <meta property="twitter:description" content="Trasformo idee in soluzioni backend robuste | Node.js, NestJS, TypeScript | Disponibile per progetti">
     <meta property="twitter:image" content="https://awesomecit.github.io/og-image.jpg">
     
-    <title>🚀 Antonio Cittadino - Sviluppatore Backend Senior | Trasformo le tue idee in codice</title>
+    <title>Antonio Cittadino - Sviluppatore Backend Senior | Trasformo le tue idee in codice</title>
     
     <!-- CDN Resources -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -823,6 +822,14 @@
             border-radius: var(--border-radius-lg);
             box-shadow: var(--shadow-sm);
             border-left: 4px solid var(--primary-color);
+            position: relative;
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .testimonial-avatar {
@@ -833,9 +840,21 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-right: 1rem;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .testimonial-info h4 {
+            margin: 0 0 0.25rem 0;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        
+        .testimonial-info p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
         }
 
         @keyframes scrollTestimonials {
@@ -1079,7 +1098,6 @@
     </style>
 </head>
 <body>
-    <!-- Header with Navigation -->
     <header class="header" id="header">
         <nav class="nav container">
             <div class="logo">AC</div>
@@ -1105,7 +1123,7 @@
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
-                        <h1>🚀 Trasformo le tue idee in soluzioni backend robuste</h1>
+                        <h1>Trasformo le tue idee in soluzioni backend robuste</h1>
                         <p class="hero-subtitle">Senior Backend Developer | Node.js, NestJS, TypeScript Expert</p>
                         <p class="hero-description">
                             <span style="color: var(--primary-color); font-weight: bold;">▶</span> <strong>6+ anni di esperienza</strong> nella creazione di API scalabili e sistemi enterprise<br>
@@ -1115,7 +1133,7 @@
                         </p>
                         <div class="hero-cta">
                             <a href="#contact" class="btn btn-primary">
-                                <span>🚀</span>
+                                <span></span>
                                 Iniziamo il tuo progetto
                             </a>
                             <a href="mailto:awesome.cit.dev@gmail.com" class="btn btn-secondary" onclick="trackEmailClick()">
@@ -1467,144 +1485,128 @@
                         
                         <!-- Davide De Gennaro -->
                         <div class="testimonial-card">
-                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
-                                "È capace di adattarsi a codebase esistenti anche complicate, riuscendo a orientarsi in progetti creati da altri sviluppatori. Dimostra passione per lo sviluppo software, dedicando tempo per rimanere aggiornato."
-                            </blockquote>
-                            <div style="display: flex; align-items: center;">
-                                <div class="testimonial-avatar" style="background: var(--gradient-primary); display: flex; align-items: center; justify-content: center;">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 4V6C15 7.66 13.66 9 12 9S9 7.66 9 6V4L3 7V9C3 10.1 3.9 11 5 11V22H7V18H9V22H11V14H13V22H15V18H17V22H19V11C20.1 11 21 10.1 21 9Z" fill="white"/>
-                                    </svg>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar" style="background: var(--gradient-primary);">
+                                    <i class="fas fa-user-circle"></i>
                                 </div>
-                                <div>
-                                    <div style="font-weight: 600; color: var(--text-primary);">Davide De Gennaro</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Developer @ Competitoor</div>
+                                <div class="testimonial-info">
+                                    <h4>Davide De Gennaro</h4>
+                                    <p>Developer @ Competitoor</p>
                                 </div>
                             </div>
+                            <blockquote style="margin: 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "È capace di adattarsi a codebase esistenti anche complicate, riuscendo a orientarsi in progetti creati da altri sviluppatori. Dimostra passione per lo sviluppo software, dedicando tempo per rimanere aggiornato."
+                            </blockquote>
                         </div>
 
                         <!-- Alberto Tedeschi -->
                         <div class="testimonial-card">
-                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
-                                "Antonio è un team player esemplare: comunica efficacemente, rispetta le scadenze e contribuisce positivamente all'ambiente di lavoro. La sua etica professionale lo rende una risorsa preziosa."
-                            </blockquote>
-                            <div style="display: flex; align-items: center;">
-                                <div class="testimonial-avatar" style="background: var(--gradient-secondary); display: flex; align-items: center; justify-content: center;">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 4V6C15 7.66 13.66 9 12 9S9 7.66 9 6V4L3 7V9C3 10.1 3.9 11 5 11V22H7V18H9V22H11V14H13V22H15V18H17V22H19V11C20.1 11 21 10.1 21 9Z" fill="white"/>
-                                    </svg>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar" style="background: var(--gradient-secondary);">
+                                    <i class="fas fa-user-alt"></i>
                                 </div>
-                                <div>
-                                    <div style="font-weight: 600; color: var(--text-primary);">Alberto Tedeschi</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Team Colleague</div>
+                                <div class="testimonial-info">
+                                    <h4>Alberto Tedeschi</h4>
+                                    <p>Team Colleague</p>
                                 </div>
                             </div>
+                            <blockquote style="margin: 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "Antonio è un team player esemplare: comunica efficacemente, rispetta le scadenze e contribuisce positivamente all'ambiente di lavoro. La sua etica professionale lo rende una risorsa preziosa."
+                            </blockquote>
                         </div>
 
                         <!-- Matteo Pulega -->
                         <div class="testimonial-card">
-                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
-                                "È una persona empatica, disponibile ad aiutare e a offrire il proprio punto di vista con intelligenza e apertura. Sempre interessato alle nuove tecnologie."
-                            </blockquote>
-                            <div style="display: flex; align-items: center;">
-                                <div class="testimonial-avatar" style="background: var(--accent-color); display: flex; align-items: center; justify-content: center;">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 4V6C15 7.66 13.66 9 12 9S9 7.66 9 6V4L3 7V9C3 10.1 3.9 11 5 11V22H7V18H9V22H11V14H13V22H15V18H17V22H19V11C20.1 11 21 10.1 21 9Z" fill="white"/>
-                                    </svg>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar" style="background: var(--accent-color);">
+                                    <i class="far fa-user"></i>
                                 </div>
-                                <div>
-                                    <div style="font-weight: 600; color: var(--text-primary);">Matteo Pulega</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Senior Data Scientist</div>
+                                <div class="testimonial-info">
+                                    <h4>Matteo Pulega</h4>
+                                    <p>Senior Data Scientist</p>
                                 </div>
                             </div>
+                            <blockquote style="margin: 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "È una persona empatica, disponibile ad aiutare e a offrire il proprio punto di vista con intelligenza e apertura. Sempre interessato alle nuove tecnologie."
+                            </blockquote>
                         </div>
 
                         <!-- Davide Silvestri -->
                         <div class="testimonial-card">
-                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
-                                "Persona piacevole, disponibile e tecnicamente preparata con cui creerei volentieri una startup."
-                            </blockquote>
-                            <div style="display: flex; align-items: center;">
-                                <div class="testimonial-avatar" style="background: var(--primary-color); display: flex; align-items: center; justify-content: center;">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 4V6C15 7.66 13.66 9 12 9S9 7.66 9 6V4L3 7V9C3 10.1 3.9 11 5 11V22H7V18H9V22H11V14H13V22H15V18H17V22H19V11C20.1 11 21 10.1 21 9Z" fill="white"/>
-                                    </svg>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar" style="background: var(--primary-color);">
+                                    <i class="fas fa-user-tie"></i>
                                 </div>
-                                <div>
-                                    <div style="font-weight: 600; color: var(--text-primary);">Davide Silvestri</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Tech Colleague</div>
+                                <div class="testimonial-info">
+                                    <h4>Davide Silvestri</h4>
+                                    <p>Tech Colleague</p>
                                 </div>
                             </div>
+                            <blockquote style="margin: 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "Persona piacevole, disponibile e tecnicamente preparata con cui creerei volentieri una startup."
+                            </blockquote>
                         </div>
 
                         <!-- Alessandro Zungrone -->
                         <div class="testimonial-card">
-                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
-                                "Persona focalizzata alla risoluzione del problema e attento alle innovazioni del mercato. Intraprendente e studioso, capace nella programmazione delle nuove tecnologie web e IoT."
-                            </blockquote>
-                            <div style="display: flex; align-items: center;">
-                                <div class="testimonial-avatar" style="background: var(--secondary-color); display: flex; align-items: center; justify-content: center;">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 4V6C15 7.66 13.66 9 12 9S9 7.66 9 6V4L3 7V9C3 10.1 3.9 11 5 11V22H7V18H9V22H11V14H13V22H15V18H17V22H19V11C20.1 11 21 10.1 21 9Z" fill="white"/>
-                                    </svg>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar" style="background: var(--secondary-color);">
+                                    <i class="fas fa-user-cog"></i>
                                 </div>
-                                <div>
-                                    <div style="font-weight: 600; color: var(--text-primary);">Alessandro Zungrone</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Software Project Engineering Leader</div>
+                                <div class="testimonial-info">
+                                    <h4>Alessandro Zungrone</h4>
+                                    <p>Software Project Engineering Leader</p>
                                 </div>
                             </div>
+                            <blockquote style="margin: 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "Persona focalizzata alla risoluzione del problema e attento alle innovazioni del mercato. Intraprendente e studioso, capace nella programmazione delle nuove tecnologie web e IoT."
+                            </blockquote>
                         </div>
 
                         <!-- Duplicate for smooth infinite scroll -->
                         <div class="testimonial-card">
-                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar" style="background: var(--gradient-primary);">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Davide De Gennaro</h4>
+                                    <p>Developer @ Competitoor</p>
+                                </div>
+                            </div>
+                            <blockquote style="margin: 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
                                 "È capace di adattarsi a codebase esistenti anche complicate, riuscendo a orientarsi in progetti creati da altri sviluppatori. Dimostra passione per lo sviluppo software, dedicando tempo per rimanere aggiornato."
                             </blockquote>
-                            <div style="display: flex; align-items: center;">
-                                <div class="testimonial-avatar" style="background: var(--gradient-primary); display: flex; align-items: center; justify-content: center;">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 4V6C15 7.66 13.66 9 12 9S9 7.66 9 6V4L3 7V9C3 10.1 3.9 11 5 11V22H7V18H9V22H11V14H13V22H15V18H17V22H19V11C20.1 11 21 10.1 21 9Z" fill="white"/>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <div style="font-weight: 600; color: var(--text-primary);">Davide De Gennaro</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Developer @ Competitoor</div>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="testimonial-card">
-                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar" style="background: var(--gradient-secondary);">
+                                    <i class="fas fa-user-alt"></i>
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Alberto Tedeschi</h4>
+                                    <p>Team Colleague</p>
+                                </div>
+                            </div>
+                            <blockquote style="margin: 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
                                 "Antonio è un team player esemplare: comunica efficacemente, rispetta le scadenze e contribuisce positivamente all'ambiente di lavoro. La sua etica professionale lo rende una risorsa preziosa."
                             </blockquote>
-                            <div style="display: flex; align-items: center;">
-                                <div class="testimonial-avatar" style="background: var(--gradient-secondary); display: flex; align-items: center; justify-content: center;">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 4V6C15 7.66 13.66 9 12 9S9 7.66 9 6V4L3 7V9C3 10.1 3.9 11 5 11V22H7V18H9V22H11V14H13V22H15V18H17V22H19V11C20.1 11 21 10.1 21 9Z" fill="white"/>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <div style="font-weight: 600; color: var(--text-primary);">Alberto Tedeschi</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Team Colleague</div>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="testimonial-card">
-                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
-                                "È una persona empatica, disponibile ad aiutare e a offrire il proprio punto di vista con intelligenza e apertura. Sempre interessato alle nuove tecnologie."
-                            </blockquote>
-                            <div style="display: flex; align-items: center;">
-                                <div class="testimonial-avatar" style="background: var(--accent-color); display: flex; align-items: center; justify-content: center;">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 4V6C15 7.66 13.66 9 12 9S9 7.66 9 6V4L3 7V9C3 10.1 3.9 11 5 11V22H7V18H9V22H11V14H13V22H15V18H17V22H19V11C20.1 11 21 10.1 21 9Z" fill="white"/>
-                                    </svg>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar" style="background: var(--accent-color);">
+                                    <i class="far fa-user"></i>
                                 </div>
-                                <div>
-                                    <div style="font-weight: 600; color: var(--text-primary);">Matteo Pulega</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Senior Data Scientist</div>
+                                <div class="testimonial-info">
+                                    <h4>Matteo Pulega</h4>
+                                    <p>Senior Data Scientist</p>
                                 </div>
                             </div>
+                            <blockquote style="margin: 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "È una persona empatica, disponibile ad aiutare e a offrire il proprio punto di vista con intelligenza e apertura. Sempre interessato alle nuove tecnologie."
+                            </blockquote>
                         </div>
                     </div>
                 </div>
