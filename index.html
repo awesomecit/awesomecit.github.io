@@ -1685,23 +1685,23 @@
                     <form class="contact-form fade-in" id="contact-form">
                         <div class="form-group">
                             <label for="name" class="form-label">Nome</label>
-                            <input type="text" id="name" class="form-input" placeholder="Il tuo nome" required>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Il tuo nome" required>
                         </div>
                         <div class="form-group">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" class="form-input" placeholder="la-tua@email.com" required>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="la-tua@email.com" required>
                         </div>
                         <div class="form-group">
                             <label for="subject" class="form-label">Oggetto</label>
-                            <input type="text" id="subject" class="form-input" placeholder="Oggetto del messaggio" required>
+                            <input type="text" id="subject" name="subject" class="form-input" placeholder="Oggetto del messaggio" required>
                         </div>
                         <div class="form-group">
                             <label for="message" class="form-label">Messaggio</label>
-                            <textarea id="message" class="form-textarea" placeholder="Il tuo messaggio..." required></textarea>
+                            <textarea id="message" name="message" class="form-textarea" placeholder="Il tuo messaggio..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%;">
                             <i class="fas fa-envelope"></i>
-                            Apri Email Client
+                            Invia
                         </button>
                     </form>
                 </div>
@@ -1898,6 +1898,10 @@
                 const formData = new FormData(event.target);
                 const data = Object.fromEntries(formData);
                 
+                // Debug logging (rimuovere in produzione)
+                console.log('Form data:', data);
+                console.log('Validation result:', this.validateForm(data));
+                
                 // Basic validation
                 if (!this.validateForm(data)) {
                     this.showNotification('Per favore compila tutti i campi correttamente.', 'error');
@@ -1919,48 +1923,61 @@
                        data.message && data.message.trim();
             }
 
-            // Apertura client email con campi precompilati
+            // Apertura client email e copia messaggio negli appunti
             async submitForm(data) {
                 const submitButton = document.querySelector('#contact-form button[type="submit"]');
                 const originalText = submitButton.innerHTML;
                 
                 // Loading state
-                submitButton.innerHTML = '<i class="fas fa-envelope"></i> Apertura client email...';
+                submitButton.innerHTML = '<i class="fas fa-envelope"></i> Preparazione messaggio...';
                 submitButton.disabled = true;
                 
-                // Prepara i parametri per il mailto
-                const toEmail = 'cittadino.antonio@gmail.com';
-                const subject = encodeURIComponent(`${data.subject} - da ${data.name}`);
-                const body = encodeURIComponent(
-                    `Ciao Antonio,\n\n` +
-                    `${data.message}\n\n` +
-                    `Cordiali saluti,\n` +
-                    `${data.name}\n` +
-                    `Email: ${data.email}`
-                );
-                
-                // Crea il link mailto
-                const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
-                
-                // Apri il client email di default
-                window.location.href = mailtoLink;
+                // Prepara il messaggio completo per la clipboard
+                const messageBody = `Ciao Antonio,
+
+${data.message}
+
+Cordiali saluti,
+${data.name}
+Email: ${data.email}`;
 
                 try {
-                    // Breve delay per feedback visivo
-                    await this.delay(1000);
-                    
-                    // Success feedback
-                    this.showNotification('Client email aperto! Completa e invia il messaggio dal tuo programma di posta.', 'success');
-                    document.getElementById('contact-form').reset();
-                    
+                    // Prima prova con l'API moderna
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        await navigator.clipboard.writeText(messageBody);
+                        console.log('Messaggio copiato con clipboard API');
+                    } else {
+                        throw new Error('Clipboard API non supportata');
+                    }
                 } catch (error) {
-                    // Error handling
-                    this.showNotification('Errore nell\'apertura del client email. Riprova o contattami direttamente.', 'error');
-                } finally {
-                    // Reset button
-                    submitButton.innerHTML = originalText;
-                    submitButton.disabled = false;
+                    // Fallback con il metodo tradizionale
+                    console.warn('Clipboard API fallita, uso metodo alternativo:', error);
+                    this.copyToClipboardFallback(messageBody);
                 }
+                
+                // Prepara il mailto semplice (solo destinatario e oggetto) 
+                const toEmail = 'awesome.cit.dev@gmail.com';
+                const subject = encodeURIComponent(`${data.subject} - da ${data.name}`);
+                const mailtoLink = `mailto:${toEmail}?subject=${subject}`;
+                
+                // Apri il client email
+                window.location.href = mailtoLink;
+                
+                // Breve delay per feedback visivo
+                await this.delay(1500);
+                
+                // Success feedback con istruzioni
+                this.showNotification(
+                    '✅ Messaggio copiato negli appunti!\n📧 Client email aperto in background.\n\n👉 Incolla (Ctrl+V) il messaggio nel corpo dell\'email e invia!', 
+                    'success', 
+                    8000 // Durata più lunga per leggere le istruzioni
+                );
+                
+                document.getElementById('contact-form').reset();
+                
+                // Reset button
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
             }
 
             // Utility: delay function
@@ -1968,8 +1985,30 @@
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
 
+            // Fallback per clipboard su browser più vecchi
+            copyToClipboardFallback(text) {
+                // Crea un elemento temporaneo
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                textArea.style.top = '-999999px';
+                document.body.appendChild(textArea);
+                
+                try {
+                    textArea.focus();
+                    textArea.select();
+                    document.execCommand('copy');
+                    console.log('Messaggio copiato con metodo fallback');
+                } catch (err) {
+                    console.error('Errore nella copia fallback:', err);
+                } finally {
+                    document.body.removeChild(textArea);
+                }
+            }
+
             // Notification system
-            showNotification(message, type = 'info') {
+            showNotification(message, type = 'info', duration = 5000) {
                 // Create notification element
                 const notification = document.createElement('div');
                 notification.className = `notification notification-${type}`;
@@ -1977,20 +2016,41 @@
                     position: fixed;
                     top: 20px;
                     right: 20px;
-                    padding: 1rem 1.5rem;
-                    border-radius: 8px;
+                    padding: 1.2rem 1.8rem;
+                    border-radius: 12px;
                     color: white;
                     font-weight: 500;
                     z-index: 9999;
-                    max-width: 400px;
+                    max-width: 450px;
+                    min-width: 300px;
                     transform: translateX(100%);
                     transition: transform 0.3s ease;
-                    ${type === 'success' ? 'background: #10b981;' : ''}
-                    ${type === 'error' ? 'background: #ef4444;' : ''}
-                    ${type === 'info' ? 'background: #3b82f6;' : ''}
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                    font-size: 0.95rem;
+                    line-height: 1.4;
+                    white-space: pre-line;
+                    ${type === 'success' ? 'background: linear-gradient(135deg, #10b981 0%, #059669 100%);' : ''}
+                    ${type === 'error' ? 'background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);' : ''}
+                    ${type === 'info' ? 'background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);' : ''}
                 `;
                 
-                notification.textContent = message;
+                // Aggiungi icona di chiusura
+                notification.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;">
+                        <div style="flex: 1;">${message}</div>
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            background: none; 
+                            border: none; 
+                            color: white; 
+                            font-size: 1.2rem; 
+                            cursor: pointer; 
+                            opacity: 0.7;
+                            padding: 0;
+                            line-height: 1;
+                        " title="Chiudi">×</button>
+                    </div>
+                `;
+                
                 document.body.appendChild(notification);
 
                 // Animate in
@@ -1998,15 +2058,17 @@
                     notification.style.transform = 'translateX(0)';
                 }, 100);
 
-                // Auto remove
+                // Auto remove con durata personalizzabile
                 setTimeout(() => {
-                    notification.style.transform = 'translateX(100%)';
-                    setTimeout(() => {
-                        if (notification.parentNode) {
-                            notification.parentNode.removeChild(notification);
-                        }
-                    }, 300);
-                }, 5000);
+                    if (notification.parentNode) {
+                        notification.style.transform = 'translateX(100%)';
+                        setTimeout(() => {
+                            if (notification.parentNode) {
+                                notification.parentNode.removeChild(notification);
+                            }
+                        }, 300);
+                    }
+                }, duration);
             }
 
             // Resize handler
