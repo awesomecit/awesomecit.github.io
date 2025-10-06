@@ -1487,7 +1487,7 @@
                         <div class="testimonial-card">
                             <div class="testimonial-header">
                                 <div class="testimonial-avatar" style="background: var(--gradient-primary);">
-                                    <i class="fas fa-user-circle"></i>
+                                    <i class="fas fa-user"></i>
                                 </div>
                                 <div class="testimonial-info">
                                     <h4>Davide De Gennaro</h4>
@@ -1503,7 +1503,7 @@
                         <div class="testimonial-card">
                             <div class="testimonial-header">
                                 <div class="testimonial-avatar" style="background: var(--gradient-secondary);">
-                                    <i class="fas fa-user-alt"></i>
+                                    <i class="fas fa-user"></i>
                                 </div>
                                 <div class="testimonial-info">
                                     <h4>Alberto Tedeschi</h4>
@@ -1519,7 +1519,7 @@
                         <div class="testimonial-card">
                             <div class="testimonial-header">
                                 <div class="testimonial-avatar" style="background: var(--accent-color);">
-                                    <i class="far fa-user"></i>
+                                    <i class="fas fa-user"></i>
                                 </div>
                                 <div class="testimonial-info">
                                     <h4>Matteo Pulega</h4>
@@ -1535,7 +1535,7 @@
                         <div class="testimonial-card">
                             <div class="testimonial-header">
                                 <div class="testimonial-avatar" style="background: var(--primary-color);">
-                                    <i class="fas fa-user-tie"></i>
+                                    <i class="fas fa-user"></i>
                                 </div>
                                 <div class="testimonial-info">
                                     <h4>Davide Silvestri</h4>
@@ -1551,7 +1551,7 @@
                         <div class="testimonial-card">
                             <div class="testimonial-header">
                                 <div class="testimonial-avatar" style="background: var(--secondary-color);">
-                                    <i class="fas fa-user-cog"></i>
+                                    <i class="fas fa-user"></i>
                                 </div>
                                 <div class="testimonial-info">
                                     <h4>Alessandro Zungrone</h4>
@@ -1567,7 +1567,7 @@
                         <div class="testimonial-card">
                             <div class="testimonial-header">
                                 <div class="testimonial-avatar" style="background: var(--gradient-primary);">
-                                    <i class="fas fa-user-circle"></i>
+                                    <i class="fas fa-user"></i>
                                 </div>
                                 <div class="testimonial-info">
                                     <h4>Davide De Gennaro</h4>
@@ -1582,7 +1582,7 @@
                         <div class="testimonial-card">
                             <div class="testimonial-header">
                                 <div class="testimonial-avatar" style="background: var(--gradient-secondary);">
-                                    <i class="fas fa-user-alt"></i>
+                                    <i class="fas fa-user"></i>
                                 </div>
                                 <div class="testimonial-info">
                                     <h4>Alberto Tedeschi</h4>
@@ -1597,7 +1597,7 @@
                         <div class="testimonial-card">
                             <div class="testimonial-header">
                                 <div class="testimonial-avatar" style="background: var(--accent-color);">
-                                    <i class="far fa-user"></i>
+                                    <i class="fas fa-user"></i>
                                 </div>
                                 <div class="testimonial-info">
                                     <h4>Matteo Pulega</h4>
@@ -1700,8 +1700,8 @@
                             <textarea id="message" class="form-textarea" placeholder="Il tuo messaggio..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            <span>✈️</span>
-                            Invia Messaggio
+                            <i class="fas fa-envelope"></i>
+                            Apri Email Client
                         </button>
                     </form>
                 </div>
@@ -1912,33 +1912,50 @@
             validateForm(data) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 
-                return data.name.trim() && 
-                       data.email.trim() && 
+                return data.name && data.name.trim() && 
+                       data.email && data.email.trim() && 
                        emailRegex.test(data.email) &&
-                       data.subject.trim() && 
-                       data.message.trim();
+                       data.subject && data.subject.trim() && 
+                       data.message && data.message.trim();
             }
 
-            // Form submission simulation
+            // Apertura client email con campi precompilati
             async submitForm(data) {
                 const submitButton = document.querySelector('#contact-form button[type="submit"]');
                 const originalText = submitButton.innerHTML;
                 
                 // Loading state
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Invio in corso...';
+                submitButton.innerHTML = '<i class="fas fa-envelope"></i> Apertura client email...';
                 submitButton.disabled = true;
+                
+                // Prepara i parametri per il mailto
+                const toEmail = 'cittadino.antonio@gmail.com';
+                const subject = encodeURIComponent(`${data.subject} - da ${data.name}`);
+                const body = encodeURIComponent(
+                    `Ciao Antonio,\n\n` +
+                    `${data.message}\n\n` +
+                    `Cordiali saluti,\n` +
+                    `${data.name}\n` +
+                    `Email: ${data.email}`
+                );
+                
+                // Crea il link mailto
+                const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+                
+                // Apri il client email di default
+                window.location.href = mailtoLink;
 
                 try {
-                    // Simulate API call
-                    await this.delay(2000);
+                    // Breve delay per feedback visivo
+                    await this.delay(1000);
                     
-                    // Success
-                    this.showNotification('Messaggio inviato con successo! Ti contatterò presto.', 'success');
+                    // Success feedback
+                    this.showNotification('Client email aperto! Completa e invia il messaggio dal tuo programma di posta.', 'success');
                     document.getElementById('contact-form').reset();
                     
                 } catch (error) {
                     // Error handling
-                    this.showNotification('Errore nell\'invio del messaggio. Riprova più tardi.', 'error');
+                    this.showNotification('Errore nell\'apertura del client email. Riprova o contattami direttamente.', 'error');
                 } finally {
                     // Reset button
                     submitButton.innerHTML = originalText;
