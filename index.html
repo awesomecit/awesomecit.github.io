@@ -764,6 +764,310 @@
             transform: scale(1.1);
         }
 
+        /* Skills Carousel */
+        .skills-carousel-container {
+            overflow: hidden;
+            position: relative;
+            margin: 0 -1rem;
+        }
+
+        .skills-carousel {
+            display: flex;
+            animation: scrollSkills 20s linear infinite;
+            gap: 2rem;
+        }
+
+        .skills-carousel .skill-category {
+            flex: 0 0 320px;
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .skill-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+            display: inline-block;
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover .skill-icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        @keyframes scrollSkills {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Testimonials Carousel */
+        .testimonials-carousel-container {
+            overflow: hidden;
+            position: relative;
+            margin: 2rem -1rem;
+        }
+
+        .testimonials-carousel {
+            display: flex;
+            animation: scrollTestimonials 25s linear infinite;
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            flex: 0 0 380px;
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .testimonial-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+        }
+
+        @keyframes scrollTestimonials {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Education Carousel - Same style as others */
+        .education-carousel-container {
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+            max-width: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .education-carousel {
+            display: flex;
+            gap: 2rem;
+            animation: scrollEducation 22s linear infinite;
+            align-items: stretch;
+        }
+
+        .education-skill-card {
+            flex: 0 0 320px;
+            max-width: 320px;
+            transition: var(--transition);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .education-skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .education-skill-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .education-skill-card p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
+            hyphens: auto;
+            text-align: center;
+        }
+
+        /* Stili per la sezione educazione generale */
+        .education-card {
+            max-width: 100%;
+            margin: 0 auto 2rem auto;
+            word-wrap: break-word;
+        }
+
+        .education-card h3 {
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        .education-card p {
+            word-break: break-word;
+            hyphens: auto;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        @keyframes scrollEducation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .education-carousel-container:hover .education-carousel {
+            animation-play-state: paused;
+        }
+
+        /* Stili per prevenire overflow nella sezione educazione */
+        .education.section {
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        .education-card {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .education-card h3, 
+        .education-card p {
+            word-break: break-word;
+            hyphens: auto;
+            max-width: 100%;
+        }
+        
+        .education-card * {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        /* Forza word-wrap su tutti gli elementi nella sezione educazione */
+        .education.section * {
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            box-sizing: border-box !important;
+        }
+        
+        /* Limita larghezza massima container educazione */
+        .education.section .container {
+            max-width: 1200px !important;
+            overflow: hidden;
+        }
+        
+        .education-grid {
+            max-width: 100% !important;
+            box-sizing: border-box;
+        }
+
+        /* Responsive adjustments for education section */
+        @media (max-width: 768px) {
+            .education-carousel-container {
+                margin: 0;
+                max-width: calc(100vw - 2rem);
+            }
+            
+            .education-skill-card {
+                flex: 0 0 280px;
+                max-width: 280px;
+            }
+            
+            .education-card {
+                padding: 1.5rem !important;
+                margin: 0 0 1.5rem 0;
+                max-width: calc(100vw - 4rem);
+            }
+            
+            .education-grid {
+                max-width: 100% !important;
+                padding: 0 1rem;
+                margin: 0 auto;
+            }
+            
+            .education.section .container {
+                padding: 0 1rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .education-card {
+                padding: 1rem !important;
+                max-width: calc(100vw - 2rem);
+            }
+            
+            .education-card div[style*="flex"] {
+                flex-direction: column !important;
+                text-align: center;
+            }
+            
+            .education-card div[style*="flex: 1"] {
+                max-width: 100% !important;
+            }
+        }
+
+        /* Creative icons for different sections */
+        .creative-icon {
+            display: inline-block;
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            transform: rotate(0deg);
+            transition: all 0.3s ease;
+        }
+
+        .creative-icon:hover {
+            transform: rotate(360deg) scale(1.2);
+        }
+
+        /* Pause animation on hover */
+        .skills-carousel-container:hover .skills-carousel,
+        .testimonials-carousel-container:hover .testimonials-carousel {
+            animation-play-state: paused;
+        }
+
+        /* Creative contact method styling */
+        .contact-method .creative-icon {
+            width: 20px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        /* Responsive carousel */
+        @media (max-width: 768px) {
+            .skills-carousel .skill-category,
+            .testimonial-card {
+                flex: 0 0 280px;
+            }
+            
+            .skills-carousel {
+                animation-duration: 15s;
+            }
+            
+            .testimonials-carousel {
+                animation-duration: 20s;
+            }
+        }
+
+        /* Remove motion for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .skills-carousel,
+            .testimonials-carousel {
+                animation: none;
+            }
+            
+            .skills-carousel-container {
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+            
+            .testimonials-carousel-container {
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+        }
+
         /* High contrast mode support */
         @media (prefers-contrast: high) {
             :root {
@@ -804,18 +1108,18 @@
                         <h1>🚀 Trasformo le tue idee in soluzioni backend robuste</h1>
                         <p class="hero-subtitle">Senior Backend Developer | Node.js, NestJS, TypeScript Expert</p>
                         <p class="hero-description">
-                            ✅ <strong>6+ anni di esperienza</strong> nella creazione di API scalabili e sistemi enterprise<br>
-                            ✅ <strong>Specializzato in Node.js, NestJS e TypeScript</strong> con metodologie moderne (TDD, DDD)<br>
-                            ✅ <strong>Leader tecnico</strong> con esperienza nella gestione di team multiculturali<br>
-                            ✅ <strong>Disponibile per freelance e consulenze</strong> - Progetti completati in 30+ settori
+                            <span style="color: var(--primary-color); font-weight: bold;">▶</span> <strong>6+ anni di esperienza</strong> nella creazione di API scalabili e sistemi enterprise<br>
+                            <span style="color: var(--accent-color); font-weight: bold;">▶</span> <strong>Specializzato in Node.js, NestJS e TypeScript</strong> con metodologie moderne (TDD, DDD)<br>
+                            <span style="color: var(--secondary-color); font-weight: bold;">▶</span> <strong>Leader tecnico</strong> con esperienza nella gestione di team multiculturali<br>
+                            <span style="color: var(--primary-color); font-weight: bold;">▶</span> <strong>Disponibile per freelance e consulenze</strong> - Progetti completati in 30+ settori
                         </p>
                         <div class="hero-cta">
                             <a href="#contact" class="btn btn-primary">
-                                <i class="fas fa-rocket"></i>
+                                <span>🚀</span>
                                 Iniziamo il tuo progetto
                             </a>
                             <a href="mailto:awesome.cit.dev@gmail.com" class="btn btn-secondary" onclick="trackEmailClick()">
-                                <i class="fas fa-envelope"></i>
+                                <span>✉️</span>
                                 Scrivimi subito
                             </a>
                         </div>
@@ -928,54 +1232,94 @@
         <section class="skills section" id="skills">
             <div class="container">
                 <h2 class="section-title">Competenze Tecniche</h2>
-                <div class="skills-grid">
-                    <div class="skill-category fade-in">
-                        <h3><i class="fas fa-code"></i> Linguaggi & Framework</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag">Node.js</span>
-                            <span class="skill-tag">TypeScript</span>
-                            <span class="skill-tag">JavaScript</span>
-                            <span class="skill-tag">NestJS</span>
-                            <span class="skill-tag">Express</span>
-                            <span class="skill-tag">Fastify</span>
-                            <span class="skill-tag">PHP</span>
+                <div class="skills-carousel-container">
+                    <div class="skills-carousel">
+                        <div class="skill-category">
+                            <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" style="width: 24px; height: 24px; margin-right: 0.5rem;" alt="JS"> Linguaggi & Framework</h3>
+                            <div class="skill-list">
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="Node">Node.js</span>
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="TS">TypeScript</span>
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="JS">JavaScript</span>
+                                <span class="skill-tag">NestJS</span>
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="Express">Express</span>
+                                <span class="skill-tag">Fastify</span>
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="PHP">PHP</span>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="skill-category fade-in">
-                        <h3><i class="fas fa-database"></i> Database & Storage</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag">PostgreSQL</span>
-                            <span class="skill-tag">MySQL</span>
-                            <span class="skill-tag">Redis</span>
-                            <span class="skill-tag">Elasticsearch</span>
-                            <span class="skill-tag">Oracle</span>
-                            <span class="skill-tag">MariaDB</span>
+                        
+                        <div class="skill-category">
+                            <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" style="width: 24px; height: 24px; margin-right: 0.5rem;" alt="DB"> Database & Storage</h3>
+                            <div class="skill-list">
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="PG">PostgreSQL</span>
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="MySQL">MySQL</span>
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="Redis">Redis</span>
+                                <span class="skill-tag">Elasticsearch</span>
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="Oracle">Oracle</span>
+                                <span class="skill-tag">MariaDB</span>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="skill-category fade-in">
-                        <h3><i class="fas fa-cogs"></i> DevOps & Testing</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag">Docker</span>
-                            <span class="skill-tag">Jenkins</span>
-                            <span class="skill-tag">GitHub Actions</span>
-                            <span class="skill-tag">CI/CD</span>
-                            <span class="skill-tag">TDD</span>
-                            <span class="skill-tag">Testing Automatico</span>
+                        
+                        <div class="skill-category">
+                            <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" style="width: 24px; height: 24px; margin-right: 0.5rem;" alt="DevOps"> DevOps & Testing</h3>
+                            <div class="skill-list">
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="Docker">Docker</span>
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="Jenkins">Jenkins</span>
+                                <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" style="width: 16px; height: 16px; margin-right: 0.3rem;" alt="GH">GitHub Actions</span>
+                                <span class="skill-tag">CI/CD</span>
+                                <span class="skill-tag">TDD</span>
+                                <span class="skill-tag">Testing Automatico</span>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="skill-category fade-in">
-                        <h3><i class="fas fa-lightbulb"></i> Metodologie</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag">Clean Code</span>
-                            <span class="skill-tag">SOLID</span>
-                            <span class="skill-tag">DDD</span>
-                            <span class="skill-tag">Agile/Scrum</span>
-                            <span class="skill-tag">XP</span>
-                            <span class="skill-tag">Pair Programming</span>
-                            <span class="skill-tag">Mentoring</span>
+                        
+                        <div class="skill-category">
+                            <h3><span style="font-size: 1.5rem; margin-right: 0.5rem;">🎨</span> Metodologie</h3>
+                            <div class="skill-list">
+                                <span class="skill-tag">Clean Code</span>
+                                <span class="skill-tag">SOLID</span>
+                                <span class="skill-tag">DDD</span>
+                                <span class="skill-tag">Agile/Scrum</span>
+                                <span class="skill-tag">XP</span>
+                                <span class="skill-tag">Pair Programming</span>
+                                <span class="skill-tag">Mentoring</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Duplicate per smooth infinite scroll -->
+                        <div class="skill-category">
+                            <h3><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" style="width: 24px; height: 24px; margin-right: 0.5rem;" alt="JS"> Linguaggi & Framework</h3>
+                            <div class="skill-list">
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">TypeScript</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">NestJS</span>
+                                <span class="skill-tag">Express</span>
+                                <span class="skill-tag">Fastify</span>
+                                <span class="skill-tag">PHP</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h3><span class="skill-icon">🎯</span> Database & Storage</h3>
+                            <div class="skill-list">
+                                <span class="skill-tag">PostgreSQL</span>
+                                <span class="skill-tag">MySQL</span>
+                                <span class="skill-tag">Redis</span>
+                                <span class="skill-tag">Elasticsearch</span>
+                                <span class="skill-tag">Oracle</span>
+                                <span class="skill-tag">MariaDB</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h3><span class="skill-icon">🔧</span> DevOps & Testing</h3>
+                            <div class="skill-list">
+                                <span class="skill-tag">Docker</span>
+                                <span class="skill-tag">Jenkins</span>
+                                <span class="skill-tag">GitHub Actions</span>
+                                <span class="skill-tag">CI/CD</span>
+                                <span class="skill-tag">TDD</span>
+                                <span class="skill-tag">Testing Automatico</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -984,21 +1328,21 @@
 
         <!-- Education Section -->
         <section class="education section" id="education">
-            <div class="container">
-                <h2 class="section-title">🎓 Formazione ed Educazione</h2>
-                <div class="education-grid" style="display: grid; gap: 2rem; max-width: 900px; margin: 0 auto;">
+            <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+                <h2 class="section-title" style="text-align: center;">🎓 Formazione ed Educazione</h2>
+                <div class="education-grid" style="display: grid; gap: 2rem; max-width: 1000px; margin: 0 auto;">
                     
                     <!-- Laurea Triennale -->
-                    <div class="education-card fade-in" style="background: white; padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm); transition: var(--transition);">
-                        <div style="display: flex; align-items: start; gap: 1.5rem;">
+                    <div class="education-card fade-in" style="background: white; padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm); transition: var(--transition); max-width: 100%; overflow: hidden; box-sizing: border-box;">
+                        <div style="display: flex; align-items: start; gap: 1.5rem; max-width: 100%; box-sizing: border-box;">
                             <div style="background: var(--gradient-primary); width: 60px; height: 60px; border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                <i class="fas fa-graduation-cap" style="color: white; font-size: 1.5rem;"></i>
+                                <span style="color: white; font-size: 1.8rem;">📚</span>
                             </div>
-                            <div style="flex: 1;">
-                                <h3 style="color: var(--primary-color); margin-bottom: 0.5rem; font-size: 1.3rem;">Laurea Triennale in Ingegneria Elettronica</h3>
-                                <p style="color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem;">Università della Calabria</p>
+                            <div style="flex: 1; min-width: 0; max-width: calc(100% - 90px); box-sizing: border-box;">
+                                <h3 style="color: var(--primary-color); margin-bottom: 0.5rem; font-size: 1.3rem; word-wrap: break-word; overflow-wrap: break-word; hyphens: auto; max-width: 100%;">Laurea Triennale in Ingegneria Elettronica</h3>
+                                <p style="color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%;">Università della Calabria</p>
                                 <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">2008 - 2012</p>
-                                <p style="color: var(--text-secondary); line-height: 1.6;">
+                                <p style="color: var(--text-secondary); line-height: 1.6; word-wrap: break-word; overflow-wrap: break-word; hyphens: auto; max-width: 100%; box-sizing: border-box;">
                                     Indirizzo <strong>microelettronica</strong> con solide basi in matematica, fisica e programmazione. 
                                     Studio approfondito di circuiti elettronici, sistemi digitali e primi approcci alla programmazione 
                                     in linguaggi come Assembly, VHDL, C/C++, MATLAB e LabVIEW. Fondamenti teorici che hanno formato 
@@ -1012,16 +1356,16 @@
                     </div>
 
                     <!-- Diploma -->
-                    <div class="education-card fade-in" style="background: white; padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm); transition: var(--transition);">
-                        <div style="display: flex; align-items: start; gap: 1.5rem;">
+                    <div class="education-card fade-in" style="background: white; padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm); transition: var(--transition); max-width: 100%; overflow: hidden;">
+                        <div style="display: flex; align-items: start; gap: 1.5rem; max-width: 100%;">
                             <div style="background: var(--gradient-secondary); width: 60px; height: 60px; border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                <i class="fas fa-microchip" style="color: white; font-size: 1.5rem;"></i>
+                                <span style="color: white; font-size: 1.8rem;">⚡</span>
                             </div>
-                            <div style="flex: 1;">
-                                <h3 style="color: var(--primary-color); margin-bottom: 0.5rem; font-size: 1.3rem;">Diploma di Perito Capotecnico</h3>
-                                <p style="color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem;">ITIS G. Gronchi, Lamezia Terme</p>
+                            <div style="flex: 1; min-width: 0; max-width: calc(100% - 90px);">
+                                <h3 style="color: var(--primary-color); margin-bottom: 0.5rem; font-size: 1.3rem; word-wrap: break-word; overflow-wrap: break-word; hyphens: auto;">Diploma di Perito Capotecnico</h3>
+                                <p style="color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem; word-wrap: break-word; overflow-wrap: break-word;">ITIS G. Gronchi, Lamezia Terme</p>
                                 <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">2007 - 2008</p>
-                                <p style="color: var(--text-secondary); line-height: 1.6;">
+                                <p style="color: var(--text-secondary); line-height: 1.6; word-wrap: break-word; overflow-wrap: break-word; hyphens: auto; max-width: 100%;">
                                     Specializzazione in <strong>Elettronica e Telecomunicazioni</strong>. Conseguito il diploma con la 
                                     <strong>media più alta dell'istituto nell'ultimo anno</strong>, completato con stage formativo presso 
                                     <strong>FIAT</strong>. Solide basi tecniche che hanno preparato il percorso universitario.
@@ -1035,44 +1379,46 @@
                     </div>
 
                     <!-- Formazione Continua -->
-                    <div class="education-card fade-in" style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--border-radius-lg); border: 2px solid var(--primary-color);">
-                        <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">
-                            <i class="fas fa-rocket"></i> Formazione Continua & Certificazioni
+                    <div class="education-card fade-in" style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--border-radius-lg); border: 2px solid var(--primary-color); max-width: 100%; overflow: hidden;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center; word-wrap: break-word; overflow-wrap: break-word;">
+                            Formazione Continua & Certificazioni
                         </h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-                            <div style="text-align: center;">
-                                <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1rem;">
-                                    <i class="fab fa-node-js" style="font-size: 2rem; color: #339933; margin-bottom: 0.5rem;"></i>
-                                    <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Node.js Mastery</h4>
-                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Advanced patterns, microservices architecture</p>
+                        <div class="education-carousel-container">
+                            <div class="education-carousel" id="education-carousel">
+                                <div class="education-skill-card">
+                                    <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); text-align: center;">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" style="width: 40px; height: 40px; margin-bottom: 0.5rem;" alt="Node.js">
+                                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Node.js Mastery</h4>
+                                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Advanced patterns, microservices architecture</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1rem;">
-                                    <i class="fab fa-js-square" style="font-size: 2rem; color: #f7df1e; margin-bottom: 0.5rem;"></i>
-                                    <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">TypeScript Expert</h4>
-                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Advanced types, design patterns</p>
+                                <div class="education-skill-card">
+                                    <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); text-align: center;">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" style="width: 40px; height: 40px; margin-bottom: 0.5rem;" alt="TypeScript">
+                                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">TypeScript Expert</h4>
+                                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Advanced types, design patterns</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1rem;">
-                                    <i class="fas fa-cogs" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
-                                    <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">DevOps & CI/CD</h4>
-                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Docker, Jenkins, automation</p>
+                                <div class="education-skill-card">
+                                    <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); text-align: center;">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" style="width: 40px; height: 40px; margin-bottom: 0.5rem;" alt="Docker">
+                                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">DevOps & CI/CD</h4>
+                                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Docker, Jenkins, automation</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1rem;">
-                                    <i class="fas fa-users" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 0.5rem;"></i>
-                                    <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Leadership & Mentoring</h4>
-                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Team management, Agile methodologies</p>
+                                <div class="education-skill-card">
+                                    <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); text-align: center;">
+                                        <span style="font-size: 2rem; margin-bottom: 0.5rem; display: block;">👥</span>
+                                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Leadership & Mentoring</h4>
+                                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Team management, Agile methodologies</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div style="margin-top: 2rem; text-align: center; padding: 1.5rem; background: white; border-radius: var(--border-radius);">
                             <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
-                                <i class="fas fa-book"></i> Creatore del Corso
+                                <span class="creative-icon">📖</span> Creatore del Corso
                             </h4>
                             <div style="background: var(--gradient-primary); color: white; padding: 1rem; border-radius: var(--border-radius); display: inline-block;">
                                 <strong>"Software Developer Crash Course"</strong><br>
@@ -1115,85 +1461,117 @@
                     </div>
                 </div>
                 
-                <!-- Recensioni LinkedIn Reali -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
-                    
-                    <!-- Recensione Davide De Gennaro -->
-                    <div style="background: white; padding: 2.5rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm);">
-                        <blockquote style="border-left: 4px solid var(--primary-color); padding-left: 1.5rem; margin: 0; font-style: italic; color: var(--text-secondary); font-size: 1rem; line-height: 1.6;">
-                            "È capace di adattarsi a codebase esistenti anche complicate, riuscendo a orientarsi in progetti creati da altri sviluppatori e ad aggiungere con successo nuove funzionalità. Dimostra passione per lo sviluppo software, dedicando tempo per rimanere aggiornato sulle tecnologie. È un sviluppatore affidabile con buone capacità di adattamento tecnico."
-                        </blockquote>
-                        <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem;">
-                            <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.9rem;">DD</div>
-                            <div>
-                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.95rem;">Davide De Gennaro</div>
-                                <div style="color: var(--text-secondary); font-size: 0.85rem;">Developer @ Competitoor</div>
-                                <div style="color: var(--primary-color); font-size: 0.8rem; margin-top: 0.2rem;">
-                                    <i class="fab fa-linkedin" style="margin-right: 0.3rem;"></i>LinkedIn
+                <!-- Testimonials Carousel -->
+                <div class="testimonials-carousel-container">
+                    <div class="testimonials-carousel">
+                        
+                        <!-- Davide De Gennaro -->
+                        <div class="testimonial-card">
+                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "È capace di adattarsi a codebase esistenti anche complicate, riuscendo a orientarsi in progetti creati da altri sviluppatori. Dimostra passione per lo sviluppo software, dedicando tempo per rimanere aggiornato."
+                            </blockquote>
+                            <div style="display: flex; align-items: center;">
+                                <div class="testimonial-avatar" style="background: var(--gradient-primary);">🎭</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Davide De Gennaro</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Developer @ Competitoor</div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Recensione Alberto Tedeschi -->
-                    <div style="background: white; padding: 2.5rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm);">
-                        <blockquote style="border-left: 4px solid var(--primary-color); padding-left: 1.5rem; margin: 0; font-style: italic; color: var(--text-secondary); font-size: 1rem; line-height: 1.6;">
-                            "Antonio è un team player esemplare: comunica efficacemente, rispetta le scadenze e contribuisce positivamente all'ambiente di lavoro. La sua etica professionale e la voglia di imparare lo rendono una risorsa preziosa per qualsiasi team di sviluppo."
-                        </blockquote>
-                        <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem;">
-                            <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--gradient-secondary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.9rem;">AT</div>
-                            <div>
-                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.95rem;">Alberto Tedeschi</div>
-                                <div style="color: var(--text-secondary); font-size: 0.85rem;">Team Colleague</div>
-                                <div style="color: var(--primary-color); font-size: 0.8rem; margin-top: 0.2rem;">
-                                    <i class="fab fa-linkedin" style="margin-right: 0.3rem;"></i>LinkedIn
+                        <!-- Alberto Tedeschi -->
+                        <div class="testimonial-card">
+                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "Antonio è un team player esemplare: comunica efficacemente, rispetta le scadenze e contribuisce positivamente all'ambiente di lavoro. La sua etica professionale lo rende una risorsa preziosa."
+                            </blockquote>
+                            <div style="display: flex; align-items: center;">
+                                <div class="testimonial-avatar" style="background: var(--gradient-secondary);">🎪</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Alberto Tedeschi</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Team Colleague</div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Recensioni aggiuntive in formato più compatto -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem;">
-                    
-                    <!-- Matteo Pulega -->
-                    <div style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--border-radius); border-left: 4px solid var(--accent-color);">
-                        <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 1rem; font-size: 0.95rem;">
-                            "È una persona empatica, disponibile ad aiutare e a offrire il proprio punto di vista con intelligenza e apertura. Sempre interessato alle nuove tecnologie."
-                        </p>
-                        <div style="display: flex; align-items: center; gap: 0.8rem;">
-                            <div style="width: 35px; height: 35px; border-radius: 50%; background: var(--accent-color); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">MP</div>
-                            <div>
-                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.9rem;">Matteo Pulega</div>
-                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Senior Data Scientist</div>
+                        <!-- Matteo Pulega -->
+                        <div class="testimonial-card">
+                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "È una persona empatica, disponibile ad aiutare e a offrire il proprio punto di vista con intelligenza e apertura. Sempre interessato alle nuove tecnologie."
+                            </blockquote>
+                            <div style="display: flex; align-items: center;">
+                                <div class="testimonial-avatar" style="background: var(--accent-color);">🎨</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Matteo Pulega</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Senior Data Scientist</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Davide Silvestri -->
-                    <div style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--border-radius); border-left: 4px solid var(--primary-color);">
-                        <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 1rem; font-size: 0.95rem;">
-                            "Persona piacevole, disponibile e tecnicamente preparata con cui creerei volentieri una startup."
-                        </p>
-                        <div style="display: flex; align-items: center; gap: 0.8rem;">
-                            <div style="width: 35px; height: 35px; border-radius: 50%; background: var(--primary-color); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">DS</div>
-                            <div>
-                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.9rem;">Davide Silvestri</div>
-                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Tech Colleague</div>
+                        <!-- Davide Silvestri -->
+                        <div class="testimonial-card">
+                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "Persona piacevole, disponibile e tecnicamente preparata con cui creerei volentieri una startup."
+                            </blockquote>
+                            <div style="display: flex; align-items: center;">
+                                <div class="testimonial-avatar" style="background: var(--primary-color);">🎯</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Davide Silvestri</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Tech Colleague</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Alessandro Zungrone -->
-                    <div style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--border-radius); border-left: 4px solid var(--secondary-color);">
-                        <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 1rem; font-size: 0.95rem;">
-                            "Persona focalizzata alla risoluzione del problema e attento alle innovazioni del mercato. Intraprendente e studioso, capace nella programmazione delle nuove tecnologie web e IoT."
-                        </p>
-                        <div style="display: flex; align-items: center; gap: 0.8rem;">
-                            <div style="width: 35px; height: 35px; border-radius: 50%; background: var(--secondary-color); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">AZ</div>
-                            <div>
-                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.9rem;">Alessandro Zungrone</div>
-                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Software Project Engineering Leader</div>
+                        <!-- Alessandro Zungrone -->
+                        <div class="testimonial-card">
+                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "Persona focalizzata alla risoluzione del problema e attento alle innovazioni del mercato. Intraprendente e studioso, capace nella programmazione delle nuove tecnologie web e IoT."
+                            </blockquote>
+                            <div style="display: flex; align-items: center;">
+                                <div class="testimonial-avatar" style="background: var(--secondary-color);">🎲</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Alessandro Zungrone</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Software Project Engineering Leader</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Duplicate for smooth infinite scroll -->
+                        <div class="testimonial-card">
+                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "È capace di adattarsi a codebase esistenti anche complicate, riuscendo a orientarsi in progetti creati da altri sviluppatori. Dimostra passione per lo sviluppo software, dedicando tempo per rimanere aggiornato."
+                            </blockquote>
+                            <div style="display: flex; align-items: center;">
+                                <div class="testimonial-avatar" style="background: var(--gradient-primary);">🎭</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Davide De Gennaro</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Developer @ Competitoor</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "Antonio è un team player esemplare: comunica efficacemente, rispetta le scadenze e contribuisce positivamente all'ambiente di lavoro. La sua etica professionale lo rende una risorsa preziosa."
+                            </blockquote>
+                            <div style="display: flex; align-items: center;">
+                                <div class="testimonial-avatar" style="background: var(--gradient-secondary);">🎪</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Alberto Tedeschi</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Team Colleague</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <blockquote style="margin: 0 0 1.5rem 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                                "È una persona empatica, disponibile ad aiutare e a offrire il proprio punto di vista con intelligenza e apertura. Sempre interessato alle nuove tecnologie."
+                            </blockquote>
+                            <div style="display: flex; align-items: center;">
+                                <div class="testimonial-avatar" style="background: var(--accent-color);">🎨</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Matteo Pulega</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">Senior Data Scientist</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1218,38 +1596,38 @@
                         <h3 style="margin-bottom: 1.5rem; color: var(--primary-color);">💡 Cosa posso fare per te:</h3>
                         <ul style="list-style: none; padding: 0; margin-bottom: 2rem;">
                             <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <span style="color: #10b981; margin-right: 10px;">✅</span>
+                                <span style="color: var(--primary-color); margin-right: 10px; font-weight: bold;">•</span>
                                 <strong>API REST e GraphQL</strong> scalabili e performanti
                             </li>
                             <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <span style="color: #10b981; margin-right: 10px;">✅</span>
+                                <span style="color: var(--primary-color); margin-right: 10px; font-weight: bold;">•</span>
                                 <strong>Microservizi</strong> con Node.js e NestJS
                             </li>
                             <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <span style="color: #10b981; margin-right: 10px;">✅</span>
+                                <span style="color: var(--accent-color); margin-right: 10px; font-weight: bold;">•</span>
                                 <strong>Migrazione legacy</strong> e refactoring
                             </li>
                             <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <span style="color: #10b981; margin-right: 10px;">✅</span>
+                                <span style="color: var(--secondary-color); margin-right: 10px; font-weight: bold;">•</span>
                                 <strong>Consulenza tecnica</strong> e code review
                             </li>
                             <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <span style="color: #10b981; margin-right: 10px;">✅</span>
+                                <span style="color: var(--primary-color); margin-right: 10px; font-weight: bold;">•</span>
                                 <strong>Team leadership</strong> e mentoring
                             </li>
                         </ul>
                         
                         <div class="contact-methods">
                             <div class="contact-method">
-                                <i class="fas fa-envelope"></i>
+                                <span class="creative-icon">✉️</span>
                                 <span>awesome.cit.dev@gmail.com</span>
                             </div>
                             <div class="contact-method">
-                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="creative-icon">📍</span>
                                 <span>Reggio Emilia, Italia</span>
                             </div>
                             <div class="contact-method">
-                                <i class="fas fa-phone"></i>
+                                <span class="creative-icon">📞</span>
                                 <span>+39 380 46***77</span>
                             </div>
                         </div>
@@ -1288,7 +1666,7 @@
                             <textarea id="message" class="form-textarea" placeholder="Il tuo messaggio..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-paper-plane"></i>
+                            <span>✈️</span>
                             Invia Messaggio
                         </button>
                     </form>
@@ -1316,6 +1694,7 @@
                 this.setupScrollEffects();
                 this.setupIntersectionObserver();
                 this.initMobileMenu();
+                this.initEducationCarousel();
             }
 
             // Event Listeners Setup con Event Delegation pattern
@@ -1601,6 +1980,27 @@
                         }
                     });
                 }
+            }
+
+            // Education Carousel continuous scroll without jumps
+            initEducationCarousel() {
+                const carousel = document.getElementById('education-carousel');
+                if (!carousel) return;
+
+                // Clone items for continuous scroll
+                const items = Array.from(carousel.children);
+                items.forEach(item => {
+                    const clone = item.cloneNode(true);
+                    carousel.appendChild(clone);
+                });
+
+                // Reset animation when it completes to avoid jumps
+                carousel.addEventListener('animationiteration', () => {
+                    // This creates seamless infinite scroll
+                    carousel.style.animation = 'none';
+                    carousel.offsetHeight; // Trigger reflow
+                    carousel.style.animation = 'scrollEducation 22s linear infinite';
+                });
             }
         }
 
