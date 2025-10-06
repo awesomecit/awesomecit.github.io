@@ -1,0 +1,27 @@
+# GitHub Pages Configuration
+title: "Antonio Cittadino - Senior Backend Developer"
+description: "🚀 Sviluppatore Backend Senior specializzato in Node.js, NestJS, TypeScript | Disponibile per progetti freelance"
+url: "https://awesomecit.github.io"
+author: "Antonio Cittadino"
+
+# SEO
+lang: it-IT
+twitter:
+  username: "antonio_cittadino"
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Exclude files
+exclude:
+  - README.md
+  - LICENSE
+  - node_modules/
+  - vendor/

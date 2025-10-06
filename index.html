@@ -1,269 +1,1620 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Homepage - TechCitizen AI</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="🚀 Sviluppatore Backend Senior | Trasformo idee in soluzioni digitali robuste | Node.js, NestJS, TypeScript | Disponibile per progetti">
+    <meta name="keywords" content="sviluppatore backend freelance, node.js developer, nestjs expert, typescript specialist, consulente tecnico, sviluppo api, microservizi">
+    <meta name="author" content="Antonio Cittadino">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://awesomecit.github.io/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+    <!-- <link rel="manifest" href="/manifest.json"> Disabled to avoid CORS errors in local development -->
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://awesomecit.github.io/">
+    <meta property="og:title" content="Antonio Cittadino - Sviluppatore Backend Senior | Disponibile per Progetti">
+    <meta property="og:description" content="🚀 Trasformo le tue idee in soluzioni backend robuste e scalabili. Specializzato in Node.js, NestJS e architetture moderne.">
+    <meta property="og:image" content="https://awesomecit.github.io/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://awesomecit.github.io/">
+    <meta property="twitter:title" content="Antonio Cittadino - Sviluppatore Backend Senior">
+    <meta property="twitter:description" content="🚀 Trasformo idee in soluzioni backend robuste | Node.js, NestJS, TypeScript | Disponibile per progetti">
+    <meta property="twitter:image" content="https://awesomecit.github.io/og-image.jpg">
+    
+    <title>🚀 Antonio Cittadino - Sviluppatore Backend Senior | Trasformo le tue idee in codice</title>
+    
+    <!-- CDN Resources -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google Analytics (Replace GA_MEASUREMENT_ID with your actual ID) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+        
+        // Track conversion events
+        function trackContactFormSubmit() {
+            gtag('event', 'contact_form_submit', {
+                'event_category': 'engagement',
+                'event_label': 'contact_form'
+            });
+        }
+        
+        function trackEmailClick() {
+            gtag('event', 'email_click', {
+                'event_category': 'engagement',
+                'event_label': 'direct_email'
+            });
+        }
+    </script>
+    
+    <style>
+        /* CSS Custom Properties per theming e consistenza */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #94a3b8;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-dark: #0f172a;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset e base styles con approccio mobile-first */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        /* Utility classes following atomic design */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Header con scroll effect */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Mobile menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: var(--transition);
+        }
+
+        /* Hero section con effetti modern */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23667eea;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%23764ba2;stop-opacity:0.1"/></linearGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23grad)"/><circle cx="800" cy="300" r="150" fill="url(%23grad)"/><circle cx="400" cy="700" r="120" fill="url(%23grad)"/></svg>') no-repeat center center;
+            background-size: cover;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* About section */
+        .about {
+            background: var(--bg-secondary);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Experience section */
+        .experience-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Skills section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .skill-category h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Contact section */
+        .contact {
+            background: var(--bg-dark);
+            color: white;
+        }
+
+        .contact .section-title {
+            color: white;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .contact-method:hover {
+            color: white;
+        }
+
+        .contact-method i {
+            width: 20px;
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Contact form */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: white;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0f1c;
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design - Mobile First Approach */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: var(--shadow-md);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .profile-container {
+                width: 250px;
+                height: 250px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            .section {
+                padding: 2rem 0;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .profile-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .timeline-item {
+                padding-left: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus styles for keyboard navigation */
+        .btn:focus,
+        .nav-link:focus,
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Education section styles */
+        .education-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .education-card .fas,
+        .education-card .fab {
+            transition: var(--transition);
+        }
+
+        .education-card:hover .fas,
+        .education-card:hover .fab {
+            transform: scale(1.1);
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-color: #0000ff;
+                --text-primary: #000000;
+                --bg-primary: #ffffff;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="navbar-fixed">
-    <div class="container">
-      <div class="logo-container">
-        <svg class="logo" width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-label="Logo placeholder">
-          <defs>
-            <linearGradient id="logoGradient" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#0057b8" />
-              <stop offset="100%" stop-color="#ffd200" />
-            </linearGradient>
-          </defs>
-          <circle cx="120" cy="120" r="118" fill="url(#logoGradient)" />
-          <!-- THC[IT]@ su una linea, con dimensioni diverse e chiocciola ravvicinata -->
-          <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle">
-            <tspan font-family="Montserrat, Arial, sans-serif" font-size="95" font-weight="bold" fill="#fff" letter-spacing="-14" style="font-style:italic;">THC</tspan>
-            <tspan font-family="Montserrat, Arial, sans-serif" font-size="32" font-weight="bold" fill="#fff" letter-spacing="2" dx="16">[IT]</tspan>
-            <tspan font-family="Montserrat, Arial, sans-serif" font-size="22" font-weight="bold" fill="#fff" dx="4">@</tspan>
-          </text>
-        </svg>
-      </div>
-      <div class="title-container">
-        <h1 class="site-title">TechCitizen AI</h1>
-      </div>
-      <nav>
-        <ul id="main-menu" class="menu-list">
-          <li><a href="#hero" class="scroll-link">Home</a></li>
-          <li><a href="#about" class="scroll-link">About</a></li>
-          <li><a href="#services" class="scroll-link">Solutions</a></li>
-          <li><a href="#team" class="scroll-link">Team</a></li>
-          <li><a href="#projects" class="scroll-link">Projects</a></li>
-          <li><a href="#donate" class="scroll-link">Donate</a></li>
-          <li><a href="#book-demo" class="scroll-link">Book a Demo</a></li>
-          <li><a href="#contact" class="scroll-link">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <div style="height:150px;"></div>
-  <div id="page-content">
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-      <div class="container">
-        <h1>Transforming Enterprise Operations Through Intelligent Automation</h1>
-        <p class="subtitle">We democratize enterprise artificial intelligence, making advanced automation accessible to every organization.</p>
-        <a href="#contact" class="cta-btn scroll-link">Contact us</a>
-      </div>
-    </section>
+    <!-- Header with Navigation -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <div class="logo">AC</div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">Chi Sono</a></li>
+                <li><a href="#experience" class="nav-link">Esperienza</a></li>
+                <li><a href="#skills" class="nav-link">Competenze</a></li>
+                <li><a href="#education" class="nav-link">Formazione</a></li>
+                <li><a href="#contact" class="nav-link">Contatti</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" id="mobile-toggle">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </div>
+        </nav>
+    </header>
 
-    <!-- Company Overview -->
-    <section class="about-short" id="about">
-      <div class="container">
-        <h2>About Us</h2>
-        <p>TechCitizen AI develops enterprise software solutions that combine proprietary AI, scalable architectures, and a consumer-grade user experience to solve the most complex operational challenges of modern companies. Our goal is to make intelligent automation accessible to all organizations, with an ethical, transparent, and sustainable approach.</p>
-      </div>
-    </section>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero section" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>🚀 Trasformo le tue idee in soluzioni backend robuste</h1>
+                        <p class="hero-subtitle">Senior Backend Developer | Node.js, NestJS, TypeScript Expert</p>
+                        <p class="hero-description">
+                            ✅ <strong>6+ anni di esperienza</strong> nella creazione di API scalabili e sistemi enterprise<br>
+                            ✅ <strong>Specializzato in Node.js, NestJS e TypeScript</strong> con metodologie moderne (TDD, DDD)<br>
+                            ✅ <strong>Leader tecnico</strong> con esperienza nella gestione di team multiculturali<br>
+                            ✅ <strong>Disponibile per freelance e consulenze</strong> - Progetti completati in 30+ settori
+                        </p>
+                        <div class="hero-cta">
+                            <a href="#contact" class="btn btn-primary">
+                                <i class="fas fa-rocket"></i>
+                                Iniziamo il tuo progetto
+                            </a>
+                            <a href="mailto:awesome.cit.dev@gmail.com" class="btn btn-secondary" onclick="trackEmailClick()">
+                                <i class="fas fa-envelope"></i>
+                                Scrivimi subito
+                            </a>
+                        </div>
+                        <div style="margin-top: 2rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">🏆 Trusted by:</span>
+                            <span style="color: var(--primary-color); font-weight: 600;">Promedital</span>
+                            <span style="color: var(--primary-color); font-weight: 600;">Competitoor</span>
+                            <span style="color: var(--primary-color); font-weight: 600;">Siemens</span>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="profile-container">
+                            <img src="./cittadinoantonio_profile_image.jpeg" 
+                                 alt="Antonio Cittadino - Senior Backend Developer" 
+                                 class="profile-image"
+                                 loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Solutions Section -->
-    <section class="services" id="services">
-      <div class="container">
-        <h2>Our Solutions</h2>
-        <div class="services-grid">
-          <a class="service-card" href="services.html#enterprise-order-management">
-            <h3>Enterprise Order Management</h3>
-            <p>Platform with advanced permissions (Keycloak-powered) and fully customizable no-code workflow.</p>
-          </a>
-          <a class="service-card" href="services.html#real-time-analytics">
-            <h3>Real-Time Analytics</h3>
-            <p>Integrated dashboards with Elasticsearch and Kibana for instant operational analysis.</p>
-          </a>
-          <a class="service-card" href="services.html#leadai-pro">
-            <h3>LeadAI Pro</h3>
-            <p>AI agents for lead generation and sales automation across multiple channels (LinkedIn, Email, Social).</p>
-          </a>
-          <a class="service-card" href="services.html#compliance-security">
-            <h3>Compliance & Security</h3>
-            <p>GDPR-native solutions and enterprise-grade security by design.</p>
-          </a>
-          <!-- <a class="service-card" href="services.html#low-code-flows">
-            <h3>Low-Code Flows + AI Agent for Reporting</h3>
-            <p>Process automation and advanced reporting generation through low-code workflows and integrated AI agents.</p>
-          </a> -->
-          <a class="service-card" href="services.html#calendar-agenda">
-            <h3>Calendar & Agenda Module</h3>
-            <p>Appointment, event, and task management with a calendar integrable into all solutions and synchronization with major providers (Google, Outlook, Apple).</p>
-          </a>
-          <a class="service-card" href="services.html#data-storage">
-            <h3>Data Storage System</h3>
-            <p>Secure management and storage of data and documents, with accessible and customizable UI (folders, target profiles, granular permissions).</p>
-          </a>
-          <!-- <a class="service-card" href="services.html#hl7-messaging">
-            <h3>HL7 Messaging Exchange & Integration Product</h3>
-            <p>Solution for HL7 message exchange, integration with external systems, and system/technology integration services for healthcare and enterprise sectors.</p>
-          </a> -->
-          <a class="service-card" href="services.html#software-consulting">
-            <h3>Software Consulting</h3>
-            <p>Expert advice and tailored strategies for digital transformation, custom software development, and IT project management to accelerate your business growth.</p>
-          </a>
-          <a class="service-card" href="services.html#sap-consulting">
-            <h3>SAP Consulting</h3>
-            <p>Specialized SAP consulting for implementation, integration, and optimization of SAP solutions, helping enterprises maximize their ERP investments.</p>
-          </a>
+        <!-- About Section -->
+        <section class="about section" id="about">
+            <div class="container">
+                <h2 class="section-title">Chi Sono</h2>
+                <div class="about-grid">
+                    <div class="about-stats">
+                        <div class="stat-card fade-in">
+                            <div class="stat-number">6+</div>
+                            <div class="stat-label">Anni di Esperienza</div>
+                        </div>
+                        <div class="stat-card fade-in">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Progetti Completati</div>
+                        </div>
+                        <div class="stat-card fade-in">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Ruoli di Leadership</div>
+                        </div>
+                        <div class="stat-card fade-in">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Passion for Code</div>
+                        </div>
+                    </div>
+                    <div class="about-content fade-in">
+                        <p>
+                            Sono uno sviluppatore web backend con un background solido in ingegneria elettronica. 
+                            La mia passione per l'automazione e l'analisi dei segnali si è evoluta verso il mondo dello sviluppo software, 
+                            dove applico principi di Clean Code, SOLID e metodologie moderne come TDD e DDD.
+                        </p>
+                        <p>
+                            Attualmente lavoro presso Promedital dove mi occupo della migrazione di sistemi critici da Scala a NestJS, 
+                            gestendo team di sviluppo e implementando soluzioni per il settore sanitario che richiedono massima affidabilità e sicurezza.
+                        </p>
+                        <p>
+                            Nel tempo libero amo trasmettere le mie conoscenze formando nuovi sviluppatori e contribuire alla community 
+                            attraverso progetti open source e il mio corso "Software Developer Crash Course".
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="experience section" id="experience">
+            <div class="container">
+                <h2 class="section-title">Esperienza Professionale</h2>
+                <div class="experience-timeline">
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Backend Developer & Project Lead</h3>
+                            <p class="timeline-company">Promedital (ICT-Group) - Reggio Emilia (In corso)</p>
+                            <p class="timeline-description">
+                                Migrazione strategica di prodotti da Scala a NestJS con rilasci incrementali. 
+                                Sviluppo di software per sale operatorie con implementazione di firma digitale e standard DICOM/HL7. 
+                                Gestione team di sviluppo frontend e attività DevOps. Collaborazione diretta con CTO e team sales.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Tech Lead & Backend Developer</h3>
+                            <p class="timeline-company">Competitoor - Remoto/Ibrido (3 anni e mezzo)</p>
+                            <p class="timeline-description">
+                                Leadership di team di sviluppo multiculturale con focus su onboarding e code review. 
+                                R&D di nuova dashboard con Elasticsearch e Redis. Introduzione di processi strutturati 
+                                di sviluppo e rilascio. Gestione operatività sistemistica e server.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Backend Developer</h3>
+                            <p class="timeline-company">Horsa Spa / Siemens - Milano (1 anno)</p>
+                            <p class="timeline-description">
+                                Formazione MERN stack e sviluppo agile in team. Integrazione e sviluppo di funzionalità 
+                                per sistema di monitoraggio microgrid. Sviluppo proxy per piattaforma Siemens Mindsphere 
+                                con deploy su Cloud Foundry.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills section" id="skills">
+            <div class="container">
+                <h2 class="section-title">Competenze Tecniche</h2>
+                <div class="skills-grid">
+                    <div class="skill-category fade-in">
+                        <h3><i class="fas fa-code"></i> Linguaggi & Framework</h3>
+                        <div class="skill-list">
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">NestJS</span>
+                            <span class="skill-tag">Express</span>
+                            <span class="skill-tag">Fastify</span>
+                            <span class="skill-tag">PHP</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category fade-in">
+                        <h3><i class="fas fa-database"></i> Database & Storage</h3>
+                        <div class="skill-list">
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">Redis</span>
+                            <span class="skill-tag">Elasticsearch</span>
+                            <span class="skill-tag">Oracle</span>
+                            <span class="skill-tag">MariaDB</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category fade-in">
+                        <h3><i class="fas fa-cogs"></i> DevOps & Testing</h3>
+                        <div class="skill-list">
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">Jenkins</span>
+                            <span class="skill-tag">GitHub Actions</span>
+                            <span class="skill-tag">CI/CD</span>
+                            <span class="skill-tag">TDD</span>
+                            <span class="skill-tag">Testing Automatico</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category fade-in">
+                        <h3><i class="fas fa-lightbulb"></i> Metodologie</h3>
+                        <div class="skill-list">
+                            <span class="skill-tag">Clean Code</span>
+                            <span class="skill-tag">SOLID</span>
+                            <span class="skill-tag">DDD</span>
+                            <span class="skill-tag">Agile/Scrum</span>
+                            <span class="skill-tag">XP</span>
+                            <span class="skill-tag">Pair Programming</span>
+                            <span class="skill-tag">Mentoring</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section class="education section" id="education">
+            <div class="container">
+                <h2 class="section-title">🎓 Formazione ed Educazione</h2>
+                <div class="education-grid" style="display: grid; gap: 2rem; max-width: 900px; margin: 0 auto;">
+                    
+                    <!-- Laurea Triennale -->
+                    <div class="education-card fade-in" style="background: white; padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm); transition: var(--transition);">
+                        <div style="display: flex; align-items: start; gap: 1.5rem;">
+                            <div style="background: var(--gradient-primary); width: 60px; height: 60px; border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <i class="fas fa-graduation-cap" style="color: white; font-size: 1.5rem;"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <h3 style="color: var(--primary-color); margin-bottom: 0.5rem; font-size: 1.3rem;">Laurea Triennale in Ingegneria Elettronica</h3>
+                                <p style="color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem;">Università della Calabria</p>
+                                <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">2008 - 2012</p>
+                                <p style="color: var(--text-secondary); line-height: 1.6;">
+                                    Indirizzo <strong>microelettronica</strong> con solide basi in matematica, fisica e programmazione. 
+                                    Studio approfondito di circuiti elettronici, sistemi digitali e primi approcci alla programmazione 
+                                    in linguaggi come Assembly, VHDL, C/C++, MATLAB e LabVIEW. Fondamenti teorici che hanno formato 
+                                    il pensiero logico-matematico applicato oggi nello sviluppo software.
+                                </p>
+                                <div style="margin-top: 1rem;">
+                                    <span style="background: var(--bg-secondary); color: var(--primary-color); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; font-weight: 500;">Voto: 100/100</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diploma -->
+                    <div class="education-card fade-in" style="background: white; padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm); transition: var(--transition);">
+                        <div style="display: flex; align-items: start; gap: 1.5rem;">
+                            <div style="background: var(--gradient-secondary); width: 60px; height: 60px; border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <i class="fas fa-microchip" style="color: white; font-size: 1.5rem;"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <h3 style="color: var(--primary-color); margin-bottom: 0.5rem; font-size: 1.3rem;">Diploma di Perito Capotecnico</h3>
+                                <p style="color: var(--text-secondary); font-weight: 500; margin-bottom: 0.5rem;">ITIS G. Gronchi, Lamezia Terme</p>
+                                <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">2007 - 2008</p>
+                                <p style="color: var(--text-secondary); line-height: 1.6;">
+                                    Specializzazione in <strong>Elettronica e Telecomunicazioni</strong>. Conseguito il diploma con la 
+                                    <strong>media più alta dell'istituto nell'ultimo anno</strong>, completato con stage formativo presso 
+                                    <strong>FIAT</strong>. Solide basi tecniche che hanno preparato il percorso universitario.
+                                </p>
+                                <div style="margin-top: 1rem;">
+                                    <span style="background: var(--bg-secondary); color: var(--primary-color); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; font-weight: 500;">Voto: 100/100</span>
+                                    <span style="background: var(--accent-color); color: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; font-weight: 500; margin-left: 0.5rem;">🏆 Media più alta dell'istituto</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formazione Continua -->
+                    <div class="education-card fade-in" style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--border-radius-lg); border: 2px solid var(--primary-color);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.3rem; text-align: center;">
+                            <i class="fas fa-rocket"></i> Formazione Continua & Certificazioni
+                        </h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                            <div style="text-align: center;">
+                                <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1rem;">
+                                    <i class="fab fa-node-js" style="font-size: 2rem; color: #339933; margin-bottom: 0.5rem;"></i>
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Node.js Mastery</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Advanced patterns, microservices architecture</p>
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1rem;">
+                                    <i class="fab fa-js-square" style="font-size: 2rem; color: #f7df1e; margin-bottom: 0.5rem;"></i>
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">TypeScript Expert</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Advanced types, design patterns</p>
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1rem;">
+                                    <i class="fas fa-cogs" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">DevOps & CI/CD</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Docker, Jenkins, automation</p>
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1rem;">
+                                    <i class="fas fa-users" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 0.5rem;"></i>
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Leadership & Mentoring</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Team management, Agile methodologies</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 2rem; text-align: center; padding: 1.5rem; background: white; border-radius: var(--border-radius);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
+                                <i class="fas fa-book"></i> Creatore del Corso
+                            </h4>
+                            <div style="background: var(--gradient-primary); color: white; padding: 1rem; border-radius: var(--border-radius); display: inline-block;">
+                                <strong>"Software Developer Crash Course"</strong><br>
+                                <span style="font-size: 0.9rem; opacity: 0.9;">Formazione completa per nuovi sviluppatori</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results/Testimonials Section -->
+        <section class="section" style="background: var(--bg-secondary);">
+            <div class="container">
+                <h2 class="section-title">🏆 Risultati che parlano</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                    <div style="background: white; padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm); text-align: center;">
+                        <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">⚡</div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Performance Boost</h3>
+                        <p style="color: var(--text-secondary);">
+                            <strong>75% riduzione tempi di risposta</strong><br>
+                            Migrazione sistema legacy Scala → NestJS per software sanitario
+                        </p>
+                    </div>
+                    <div style="background: white; padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm); text-align: center;">
+                        <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">👥</div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Team Growth</h3>
+                        <p style="color: var(--text-secondary);">
+                            <strong>3 team di sviluppo guidati</strong><br>
+                            Onboarding e mentoring di 15+ sviluppatori junior
+                        </p>
+                    </div>
+                    <div style="background: white; padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm); text-align: center;">
+                        <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">🚀</div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Projects Delivered</h3>
+                        <p style="color: var(--text-secondary);">
+                            <strong>50+ progetti completati</strong><br>
+                            Da startup a enterprise, sempre nei tempi stabiliti
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Recensioni LinkedIn Reali -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    
+                    <!-- Recensione Davide De Gennaro -->
+                    <div style="background: white; padding: 2.5rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm);">
+                        <blockquote style="border-left: 4px solid var(--primary-color); padding-left: 1.5rem; margin: 0; font-style: italic; color: var(--text-secondary); font-size: 1rem; line-height: 1.6;">
+                            "È capace di adattarsi a codebase esistenti anche complicate, riuscendo a orientarsi in progetti creati da altri sviluppatori e ad aggiungere con successo nuove funzionalità. Dimostra passione per lo sviluppo software, dedicando tempo per rimanere aggiornato sulle tecnologie. È un sviluppatore affidabile con buone capacità di adattamento tecnico."
+                        </blockquote>
+                        <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.9rem;">DD</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.95rem;">Davide De Gennaro</div>
+                                <div style="color: var(--text-secondary); font-size: 0.85rem;">Developer @ Competitoor</div>
+                                <div style="color: var(--primary-color); font-size: 0.8rem; margin-top: 0.2rem;">
+                                    <i class="fab fa-linkedin" style="margin-right: 0.3rem;"></i>LinkedIn
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recensione Alberto Tedeschi -->
+                    <div style="background: white; padding: 2.5rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm);">
+                        <blockquote style="border-left: 4px solid var(--primary-color); padding-left: 1.5rem; margin: 0; font-style: italic; color: var(--text-secondary); font-size: 1rem; line-height: 1.6;">
+                            "Antonio è un team player esemplare: comunica efficacemente, rispetta le scadenze e contribuisce positivamente all'ambiente di lavoro. La sua etica professionale e la voglia di imparare lo rendono una risorsa preziosa per qualsiasi team di sviluppo."
+                        </blockquote>
+                        <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 45px; height: 45px; border-radius: 50%; background: var(--gradient-secondary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.9rem;">AT</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.95rem;">Alberto Tedeschi</div>
+                                <div style="color: var(--text-secondary); font-size: 0.85rem;">Team Colleague</div>
+                                <div style="color: var(--primary-color); font-size: 0.8rem; margin-top: 0.2rem;">
+                                    <i class="fab fa-linkedin" style="margin-right: 0.3rem;"></i>LinkedIn
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recensioni aggiuntive in formato più compatto -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem;">
+                    
+                    <!-- Matteo Pulega -->
+                    <div style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--border-radius); border-left: 4px solid var(--accent-color);">
+                        <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 1rem; font-size: 0.95rem;">
+                            "È una persona empatica, disponibile ad aiutare e a offrire il proprio punto di vista con intelligenza e apertura. Sempre interessato alle nuove tecnologie."
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 0.8rem;">
+                            <div style="width: 35px; height: 35px; border-radius: 50%; background: var(--accent-color); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">MP</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.9rem;">Matteo Pulega</div>
+                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Senior Data Scientist</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Davide Silvestri -->
+                    <div style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--border-radius); border-left: 4px solid var(--primary-color);">
+                        <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 1rem; font-size: 0.95rem;">
+                            "Persona piacevole, disponibile e tecnicamente preparata con cui creerei volentieri una startup."
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 0.8rem;">
+                            <div style="width: 35px; height: 35px; border-radius: 50%; background: var(--primary-color); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">DS</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.9rem;">Davide Silvestri</div>
+                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Tech Colleague</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alessandro Zungrone -->
+                    <div style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--border-radius); border-left: 4px solid var(--secondary-color);">
+                        <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 1rem; font-size: 0.95rem;">
+                            "Persona focalizzata alla risoluzione del problema e attento alle innovazioni del mercato. Intraprendente e studioso, capace nella programmazione delle nuove tecnologie web e IoT."
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 0.8rem;">
+                            <div style="width: 35px; height: 35px; border-radius: 50%; background: var(--secondary-color); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">AZ</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.9rem;">Alessandro Zungrone</div>
+                                <div style="color: var(--text-secondary); font-size: 0.8rem;">Software Project Engineering Leader</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact section" id="contact">
+            <div class="container">
+                <h2 class="section-title">🚀 Pronto a far decollare il tuo progetto?</h2>
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                        <strong>Disponibilità limitata</strong> - Accetto solo <strong>3 nuovi progetti al mese</strong>
+                    </p>
+                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 1rem 2rem; border-radius: 8px; color: white; font-weight: 600; display: inline-block;">
+                        ⚡ Risposta garantita entro 24 ore
+                    </div>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-info fade-in">
+                        <h3 style="margin-bottom: 1.5rem; color: var(--primary-color);">💡 Cosa posso fare per te:</h3>
+                        <ul style="list-style: none; padding: 0; margin-bottom: 2rem;">
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
+                                <span style="color: #10b981; margin-right: 10px;">✅</span>
+                                <strong>API REST e GraphQL</strong> scalabili e performanti
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
+                                <span style="color: #10b981; margin-right: 10px;">✅</span>
+                                <strong>Microservizi</strong> con Node.js e NestJS
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
+                                <span style="color: #10b981; margin-right: 10px;">✅</span>
+                                <strong>Migrazione legacy</strong> e refactoring
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
+                                <span style="color: #10b981; margin-right: 10px;">✅</span>
+                                <strong>Consulenza tecnica</strong> e code review
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
+                                <span style="color: #10b981; margin-right: 10px;">✅</span>
+                                <strong>Team leadership</strong> e mentoring
+                            </li>
+                        </ul>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>awesome.cit.dev@gmail.com</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Reggio Emilia, Italia</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <span>+39 380 46***77</span>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="https://github.com/awesomecit" class="social-link" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/antonio-cittadino-9362b179/" class="social-link" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://www.instagram.com/_tech_citizen_/" class="social-link" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="mailto:awesome.cit.dev@gmail.com" class="social-link" aria-label="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <form class="contact-form fade-in" id="contact-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Nome</label>
+                            <input type="text" id="name" class="form-input" placeholder="Il tuo nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-input" placeholder="la-tua@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Oggetto</label>
+                            <input type="text" id="subject" class="form-input" placeholder="Oggetto del messaggio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Messaggio</label>
+                            <textarea id="message" class="form-textarea" placeholder="Il tuo messaggio..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i>
+                            Invia Messaggio
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Antonio Cittadino. Realizzato con HTML5, CSS3 e JavaScript vanilla seguendo principi di Clean Code e best practices.</p>
         </div>
-      </div>
-    </section>
+    </footer>
 
-    <!-- Our Team Section -->
-    <section class="our-team" id="team">
-      <div class="container">
-        <h2>Our Team</h2>
-        <div class="team-grid">
-          <a class="team-member" href="team.html#alex-morgan">
-            <div class="team-photo">
-              <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="40" cy="40" r="38" fill="#e3eaf3" stroke="#0057b8" stroke-width="2"/>
-                <circle cx="40" cy="32" r="14" fill="#fff"/>
-                <rect x="24" y="48" width="32" height="18" rx="9" fill="#fff"/>
-              </svg>
-            </div>
-            <h3>Alex Morgan</h3>
-            <p>Chief Executive Officer</p>
-          </a>
-          <a class="team-member" href="team.html#jamie-lee">
-            <div class="team-photo">
-              <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="40" cy="40" r="38" fill="#e3eaf3" stroke="#0057b8" stroke-width="2"/>
-                <circle cx="40" cy="32" r="14" fill="#fff"/>
-                <rect x="24" y="48" width="32" height="18" rx="9" fill="#fff"/>
-              </svg>
-            </div>
-            <h3>Jamie Lee</h3>
-            <p>Chief Technology Officer</p>
-          </a>
-          <a class="team-member" href="team.html#sam-taylor">
-            <div class="team-photo">
-              <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="40" cy="40" r="38" fill="#e3eaf3" stroke="#0057b8" stroke-width="2"/>
-                <circle cx="40" cy="32" r="14" fill="#fff"/>
-                <rect x="24" y="48" width="32" height="18" rx="9" fill="#fff"/>
-              </svg>
-            </div>
-            <h3>Sam Taylor</h3>
-            <p>Lead AI Engineer</p>
-          </a>
-          <a class="team-member" href="team.html#chris-evans">
-            <div class="team-photo">
-              <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="40" cy="40" r="38" fill="#e3eaf3" stroke="#0057b8" stroke-width="2"/>
-                <circle cx="40" cy="32" r="14" fill="#fff"/>
-                <rect x="24" y="48" width="32" height="18" rx="9" fill="#fff"/>
-              </svg>
-            </div>
-            <h3>Chris Evans</h3>
-            <p>SAP Consultant</p>
-          </a>
-          <a class="team-member" href="team.html#taylor-brooks">
-            <div class="team-photo">
-              <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="40" cy="40" r="38" fill="#e3eaf3" stroke="#0057b8" stroke-width="2"/>
-                <circle cx="40" cy="32" r="14" fill="#fff"/>
-                <rect x="24" y="48" width="32" height="18" rx="9" fill="#fff"/>
-              </svg>
-            </div>
-            <h3>Taylor Brooks</h3>
-            <p>Software Consultant</p>
-          </a>
-        </div>
-      </div>
-    </section>
+    <script>
+        // Application State Management
+        class PortfolioApp {
+            constructor() {
+                this.init();
+            }
 
-    <!-- Mission: Crowdfunding & Go-to-Market -->
-    <section class="mission-crowdfunding" id="projects">
-      <div class="container">
-        <h2>Our Mission: Crowdfunding for Innovation</h2>
-        <p>We are seeking funding through leading crowdfunding platforms to bring TechCitizen AI to life and launch our innovative products on the market. Support our mission to democratize enterprise AI and make advanced automation accessible to all organizations.</p>
-        <a href="projects.html" class="cta-btn">Support Us</a>
-      </div>
-    </section>
+            init() {
+                this.setupEventListeners();
+                this.setupScrollEffects();
+                this.setupIntersectionObserver();
+                this.initMobileMenu();
+            }
 
-    <!-- Support Us Section -->
-    <section class="support-us" id="donate">
-      <div class="container">
-        <h2>Support Us with a Donation</h2>
-        <p>Your contribution helps us accelerate development, reach more organizations, and deliver cutting-edge AI solutions. Every donation, big or small, makes a difference.</p>
-        <div class="support-list" style="margin-top: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;">
-          <div><strong>Bank Transfer:</strong> IBAN IT00X0000000000000000000000</div>
-          <div><strong>PayPal:</strong> <a href="https://paypal.me/techcitizenai" target="_blank">paypal.me/techcitizenai</a></div>
-          <div><strong>Crypto:</strong> <a href="#" target="_blank">Contact us for wallet address</a></div>
-        </div>
-        <a href="donate.html" class="cta-btn">Donate Now</a>
-      </div>
-    </section>
+            // Event Listeners Setup con Event Delegation pattern
+            setupEventListeners() {
+                // Smooth scrolling per navigation links
+                document.addEventListener('click', this.handleNavigation.bind(this));
+                
+                // Form submission
+                const contactForm = document.getElementById('contact-form');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', this.handleFormSubmission.bind(this));
+                }
 
-    <!-- Book a Demo Section -->
-    <section class="book-demo" id="book-demo">
-      <div class="container">
-        <h2>Book a Demo</h2>
-        <p>Experience the power of TechCitizen AI solutions. Book a personalized demo with our team and discover how we can transform your business operations.</p>
-        <a href="book-demo.html" class="cta-btn">Book a Demo</a>
-      </div>
-    </section>
+                // Mobile menu toggle
+                const mobileToggle = document.getElementById('mobile-toggle');
+                if (mobileToggle) {
+                    mobileToggle.addEventListener('click', this.toggleMobileMenu.bind(this));
+                }
 
-    <!-- Contact Us Section -->
-    <section class="contact-us" id="contact">
-      <div class="container">
-        <h2>Contact Us</h2>
-        <form class="contact-form">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required>
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="4" required></textarea>
-          <button type="submit" class="cta-btn">Send</button>
-        </form>
-      </div>
-    </section>
+                // Scroll event con throttling per performance
+                let scrollTimeout;
+                window.addEventListener('scroll', () => {
+                    if (scrollTimeout) {
+                        clearTimeout(scrollTimeout);
+                    }
+                    scrollTimeout = setTimeout(this.handleScroll.bind(this), 16); // ~60fps
+                });
 
-    <!-- Crowdfunding Contact Section -->
-    <section class="crowdfunding-contact">
-      <div class="container" style="display: flex; flex-direction: column; align-items: center; text-align: center;" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <h2>Support Our Crowdfunding Journey</h2>
-        <p class="crowd-lead">Join us in making TechCitizen AI a reality! For partnerships, investments or to support our campaign, contact us directly or click below.</p>
-        <a href="mailto:crowdfunding@techcitizen.ai" class="cta-btn" style="margin-bottom:16px;">Contact Crowdfunding Team</a>
-        <ul  style="list-style: none; padding: 0; margin: 0;">
-          <li style="list-style: none; margin-bottom: 8px;"><strong>Email:</strong> <a href="mailto:crowdfunding@techcitizen.ai">crowdfunding@techcitizen.ai</a></li>
-          <li style="list-style: none; margin-bottom: 8px;"><strong>Phone:</strong> <a href="tel:+390212345678">+39 02 12345678</a></li>
-          <li style="list-style: none;"><strong>LinkedIn:</strong> <a href="#" target="_blank">TechCitizen AI</a></li>
-        </ul>
-      </div>
-    </section>
-  </div>
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 TechCitizen AI &middot; <a href="mailto:info@techcitizenai.com">info@techcitizenai.com</a></p>
-      <div class="social-links">
-        <a href="#" aria-label="LinkedIn"><img src="images/logos/linkedin.svg" alt="LinkedIn" height="24"></a>
-        <a href="#" aria-label="GitHub"><img src="images/logos/github.svg" alt="GitHub" height="24"></a>
-      </div>
-    </div>
-  </footer>
-  <script src="js/main.js"></script>
-  <script>
-    // Smooth scroll per navbar e CTA
-    document.querySelectorAll('.scroll-link').forEach(link => {
-      link.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href.startsWith('#')) {
-          const target = document.querySelector(href);
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+                // Resize event con debouncing
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    if (resizeTimeout) {
+                        clearTimeout(resizeTimeout);
+                    }
+                    resizeTimeout = setTimeout(this.handleResize.bind(this), 250);
+                });
+            }
+
+            // Navigation handling con Event Delegation
+            handleNavigation(event) {
+                const navLink = event.target.closest('.nav-link');
+                if (!navLink) return;
+
+                event.preventDefault();
+                
+                const targetId = navLink.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = targetSection.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Update active nav state
+                    this.updateActiveNavLink(navLink);
+                    
+                    // Close mobile menu if open
+                    this.closeMobileMenu();
+                }
+            }
+
+            // Active navigation state management
+            updateActiveNavLink(activeLink) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                activeLink.classList.add('active');
+            }
+
+            // Mobile menu functionality
+            initMobileMenu() {
+                this.mobileMenuOpen = false;
+            }
+
+            toggleMobileMenu() {
+                const navMenu = document.getElementById('nav-menu');
+                const mobileToggle = document.getElementById('mobile-toggle');
+                
+                this.mobileMenuOpen = !this.mobileMenuOpen;
+                
+                navMenu.classList.toggle('active', this.mobileMenuOpen);
+                mobileToggle.classList.toggle('active', this.mobileMenuOpen);
+            }
+
+            closeMobileMenu() {
+                const navMenu = document.getElementById('nav-menu');
+                const mobileToggle = document.getElementById('mobile-toggle');
+                
+                this.mobileMenuOpen = false;
+                navMenu.classList.remove('active');
+                mobileToggle.classList.remove('active');
+            }
+
+            // Scroll effects con performance optimization
+            handleScroll() {
+                const header = document.getElementById('header');
+                const scrollY = window.scrollY;
+                
+                // Header background effect
+                if (scrollY > 100) {
+                    header.style.background = 'rgba(255, 255, 255, 0.98)';
+                    header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = 'none';
+                }
+
+                // Update active section nel navigation
+                this.updateActiveSection();
+            }
+
+            // Active section detection
+            updateActiveSection() {
+                const sections = document.querySelectorAll('section[id]');
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const scrollY = window.scrollY + headerHeight + 100;
+
+                let currentSection = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollY >= sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                // Update nav links
+                if (currentSection) {
+                    const activeLink = document.querySelector(`.nav-link[href="#${currentSection}"]`);
+                    if (activeLink) {
+                        this.updateActiveNavLink(activeLink);
+                    }
+                }
+            }
+
+            // Intersection Observer per animazioni fade-in
+            setupIntersectionObserver() {
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe all elements with fade-in class
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    observer.observe(el);
+                });
+            }
+
+            // Form submission con validation
+            handleFormSubmission(event) {
+                event.preventDefault();
+                
+                const formData = new FormData(event.target);
+                const data = Object.fromEntries(formData);
+                
+                // Basic validation
+                if (!this.validateForm(data)) {
+                    this.showNotification('Per favore compila tutti i campi correttamente.', 'error');
+                    return;
+                }
+
+                // Simulate form submission
+                this.submitForm(data);
+            }
+
+            // Form validation
+            validateForm(data) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                return data.name.trim() && 
+                       data.email.trim() && 
+                       emailRegex.test(data.email) &&
+                       data.subject.trim() && 
+                       data.message.trim();
+            }
+
+            // Form submission simulation
+            async submitForm(data) {
+                const submitButton = document.querySelector('#contact-form button[type="submit"]');
+                const originalText = submitButton.innerHTML;
+                
+                // Loading state
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Invio in corso...';
+                submitButton.disabled = true;
+
+                try {
+                    // Simulate API call
+                    await this.delay(2000);
+                    
+                    // Success
+                    this.showNotification('Messaggio inviato con successo! Ti contatterò presto.', 'success');
+                    document.getElementById('contact-form').reset();
+                    
+                } catch (error) {
+                    // Error handling
+                    this.showNotification('Errore nell\'invio del messaggio. Riprova più tardi.', 'error');
+                } finally {
+                    // Reset button
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                }
+            }
+
+            // Utility: delay function
+            delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            // Notification system
+            showNotification(message, type = 'info') {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `notification notification-${type}`;
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 1rem 1.5rem;
+                    border-radius: 8px;
+                    color: white;
+                    font-weight: 500;
+                    z-index: 9999;
+                    max-width: 400px;
+                    transform: translateX(100%);
+                    transition: transform 0.3s ease;
+                    ${type === 'success' ? 'background: #10b981;' : ''}
+                    ${type === 'error' ? 'background: #ef4444;' : ''}
+                    ${type === 'info' ? 'background: #3b82f6;' : ''}
+                `;
+                
+                notification.textContent = message;
+                document.body.appendChild(notification);
+
+                // Animate in
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+
+                // Auto remove
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 5000);
+            }
+
+            // Resize handler
+            handleResize() {
+                // Close mobile menu on resize to desktop
+                if (window.innerWidth > 768 && this.mobileMenuOpen) {
+                    this.closeMobileMenu();
+                }
+            }
+
+            // Scroll effects setup
+            setupScrollEffects() {
+                // Parallax effect per hero section (opzionale)
+                if (window.innerWidth > 1024) {
+                    window.addEventListener('scroll', () => {
+                        const hero = document.querySelector('.hero');
+                        const scrolled = window.pageYOffset;
+                        const rate = scrolled * -0.5;
+                        
+                        if (hero) {
+                            hero.style.transform = `translateY(${rate}px)`;
+                        }
+                    });
+                }
+            }
         }
-      });
-    });
-  </script>
+
+        // Initialize application quando DOM è ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new PortfolioApp();
+        });
+
+        // Service Worker registration per PWA capabilities (opzionale)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // navigator.registerServiceWorker('/sw.js'); // Uncomment se hai un service worker
+            });
+        }
+    </script>
 </body>
 </html>
