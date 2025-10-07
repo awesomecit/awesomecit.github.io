@@ -474,9 +474,10 @@
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            color: var(--primary-color);
+            color: white;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
         }
 
@@ -484,11 +485,13 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
+            justify-content: center;
+            align-items: center;
         }
 
         .skill-tag {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-color);
             padding: 0.5rem 1rem;
             border-radius: var(--border-radius);
             font-size: 0.875rem;
@@ -497,8 +500,10 @@
         }
 
         .skill-tag:hover {
-            background: var(--primary-color);
-            color: white;
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         /* Contact section */
@@ -669,6 +674,11 @@
                 text-align: center;
                 gap: 2rem;
             }
+            
+            /* Riordinare immagine prima su mobile */
+            .hero-image {
+                order: -1;
+            }
 
             .hero-text h1 {
                 font-size: 2.5rem;
@@ -704,7 +714,10 @@
 
         @media (max-width: 480px) {
             .container {
-                padding: 0 0.5rem;
+                padding: 0 1rem;
+                margin: 0 auto;
+                width: 100%;
+                max-width: 100%;
             }
 
             .section {
@@ -763,26 +776,76 @@
             transform: scale(1.1);
         }
 
+        /* Full-width carousel containers (except testimonials) */
+        .skills-carousel-container,
+        .education-carousel-container,
+        .collaborations-carousel-container,
+        .sectors-carousel-container {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+        }
+
         /* Skills Carousel */
         .skills-carousel-container {
             overflow: hidden;
             position: relative;
-            margin: 0 -1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(74, 144, 226, 0.2);
+            border-radius: var(--border-radius-lg);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .skills-carousel {
             display: flex;
-            animation: scrollSkills 20s linear infinite;
             gap: 2rem;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            align-items: center;
         }
 
         .skills-carousel .skill-category {
-            flex: 0 0 320px;
-            background: white;
-            padding: 2rem;
+            flex: 0 0 400px;
+            background: var(--gradient-primary);
+            padding: 2.5rem;
             border-radius: var(--border-radius-lg);
             box-shadow: var(--shadow-sm);
-            transition: var(--transition);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            border: 1px solid rgba(74, 144, 226, 0.15);
+            opacity: 0.6;
+            transform: scale(0.9);
+        }
+
+        .skills-carousel .skill-category.active {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 20px 60px rgba(74, 144, 226, 0.3);
+        }
+
+        .skills-carousel .skill-category h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 0.2rem;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .skill-icon {
@@ -797,32 +860,37 @@
             transform: rotate(15deg) scale(1.1);
         }
 
-        @keyframes scrollSkills {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        /* Keyframes rimossi - gestiti con JavaScript */
 
         /* Testimonials Carousel */
         .testimonials-carousel-container {
             overflow: hidden;
             position: relative;
             margin: 2rem -1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(74, 144, 226, 0.2);
+            border-radius: var(--border-radius-lg);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
         }
 
         .testimonials-carousel {
             display: flex;
-            animation: scrollTestimonials 25s linear infinite;
             gap: 2rem;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .testimonial-card {
             flex: 0 0 380px;
-            background: white;
+            background: var(--gradient-primary);
             padding: 2rem;
             border-radius: var(--border-radius-lg);
             box-shadow: var(--shadow-sm);
-            border-left: 4px solid var(--primary-color);
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
             position: relative;
+            text-align: center;
+            border: 1px solid rgba(74, 144, 226, 0.15);
         }
         
         .testimonial-header {
@@ -847,65 +915,428 @@
         .testimonial-info h4 {
             margin: 0 0 0.25rem 0;
             font-weight: 600;
-            color: var(--text-primary);
+            color: white;
             font-size: 1rem;
         }
         
         .testimonial-info p {
             margin: 0;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.85rem;
         }
 
-        @keyframes scrollTestimonials {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .testimonial-card blockquote {
+            color: rgba(255, 255, 255, 0.9) !important;
         }
 
-        /* Education Carousel - Same style as others */
+        /* Keyframes rimossi - gestiti con JavaScript */
+
+        /* Education Carousel - Unified style */
         .education-carousel-container {
             overflow: hidden;
             position: relative;
-            margin: 0 auto;
-            max-width: 100%;
+            margin: 0;
             width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(74, 144, 226, 0.2);
+            border-radius: var(--border-radius-lg);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
         .education-carousel {
             display: flex;
             gap: 2rem;
-            animation: scrollEducation 22s linear infinite;
-            align-items: stretch;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            align-items: center;
         }
 
         .education-skill-card {
-            flex: 0 0 320px;
-            max-width: 320px;
-            transition: var(--transition);
+            flex: 0 0 400px;
+            background: var(--gradient-primary);
+            padding: 2.5rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            border: 1px solid rgba(74, 144, 226, 0.15);
+            opacity: 0.6;
+            transform: scale(0.9);
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
 
-        .education-skill-card:hover {
-            transform: translateY(-5px);
+        .education-skill-card.active {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 20px 60px rgba(74, 144, 226, 0.3);
+        }
+
+        .education-skill-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .education-skill-card h4 {
-            font-size: 1.1rem;
+            color: white;
             margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
             line-height: 1.3;
             word-break: break-word;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .education-skill-card p {
+            color: rgba(255, 255, 255, 0.9);
             font-size: 0.9rem;
             line-height: 1.4;
             margin-bottom: 0.5rem;
-            word-break: break-word;
-            hyphens: auto;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Override inline styles per education skill card content */
+        .education-skill-card h4[style*="color"],
+        .education-skill-card p[style*="color"] {
+            color: white !important;
+        }
+
+        .education-skill-card h4[style*="color"] + p {
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+
+        /* Collaborations Section */
+        .collaborations-section {
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .collaborations-title {
             text-align: center;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .collaborations-title .trophy-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .collaborations-carousel-container {
+            overflow: hidden;
+            position: relative;
+            margin: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(74, 144, 226, 0.2);
+            border-radius: var(--border-radius-lg);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .collaborations-carousel {
+            display: flex;
+            gap: 2rem;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            align-items: center;
+        }
+
+        .collaboration-logo {
+            flex: 0 0 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem;
+            background: var(--gradient-primary);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(74, 144, 226, 0.15);
+            min-height: 200px;
+            opacity: 0.6;
+            transform: scale(0.9);
+        }
+
+        .collaboration-logo.active {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 20px 60px rgba(74, 144, 226, 0.3);
+        }
+
+        .collaboration-logo img {
+            max-width: 150px;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: brightness(0) saturate(100%) invert(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .collaboration-logo.active img {
+            filter: brightness(0) saturate(100%) invert(100%);
+        }
+
+        .collaboration-logo .company-name {
+            font-weight: 600;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+        /* Sectors & Specializations Section */
+        .sectors-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 5rem 0;
+        }
+
+        .sectors-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.05"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.05"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .sectors-carousel-container {
+            overflow: hidden;
+            position: relative;
+            margin: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-lg);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sectors-carousel {
+            display: flex;
+            gap: 2rem;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            align-items: center;
+        }
+
+        .sector-card {
+            flex: 0 0 400px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            min-height: 450px;
+            opacity: 0.6;
+            transform: scale(0.9);
+            text-align: center;
+        }
+
+        .sector-card.active {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.2);
+        }
+
+
+
+        .sector-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sector-icon {
+            font-size: 3rem;
+            background: linear-gradient(145deg, #4facfe 0%, #00f2fe 100%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.8s ease;
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+        }
+
+
+
+        .sector-card h3 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #ffffff, #e3f2fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .specializations-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+
+        .specialization-item {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+            padding: 1.2rem 1.5rem;
+            border-radius: var(--border-radius);
+            border-left: 5px solid #4facfe;
+            transition: all 0.8s ease;
+            font-size: 1rem;
+            line-height: 1.5;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .specialization-item:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-left-color: rgba(255, 255, 255, 0.9);
+            transform: translateX(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .specialization-item strong {
+            color: #ffffff;
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 1.1rem;
+        }
+
+        .specialization-item span {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 0.95rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+            line-height: 1.4;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .collaborations-carousel-container {
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+                padding: 1rem;
+            }
+            
+            .collaborations-carousel {
+                gap: 1rem;
+            }
+            
+            .collaboration-logo {
+                flex: 0 0 300px;
+                padding: 2rem;
+                min-height: 150px;
+            }
+            
+            .collaboration-logo img {
+                max-width: 100px;
+                max-height: 50px;
+            }
+            
+            .collaborations-title .trophy-icon {
+                font-size: 2rem;
+            }
+
+            .sectors-carousel-container {
+                margin: 0;
+                padding: 1rem;
+            }
+
+            .sector-card {
+                flex: 0 0 300px;
+                padding: 2rem 1.5rem;
+                min-height: 400px;
+            }
+
+
+
+            .sectors-carousel {
+                gap: 1rem;
+            }
+
+            .sector-icon {
+                font-size: 2.2rem;
+                width: 55px;
+                height: 55px;
+            }
+
+
+
+            .specializations-list {
+                grid-template-columns: 1fr;
+                gap: 0.7rem;
+            }
+
+            .specialization-item {
+                padding: 0.9rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .specialization-item:hover {
+                transform: translateX(5px);
+            }
+
+            .specialization-item strong {
+                font-size: 0.9rem;
+            }
+
+            .specialization-item span {
+                font-size: 0.8rem;
+            }
+        }
+
+        .education-skill-card p[style*="color"] {
+            color: rgba(255, 255, 255, 0.9) !important;
         }
 
         /* Stili per la sezione educazione generale */
@@ -929,14 +1360,9 @@
             hyphens: auto;
         }
 
-        @keyframes scrollEducation {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        /* Keyframes rimossi - gestiti con JavaScript */
 
-        .education-carousel-container:hover .education-carousel {
-            animation-play-state: paused;
-        }
+        /* Rimosso il blocco dell'animazione su hover per education carousel */
 
         /* Stili per prevenire overflow nella sezione educazione */
         .education.section {
@@ -985,13 +1411,19 @@
         /* Responsive adjustments for education section */
         @media (max-width: 768px) {
             .education-carousel-container {
-                margin: 0;
-                max-width: calc(100vw - 2rem);
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+                padding: 1rem;
             }
             
             .education-skill-card {
-                flex: 0 0 280px;
-                max-width: 280px;
+                flex: 0 0 300px;
+                padding: 2rem;
+            }
+
+            .education-carousel {
+                gap: 1rem;
             }
             
             .education-card {
@@ -1040,11 +1472,7 @@
             transform: rotate(360deg) scale(1.2);
         }
 
-        /* Pause animation on hover */
-        .skills-carousel-container:hover .skills-carousel,
-        .testimonials-carousel-container:hover .testimonials-carousel {
-            animation-play-state: paused;
-        }
+        /* Rimosso il blocco dell'animazione su hover per un'esperienza più fluida */
 
         /* Creative contact method styling */
         .contact-method .creative-icon {
@@ -1053,35 +1481,78 @@
             text-align: center;
         }
 
-        /* Responsive carousel */
+        /* Responsive carousel - Full width containers */
         @media (max-width: 768px) {
-            .skills-carousel .skill-category,
+            .skills-carousel-container {
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+                padding: 1rem;
+            }
+            
+            .skills-carousel .skill-category {
+                flex: 0 0 300px;
+                padding: 2rem;
+            }
+            
             .testimonial-card {
                 flex: 0 0 280px;
             }
             
-            .skills-carousel {
-                animation-duration: 15s;
+            .collaboration-logo {
+                flex: 0 0 300px;
+                padding: 2rem;
+                min-height: 150px;
             }
             
-            .testimonials-carousel {
-                animation-duration: 20s;
+            .education-skill-card {
+                flex: 0 0 300px;
+                padding: 2rem;
+            }
+            
+            .sector-card {
+                flex: 0 0 300px;
+                padding: 2rem 1.5rem;
+                min-height: 400px;
+            }
+        }
+
+        /* Small screens - prevent overflow */
+        @media (max-width: 480px) {
+            .skills-carousel-container,
+            .education-carousel-container,
+            .collaborations-carousel-container,
+            .sectors-carousel-container {
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+                padding: 0.5rem;
+            }
+            
+            .skills-carousel .skill-category,
+            .education-skill-card,
+            .collaboration-logo,
+            .sector-card {
+                flex: 0 0 280px;
+                padding: 1.5rem;
             }
         }
 
         /* Remove motion for users who prefer reduced motion */
         @media (prefers-reduced-motion: reduce) {
             .skills-carousel,
-            .testimonials-carousel {
+            .testimonials-carousel,
+            .education-carousel,
+            .collaborations-carousel,
+            .sectors-carousel {
                 animation: none;
             }
             
-            .skills-carousel-container {
-                overflow-x: auto;
-                padding-bottom: 1rem;
-            }
-            
-            .testimonials-carousel-container {
+            .skills-carousel-container,
+            .testimonials-carousel-container,
+            .education-carousel-container,
+            .collaborations-carousel-container,
+            .sectors-carousel-container {
                 overflow-x: auto;
                 padding-bottom: 1rem;
             }
@@ -1095,17 +1566,273 @@
                 --bg-primary: #ffffff;
             }
         }
+
+        /* Mobile-First Thumb-Friendly Navigation */
+        .mobile-fab {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            border: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        .mobile-fab .fab-icon {
+            color: white;
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-fab.active .fab-icon {
+            transform: rotate(45deg);
+        }
+
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+        }
+
+        .mobile-menu-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 24px 24px 0 0;
+            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .mobile-menu-panel.active {
+            transform: translateY(0);
+        }
+
+        .mobile-menu-header {
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid var(--bg-secondary);
+            text-align: center;
+        }
+
+        .mobile-menu-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .mobile-menu-items {
+            padding: 16px 0 32px;
+        }
+
+        .mobile-menu-item {
+            display: block;
+            padding: 18px 24px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-bottom: 1px solid var(--bg-secondary);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .mobile-menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu-item:hover,
+        .mobile-menu-item:active {
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-color);
+            transform: scaleY(0);
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-menu-item:hover::before,
+        .mobile-menu-item.active::before {
+            transform: scaleY(1);
+        }
+
+        .mobile-menu-item .menu-icon {
+            display: inline-block;
+            width: 24px;
+            margin-right: 16px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* Mobile Message Button */
+        .mobile-message-btn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(240, 147, 251, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-message-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(240, 147, 251, 0.6);
+        }
+
+        .mobile-message-btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* Show mobile menu only on small screens */
+        @media (max-width: 768px) {
+            .mobile-fab {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mobile-menu-overlay {
+                display: block;
+            }
+
+            .mobile-message-btn {
+                display: flex;
+            }
+
+            /* Hide desktop menu on mobile */
+            .header {
+                display: none;
+            }
+            
+            /* Migliorare centratura contenuti mobile */
+            body {
+                text-align: left;
+            }
+            
+            .container {
+                margin: 0 auto;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .contact-methods {
+                align-items: center;
+                text-align: center;
+            }
+
+            .contact-method {
+                justify-content: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .contact-info {
+                text-align: center;
+            }
+
+            .contact-info h3 {
+                text-align: center;
+            }
+
+            .contact-info ul {
+                text-align: left;
+                display: inline-block;
+                max-width: 100%;
+            }
+        }
+
+        /* Show header normally on desktop */
+        @media (min-width: 769px) {
+            .mobile-fab {
+                display: none;
+            }
+            
+            .mobile-menu-overlay {
+                display: none;
+            }
+            
+            .mobile-message-btn {
+                display: none;
+            }
+        }
+
+        /* Ensure proper touch targets */
+        @media (max-width: 480px) {
+            .mobile-menu-item {
+                padding: 20px 24px;
+                font-size: 1.15rem;
+            }
+
+            .mobile-fab {
+                width: 60px;
+                height: 60px;
+                bottom: 16px;
+                right: 16px;
+            }
+        }
     </style>
 </head>
 <body>
     <header class="header" id="header">
         <nav class="nav container">
-            <div class="logo">AC</div>
+            <div class="logo">Antonio</div>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#about" class="nav-link">Chi Sono</a></li>
                 <li><a href="#experience" class="nav-link">Esperienza</a></li>
                 <li><a href="#skills" class="nav-link">Competenze</a></li>
+                <li><a href="#sectors" class="nav-link">Settori</a></li>
+                <li><a href="#collaborations" class="nav-link">Trusted By</a></li>
                 <li><a href="#education" class="nav-link">Formazione</a></li>
                 <li><a href="#contact" class="nav-link">Contatti</a></li>
             </ul>
@@ -1124,13 +1851,8 @@
                 <div class="hero-content">
                     <div class="hero-text">
                         <h1>Trasformo le tue idee in soluzioni backend robuste</h1>
-                        <p class="hero-subtitle">Senior Backend Developer | Node.js, NestJS, TypeScript Expert</p>
-                        <p class="hero-description">
-                            <span style="color: var(--primary-color); font-weight: bold;">▶</span> <strong>6+ anni di esperienza</strong> nella creazione di API scalabili e sistemi enterprise<br>
-                            <span style="color: var(--accent-color); font-weight: bold;">▶</span> <strong>Specializzato in Node.js, NestJS e TypeScript</strong> con metodologie moderne (TDD, DDD)<br>
-                            <span style="color: var(--secondary-color); font-weight: bold;">▶</span> <strong>Leader tecnico</strong> con esperienza nella gestione di team multiculturali<br>
-                            <span style="color: var(--primary-color); font-weight: bold;">▶</span> <strong>Disponibile per freelance e consulenze</strong> - Progetti completati in 30+ settori
-                        </p>
+                        <p class="hero-subtitle">Senior Backend Developer | Node.js, NestJS, TypeScript, T*D (Test, Team and Trunk based) IaaC, Agile (Kanban, Scrum, eXtream Programming)</p>
+-------
                         <div class="hero-cta">
                             <a href="#contact" class="btn btn-primary">
                                 <span></span>
@@ -1344,6 +2066,178 @@
             </div>
         </section>
 
+        <!-- Sectors & Specializations Section -->
+        <section class="sectors-section section" id="sectors">
+            <div class="container">
+                <h2 class="section-title" style="color: white; text-align: center; margin-bottom: 1rem;">🌐 Settori & Competenze Specialistiche</h2>
+                <p style="text-align: center; color: rgba(255, 255, 255, 0.9); font-size: 1.1rem; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    Competenze trasversali maturate in ambienti mission-critical con focus su sicurezza, scalabilità e compliance normativa
+                </p>
+                
+                <div class="sectors-carousel-container">
+                    <div class="sectors-carousel">
+                        <!-- HealthCare & Medical -->
+                        <div class="sector-card fade-in">
+                        <div class="sector-header">
+                            <div class="sector-icon">🏥</div>
+                            <h3>HealthCare & Medical</h3>
+                        </div>
+                        <div class="specializations-list">
+                            <div class="specialization-item">
+                                <strong>Standard HL7 & FHIR</strong>
+                                <span>Messaggi HL7 in REST, MLLP, interoperabilità sanitaria</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Cartelle Cliniche</strong>
+                                <span>Gestione e realizzazione sistemi ECR/EMR</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Firma Digitale Sanitaria</strong>
+                                <span>PADES/CADES con catena delle firme</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Portfolio Storico</strong>
+                                <span>Modifiche e firme con audit trail completo</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Trasferimento Sicuro</strong>
+                                <span>Dati criptati end-to-end, compliance GDPR</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enterprise Systems -->
+                    <div class="sector-card fade-in">
+                        <div class="sector-header">
+                            <div class="sector-icon">🏢</div>
+                            <h3>Enterprise Systems</h3>
+                        </div>
+                        <div class="specializations-list">
+                            <div class="specialization-item">
+                                <strong>Sistemi Distribuiti</strong>
+                                <span>Microservizi, event sourcing, CQRS</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Logging Centralizzato</strong>
+                                <span>ELK Stack, structured logging, monitoring</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Integrazioni SOAP/REST</strong>
+                                <span>Legacy systems, API Gateway, ESB</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Identity Management</strong>
+                                <span>Keycloak, LDAP, SSO, OAuth2/OIDC</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Reportistica</strong>
+                                <span>JasperReports, JSReport, dashboard real-time</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DevOps & Automation -->
+                    <div class="sector-card fade-in">
+                        <div class="sector-header">
+                            <div class="sector-icon">⚙️</div>
+                            <h3>DevOps & Automation</h3>
+                        </div>
+                        <div class="specializations-list">
+                            <div class="specialization-item">
+                                <strong>CI/CD Enterprise</strong>
+                                <span>Jenkins, GitLab CI, pipeline automation</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Cloud Platforms</strong>
+                                <span>AWS, Azure, GCP deployment strategies</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Container Orchestration</strong>
+                                <span>Docker, Kubernetes, service mesh</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Infrastructure as Code</strong>
+                                <span>Terraform, Ansible, CloudFormation</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Monitoring & Observability</strong>
+                                <span>Prometheus, Grafana, APM tools</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Integration -->
+                    <div class="sector-card fade-in">
+                        <div class="sector-header">
+                            <div class="sector-icon">🔗</div>
+                            <h3>System Integration</h3>
+                        </div>
+                        <div class="specializations-list">
+                            <div class="specialization-item">
+                                <strong>External APIs</strong>
+                                <span>Third-party integrations, rate limiting</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Message Queuing</strong>
+                                <span>RabbitMQ, Apache Kafka, Redis Pub/Sub</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Legacy Modernization</strong>
+                                <span>Strangler pattern, gradual migration</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Data Synchronization</strong>
+                                <span>ETL processes, real-time sync, conflict resolution</span>
+                            </div>
+                            <div class="specialization-item">
+                                <strong>Event-Driven Architecture</strong>
+                                <span>Domain events, saga pattern, choreography</span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trusted By Section -->
+        <section class="collaborations-section section" id="collaborations">
+            <div class="container">
+                <div class="collaborations-title">
+                    <h2 class="section-title" style="margin-bottom: 0; text-align: center;">Trusted By</h2>
+                </div>
+                
+                <div class="collaborations-carousel-container">
+                    <div class="collaborations-carousel">
+                        <!-- Competitoor -->
+                        <div class="collaboration-logo fade-in">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Competitoor Logo" style="content: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDIwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRleHQgeD0iMTAwIiB5PSI1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwN2M3MSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCI+Q09NUEVUSVRPT1I8L3RleHQ+PC9zdmc+');">
+                        </div>
+                        
+                        <!-- Horsa -->
+                        <div class="collaboration-logo fade-in">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Horsa Logo" style="content: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDIwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNiNDI4MzYiLz48dGV4dCB4PSIxMDAiIHk9IjU1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCI+aG9yc2E8L3RleHQ+PC9zdmc+');">
+                        </div>
+                        
+                        <!-- SigmaTech -->
+                        <div class="collaboration-logo fade-in">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="SigmaTech Logo" style="content: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDIwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNDAiIGN5PSI1MCIgcj0iMTUiIGZpbGw9IiM0YzlhZjQiLz48dGV4dCB4PSI3NSIgeT0iNDUiIGZpbGw9IiM0YzlhZjQiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiPlNpZ21hVGVjaDwvdGV4dD48dGV4dCB4PSI3NSIgeT0iNjAiIGZpbGw9IiM2NjY2NjYiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+Qk9EVSBPRiBLTk9XTEVOR0U8L3RleHQ+PC9zdmc+');">
+                        </div>
+                        
+                        <!-- Siemens -->
+                        <div class="collaboration-logo fade-in">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Siemens Logo" style="content: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDIwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMwMDk5OWIiLz48dGV4dCB4PSIxMDAiIHk9IjU1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCI+U0lFTUVOUzwvdGV4dD48L3N2Zz4=');">
+                        </div>
+                        
+                        <!-- Promedital -->
+                        <div class="collaboration-logo fade-in">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Promedital Logo" style="content: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDIwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRleHQgeD0iMTAwIiB5PSI1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQwOTZmZiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCI+UHJvbWVkaXRhbDwvdGV4dD48L3N2Zz4=');">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Education Section -->
         <section class="education section" id="education">
             <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
@@ -1431,16 +2325,6 @@
                                         <p style="color: var(--text-secondary); font-size: 0.9rem;">Team management, Agile methodologies</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 2rem; text-align: center; padding: 1.5rem; background: white; border-radius: var(--border-radius);">
-                            <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
-                                <span class="creative-icon">📖</span> Creatore del Corso
-                            </h4>
-                            <div style="background: var(--gradient-primary); color: white; padding: 1rem; border-radius: var(--border-radius); display: inline-block;">
-                                <strong>"Software Developer Crash Course"</strong><br>
-                                <span style="font-size: 0.9rem; opacity: 0.9;">Formazione completa per nuovi sviluppatori</span>
                             </div>
                         </div>
                     </div>
@@ -1542,7 +2426,7 @@
                                     <p>Tech Colleague</p>
                                 </div>
                             </div>
-                            <blockquote style="margin: 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                            <blockquote style="margin: 0; font-style: italic; color: rgba(255, 255, 255, 0.9); line-height: 1.6;">
                                 "Persona piacevole, disponibile e tecnicamente preparata con cui creerei volentieri una startup."
                             </blockquote>
                         </div>
@@ -1558,7 +2442,7 @@
                                     <p>Software Project Engineering Leader</p>
                                 </div>
                             </div>
-                            <blockquote style="margin: 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">
+                            <blockquote style="margin: 0; font-style: italic; color: rgba(255, 255, 255, 0.9); line-height: 1.6;">
                                 "Persona focalizzata alla risoluzione del problema e attento alle innovazioni del mercato. Intraprendente e studioso, capace nella programmazione delle nuove tecnologie web e IoT."
                             </blockquote>
                         </div>
@@ -1621,9 +2505,9 @@
                     <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 1rem;">
                         <strong>Disponibilità limitata</strong> - Accetto solo <strong>3 nuovi progetti al mese</strong>
                     </p>
-                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 1rem 2rem; border-radius: 8px; color: white; font-weight: 600; display: inline-block;">
+                    <a href="#contact" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 1rem 2rem; border-radius: 8px; color: white; font-weight: 600; display: inline-block; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(240, 147, 251, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
                         ⚡ Risposta garantita entro 24 ore
-                    </div>
+                    </a>
                 </div>
                 <div class="contact-grid">
                     <div class="contact-info fade-in">
@@ -1716,6 +2600,59 @@
         </div>
     </footer>
 
+    <!-- Mobile Floating Action Button -->
+    <button class="mobile-fab" id="mobile-fab" aria-label="Apri Menu">
+        <i class="fas fa-bars fab-icon"></i>
+    </button>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+        <div class="mobile-menu-panel" id="mobile-menu-panel">
+            <div class="mobile-menu-header">
+                <h3 class="mobile-menu-title">Menu Navigazione</h3>
+            </div>
+            <nav class="mobile-menu-items">
+                <a href="#home" class="mobile-menu-item" data-section="home">
+                    <span class="menu-icon">🏠</span>
+                    Home
+                </a>
+                <a href="#about" class="mobile-menu-item" data-section="about">
+                    <span class="menu-icon">👨‍💻</span>
+                    Chi Sono
+                </a>
+                <a href="#experience" class="mobile-menu-item" data-section="experience">
+                    <span class="menu-icon">💼</span>
+                    Esperienza
+                </a>
+                <a href="#skills" class="mobile-menu-item" data-section="skills">
+                    <span class="menu-icon">🛠️</span>
+                    Competenze
+                </a>
+                <a href="#sectors" class="mobile-menu-item" data-section="sectors">
+                    <span class="menu-icon">🌐</span>
+                    Settori
+                </a>
+                <a href="#collaborations" class="mobile-menu-item" data-section="collaborations">
+                    <span class="menu-icon">🏆</span>
+                    Trusted By
+                </a>
+                <a href="#education" class="mobile-menu-item" data-section="education">
+                    <span class="menu-icon">🎓</span>
+                    Formazione
+                </a>
+                <a href="#contact" class="mobile-menu-item" data-section="contact">
+                    <span class="menu-icon">📧</span>
+                    Contatti
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Mobile Message Button -->
+    <button class="mobile-message-btn" id="mobile-message-btn" aria-label="Invia Messaggio">
+        <i class="fas fa-envelope"></i>
+    </button>
+
     <script>
         // Application State Management
         class PortfolioApp {
@@ -1728,6 +2665,8 @@
                 this.setupScrollEffects();
                 this.setupIntersectionObserver();
                 this.initMobileMenu();
+                this.initMobileFAB();
+                this.initMobileMessageBtn();
                 this.initEducationCarousel();
             }
 
@@ -1842,6 +2781,11 @@
 
                 // Update active section nel navigation
                 this.updateActiveSection();
+                
+                // Update mobile menu active state if on mobile
+                if (window.innerWidth <= 768) {
+                    this.updateActiveMobileMenuItem();
+                }
             }
 
             // Active section detection
@@ -2095,8 +3039,327 @@ Email: ${data.email}`;
                 }
             }
 
-            // Education Carousel continuous scroll without jumps
+            // Mobile FAB (Floating Action Button) functionality
+            initMobileFAB() {
+                const fab = document.getElementById('mobile-fab');
+                const overlay = document.getElementById('mobile-menu-overlay');
+                const panel = document.getElementById('mobile-menu-panel');
+                const menuItems = document.querySelectorAll('.mobile-menu-item');
+
+                if (!fab || !overlay || !panel) return;
+
+                // FAB click handler
+                fab.addEventListener('click', () => {
+                    this.toggleMobileFABMenu();
+                });
+
+                // Overlay click to close
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        this.closeMobileFABMenu();
+                    }
+                });
+
+                // Menu item click handlers
+                menuItems.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetSection = item.getAttribute('data-section');
+                        this.navigateToSection(targetSection);
+                        this.closeMobileFABMenu();
+                    });
+                });
+
+                // Close on escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                        this.closeMobileFABMenu();
+                    }
+                });
+            }
+
+            toggleMobileFABMenu() {
+                const overlay = document.getElementById('mobile-menu-overlay');
+                const isActive = overlay.classList.contains('active');
+
+                if (isActive) {
+                    this.closeMobileFABMenu();
+                } else {
+                    this.openMobileFABMenu();
+                }
+            }
+
+            openMobileFABMenu() {
+                const fab = document.getElementById('mobile-fab');
+                const overlay = document.getElementById('mobile-menu-overlay');
+                const panel = document.getElementById('mobile-menu-panel');
+
+                fab.classList.add('active');
+                overlay.style.display = 'block';
+                
+                // Force reflow
+                overlay.offsetHeight;
+                
+                overlay.classList.add('active');
+                panel.classList.add('active');
+
+                // Prevent body scroll
+                document.body.style.overflow = 'hidden';
+
+                // Update active menu item based on current section
+                this.updateActiveMobileMenuItem();
+            }
+
+            closeMobileFABMenu() {
+                const fab = document.getElementById('mobile-fab');
+                const overlay = document.getElementById('mobile-menu-overlay');
+                const panel = document.getElementById('mobile-menu-panel');
+
+                fab.classList.remove('active');
+                overlay.classList.remove('active');
+                panel.classList.remove('active');
+
+                // Allow body scroll
+                document.body.style.overflow = '';
+
+                // Hide overlay after animation
+                setTimeout(() => {
+                    if (!overlay.classList.contains('active')) {
+                        overlay.style.display = 'none';
+                    }
+                }, 300);
+            }
+
+            navigateToSection(sectionId) {
+                const targetSection = document.getElementById(sectionId);
+                if (!targetSection) return;
+
+                const headerHeight = window.innerWidth <= 768 ? 0 : document.querySelector('.header')?.offsetHeight || 0;
+                const targetPosition = targetSection.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+
+            updateActiveMobileMenuItem() {
+                const sections = document.querySelectorAll('section[id]');
+                const menuItems = document.querySelectorAll('.mobile-menu-item');
+                const scrollY = window.scrollY + 100;
+
+                let currentSection = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollY >= sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                // Update active state
+                menuItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-section') === currentSection) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+
+            // Mobile Message Button functionality
+            initMobileMessageBtn() {
+                const mobileMessageBtn = document.getElementById('mobile-message-btn');
+                
+                if (!mobileMessageBtn) {
+                    console.warn('Mobile message button not found');
+                    return;
+                }
+                
+                // Message button click handler
+                mobileMessageBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Smooth scroll to contact section
+                    const contactSection = document.querySelector('#contact');
+                    if (contactSection) {
+                        const headerHeight = 0; // No header on mobile
+                        const targetPosition = contactSection.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Focus on the first form field after scroll
+                        setTimeout(() => {
+                            const firstInput = document.querySelector('#contact-form input');
+                            if (firstInput) {
+                                firstInput.focus();
+                            }
+                        }, 800);
+                    }
+                });
+            }
+
+            // Initialize all carousels with card-by-card scrolling
             initEducationCarousel() {
+                this.initSkillsCarousel('.skills-carousel', '.skill-category', 1000);
+                this.initCarousel('.testimonials-carousel', '.testimonial-card', 4000);
+                this.initSkillsCarousel('.education-carousel', '.education-skill-card', 1000);
+                this.initSkillsCarousel('.collaborations-carousel', '.collaboration-logo', 1000);
+                this.initSkillsCarousel('.sectors-carousel', '.sector-card', 1000);
+            }
+            
+            // Skills carousel with single centered card
+            initSkillsCarousel(carouselSelector, cardSelector, interval) {
+                const carousel = document.querySelector(carouselSelector);
+                if (!carousel) return;
+                
+                const cards = carousel.querySelectorAll(cardSelector);
+                if (cards.length === 0) return;
+                
+                // Duplicate cards for infinite scroll effect
+                const originalCards = Array.from(cards);
+                originalCards.forEach(card => {
+                    const clone = card.cloneNode(true);
+                    carousel.appendChild(clone);
+                });
+                
+                const allCards = carousel.querySelectorAll(cardSelector);
+                let currentIndex = 0;
+                let carouselInterval;
+                
+                const updateCarousel = () => {
+                    // Remove active class from all cards
+                    allCards.forEach(card => card.classList.remove('active'));
+                    
+                    // Calculate centered position
+                    const cardWidth = allCards[0].offsetWidth + 32; // card width + gap
+                    const containerWidth = carousel.parentElement.offsetWidth;
+                    const centerOffset = (containerWidth - cardWidth) / 2;
+                    
+                    // Add active class to current card
+                    if (allCards[currentIndex]) {
+                        allCards[currentIndex].classList.add('active');
+                    }
+                    
+                    // Calculate translate position to center the current card
+                    const translateX = centerOffset - (currentIndex * cardWidth);
+                    carousel.style.transform = `translateX(${translateX}px)`;
+                    
+                    // Reset to beginning when reaching duplicates for infinite effect
+                    if (currentIndex >= originalCards.length) {
+                        setTimeout(() => {
+                            carousel.style.transition = 'none';
+                            currentIndex = 0;
+                            allCards.forEach(card => card.classList.remove('active'));
+                            allCards[0].classList.add('active');
+                            const resetTranslateX = centerOffset - (0 * cardWidth);
+                            carousel.style.transform = `translateX(${resetTranslateX}px)`;
+                            
+                            setTimeout(() => {
+                                carousel.style.transition = 'transform 1s cubic-bezier(0.4, 0, 0.2, 1)';
+                            }, 50);
+                        }, 1000);
+                    }
+                };
+                
+                const scrollToNext = () => {
+                    currentIndex++;
+                    updateCarousel();
+                };
+                
+                // Initialize first card as active
+                if (allCards[0]) {
+                    allCards[0].classList.add('active');
+                }
+                updateCarousel();
+                
+                // Start the carousel
+                const startCarousel = () => {
+                    if (carouselInterval) clearInterval(carouselInterval);
+                    carouselInterval = setInterval(scrollToNext, interval);
+                };
+                
+                startCarousel();
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    updateCarousel();
+                });
+                
+                return carouselInterval;
+            }
+            
+            // Generic carousel initializer for card-by-card scrolling
+            initCarousel(carouselSelector, cardSelector, interval) {
+                const carousel = document.querySelector(carouselSelector);
+                if (!carousel) return;
+                
+                const cards = carousel.querySelectorAll(cardSelector);
+                if (cards.length === 0) return;
+                
+                let currentIndex = 0;
+                let carouselInterval;
+                
+                const updateCarousel = () => {
+                    // Recalculate dimensions for responsive behavior
+                    const cardWidth = cards[0].offsetWidth + 32; // card width + gap (2rem = 32px)
+                    const containerWidth = carousel.parentElement.offsetWidth;
+                    const visibleCards = Math.floor(containerWidth / cardWidth);
+                    const maxIndex = Math.max(0, cards.length - visibleCards);
+                    
+                    // Reset if current index is out of bounds
+                    if (currentIndex > maxIndex) {
+                        currentIndex = 0;
+                    }
+                    
+                    const translateX = -(currentIndex * cardWidth);
+                    carousel.style.transform = `translateX(${translateX}px)`;
+                    
+                    return maxIndex;
+                };
+                
+                const scrollToCard = () => {
+                    const maxIndex = updateCarousel();
+                    currentIndex++;
+                    if (currentIndex > maxIndex) {
+                        currentIndex = 0;
+                    }
+                };
+                
+                // Initialize
+                updateCarousel();
+                
+                // Start the carousel
+                const startCarousel = () => {
+                    if (carouselInterval) clearInterval(carouselInterval);
+                    carouselInterval = setInterval(scrollToCard, interval);
+                };
+                
+                startCarousel();
+                
+                // Pause on hover - removed for better UX as requested
+                // carousel.parentElement.addEventListener('mouseenter', () => {
+                //     clearInterval(carouselInterval);
+                // });
+                
+                // Resume on mouse leave - removed
+                // carousel.parentElement.addEventListener('mouseleave', startCarousel);
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    updateCarousel();
+                });
+                
+                return carouselInterval;
+            }
+            
+            // Legacy education carousel method (now unused)
+            initEducationCarouselOld() {
                 const carousel = document.getElementById('education-carousel');
                 if (!carousel) return;
 
