@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Carousel Debug - Array Rotation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .debug-container {
+            max-width: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .debug-header {
+            background: #333;
+            color: white;
+            padding: 10px;
+            margin: -20px -20px 20px -20px;
+        }
+
+        .debug-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+        }
+
+        /* 🎠 CAROUSEL AREA */
+        .carousel-area {
+            border: 3px solid #ff0000;
+            padding: 20px;
+            background: #fff;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-height: 500px;
+        }
+
+        .carousel-container {
+            border: 2px solid #00ff00;
+            padding: 20px;
+            background: #f9f9f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-wrapper {
+            border: 2px solid #0000ff;
+            padding: 10px;
+            position: relative;
+        }
+
+        .carousel-track {
+            border: 2px solid #ff00ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: none;
+        }
+
+        .carousel-item {
+            border: 2px solid #ffaa00;
+            background: #e0e0e0;
+            min-width: 200px;
+            height: 180px;
+            margin: 5px;
+            padding: 20px 15px 15px 15px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            position: relative;
+            opacity: 1;
+            transform: none;
+            transition: none;
+            text-align: center;
+        }
+
+        .tech-icon {
+            width: 50px;
+            height: 50px;
+            background: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .tech-icon.node {
+            background: #339933;
+        }
+
+        .tech-icon.typescript {
+            background: #3178c6;
+        }
+
+        .tech-icon.nest {
+            background: #e0234e;
+        }
+
+        .tech-icon.postgresql {
+            background: #336791;
+        }
+
+        .tech-icon.redis {
+            background: #dc382d;
+        }
+
+        /* 🧭 NAVIGATION COMPONENT */
+        .navigation-area {
+            border: 2px solid #ff8800;
+            padding: 20px;
+            background: #fff8f0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto auto 0 auto;
+        }
+
+        .navigation-container {
+            display: flex;
+            gap: var(--nav-spacing, 15px);
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .nav-button {
+            width: var(--nav-size, 60px);
+            height: var(--nav-size, 60px);
+            border: 2px solid #333;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.2s ease;
+            position: relative;
+            border-radius: var(--nav-radius, 50%);
+        }
+
+        .nav-button:hover {
+            background: #f0f0f0;
+            transform: scale(1.05);
+        }
+
+        .nav-button-icon {
+            width: 20px;
+            height: 20px;
+            background: #666;
+            border-radius: 50%;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .nav-button-label {
+            font-size: 8px;
+            line-height: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 100%;
+        }
+
+        /* Navigation Shape Variants */
+        .nav-shape-square {
+            --nav-radius: 8px;
+        }
+
+        .nav-shape-circle {
+            --nav-radius: 50%;
+        }
+
+        .nav-shape-rounded {
+            --nav-radius: 15px;
+        }
+
+        .carousel-item.active {
+            background: #ffdddd;
+            border-color: #ff0000;
+            border-width: 3px;
+        }
+
+        .carousel-item.moving {
+            background: #ffffaa;
+            border-color: #ff6600;
+            border-style: dashed;
+        }
+
+        .carousel-item::before {
+            content: "Item " attr(data-index) " (" attr(data-original-id) ")";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            background: #000;
+            color: white;
+            font-size: 10px;
+            padding: 2px 4px;
+        }
+
+        /* 🎛️ CONTROLS */
+        .controls-area {
+            border: 2px solid #800080;
+            padding: 15px;
+            background: #f0f0f0;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: white;
+        }
+
+        .control-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            font-size: 12px;
+        }
+
+        .control-input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #333;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .nav-btn {
+            padding: 8px 12px;
+            border: 2px solid #333;
+            background: #fff;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .nav-btn:hover {
+            background: #ddd;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 📊 DEBUG INFO */
+        .debug-info {
+            border: 2px solid #666;
+            padding: 10px;
+            background: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            margin-top: 15px;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        .debug-stats {
+            border: 1px solid #999;
+            padding: 8px;
+            background: #f9f9f9;
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            margin-bottom: 10px;
+        }
+
+        .debug-stats div {
+            margin: 2px 0;
+        }
+
+        /* RESPONSIVE DEBUG */
+        @media (max-width: 768px) {
+            .debug-container {
+                padding: 10px;
+                max-width: 100vw;
+                box-sizing: border-box;
+            }
+
+            .debug-header {
+                margin: -10px -10px 15px -10px;
+                padding: 15px 10px;
+            }
+
+            .debug-layout {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .carousel-area,
+            .controls-area {
+                width: 100%;
+                max-width: none;
+                box-sizing: border-box;
+                overflow-x: auto;
+            }
+
+            .carousel-container {
+                padding: 15px;
+                overflow: hidden;
+            }
+
+            .carousel-wrapper {
+                overflow: hidden;
+            }
+
+            .carousel-item {
+                min-width: 150px;
+                height: 120px;
+            }
+
+            .navigation-container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .control-group {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="debug-container">
+        <div class="debug-header">
+            <h1>Stack tecnologici</h1>
+            <p>Array Rotation Pattern: spostamento fisico degli elementi - Item 0 va in ultima posizione</p>
+        </div>
+
+        <div class="debug-layout">
+            <!-- 🎠 CAROUSEL AREA -->
+            <div class="carousel-area">
+                <p style="font-size: 12px; color: #666; margin-bottom: 10px;">Rosso=Area | Verde=Container | Blu=Wrapper
+                    | Magenta=Track | Arancione=Items | Giallo=Moving |
+                    Menu=Orange</p>
+
+                <div class="carousel-container" id="carouselContainer">
+                    <div class="carousel-wrapper">
+                        <div class="carousel-track" id="carouselTrack">
+                            <div class="carousel-item active" data-index="0" data-original-id="Node.js">
+                                <div class="tech-icon node">
+                                    <i class="fab fa-node-js"></i>
+                                </div>
+                                <h3>Node.js</h3>
+                                <p>Conoscenza approfondita di Javascript and Node</p>
+                            </div>
+                            <div class="carousel-item" data-index="1" data-original-id="Type">
+                                <div class="tech-icon typescript">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <h3>TypeScript</h3>
+                                <p>Type Safety</p>
+                            </div>
+                            <div class="carousel-item" data-index="2" data-original-id="Nest">
+                                <div class="tech-icon nest">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                                <h3>NestJS</h3>
+                                <p>Enterprise Framework</p>
+                            </div>
+                            <div class="carousel-item" data-index="2" data-original-id="Platformatic">
+                                <div class="tech-icon platformatic">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                                <h3>Platformatic</h3>
+                                <h3>Watt</h3>
+                                <p>Enterprise Platform</p>
+                            </div>
+                            <div class="carousel-item" data-index="3" data-original-id="Post">
+                                <div class="tech-icon postgresql">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <h3>PostgreSQL</h3>
+                                <h3>Oracle</h3>
+                                <h3>MariaDb</h3>
+                                <h3>MySql</h3>
+                                <h3>Microsoft Server ED/ST</h3>
+                                <p>Relational DB</p>
+                            </div>
+                            <div class="carousel-item" data-index="4" data-original-id="Redis">
+                                <div class="tech-icon redis">
+                                    <i class="fas fa-memory"></i>
+                                </div>
+                                <h3>Redis</h3>
+                                <p>In-Memory Cache</p>
+                            </div>
+                            <div class="carousel-item" data-index="4" data-original-id="Redisearch">
+                                <div class="tech-icon redisearch">
+                                    <i class="fas fa-memory"></i>
+                                </div>
+                                <h3>RediSearch</h3>
+                                <p>In-Memory Cache Fulltext search</p>
+                            </div>
+                            <div class="carousel-item" data-index="4" data-original-id="Elasticsearch">
+                                <div class="tech-icon elasticsearch">
+                                    <i class="fas fa-memory"></i>
+                                </div>
+                                <h3>Elasticsearch/h3>
+                                    <p>Kibana, Logstash, FileBeat, APM </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nav-buttons">
+                        <button class="nav-btn" id="prevBtn">← Prev</button>
+                        <button class="nav-btn" id="playBtn">▶ Play</button>
+                        <button class="nav-btn" id="pauseBtn" disabled>⏸ Pause</button>
+                        <button class="nav-btn" id="nextBtn">Next →</button>
+                    </div>
+                </div>
+
+                <!-- 🧭 NAVIGATION COMPONENT -->
+                <div class="navigation-area" id="navigationArea">
+                    <div class="navigation-container nav-shape-circle" id="navigationContainer">
+                        <div class="nav-button" data-action="prev-page">
+                            <div class="nav-button-icon">
+                                <i class="fas fa-chevron-left"></i>
+                            </div>
+                            <div class="nav-button-label">PREV<br>PAGE</div>
+                        </div>
+                        <div class="nav-button" data-action="home">
+                            <div class="nav-button-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="nav-button-label">HOME<br>PAGE</div>
+                        </div>
+                        <div class="nav-button" data-action="send-message">
+                            <div class="nav-button-icon">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                            <div class="nav-button-label">SEND<br>MESSAGE</div>
+                        </div>
+                        <div class="nav-button" data-action="contact">
+                            <div class="nav-button-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="nav-button-label">CONTACT</div>
+                        </div>
+                        <div class="nav-button" data-action="next-page">
+                            <div class="nav-button-icon">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                            <div class="nav-button-label">NEXT<br>PAGE</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🎛️ CONTROLS AREA -->
+            <div class="controls-area">
+                <h3>Debug Controls</h3>
+
+                <div class="control-group">
+                    <label class="control-label">Current Index:</label>
+                    <input type="number" class="control-input" id="indexInput" min="0" max="4" value="0">
+                    <button class="nav-btn" id="goToBtn">Go To</button>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Autoplay Interval (ms):</label>
+                    <input type="number" class="control-input" id="intervalInput" value="2000" min="500" max="10000"
+                        step="100">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Transition Duration (ms):</label>
+                    <input type="number" class="control-input" id="durationInput" value="300" min="0" max="2000"
+                        step="100">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        <input type="checkbox" id="infiniteLoop" checked> Infinite Loop (Rotation)
+                    </label>
+                    <label class="control-label">
+                        <input type="checkbox" id="pauseOnHover"> Pause on Hover
+                    </label>
+                </div>
+
+                <div class="control-group">
+                    <button class="nav-btn" id="resetBtn">🔄 Reset</button>
+                    <button class="nav-btn" id="logBtn">📝 Log State</button>
+                    <button class="nav-btn" id="showOrderBtn">📋 Show DOM Order</button>
+                </div>
+
+                <!-- 🧭 NAVIGATION CONTROLS -->
+                <div class="control-group">
+                    <h4>Navigation Controls</h4>
+
+                    <label class="control-label">Button Size (px):</label>
+                    <input type="range" class="control-input" id="navSizeInput" min="40" max="100" value="60" step="5">
+                    <small id="navSizeDisplay">60px</small>
+
+                    <label class="control-label">Button Spacing (px):</label>
+                    <input type="range" class="control-input" id="navSpacingInput" min="5" max="50" value="15" step="5">
+                    <small id="navSpacingDisplay">15px</small>
+
+                    <label class="control-label">Button Shape:</label>
+                    <select class="control-input" id="navShapeSelect">
+                        <option value="circle">Circle</option>
+                        <option value="square">Square</option>
+                        <option value="rounded">Rounded Square</option>
+                    </select>
+                </div>
+
+                <!-- 📊 STATS -->
+                <div class="debug-stats" id="debugStats">
+                    <div>Items: <span id="totalItems">5</span></div>
+                    <div>Current: <span id="currentIndex">0</span></div>
+                    <div>DOM Position: <span id="domPosition">0</span></div>
+                    <div>Playing: <span id="isPlaying">false</span></div>
+                    <div>Rotations: <span id="rotations">0</span></div>
+                    <div>Interactions: <span id="interactions">0</span></div>
+                    <div>Nav Size: <span id="navSize">60px</span></div>
+                    <div>Nav Shape: <span id="navShape">circle</span></div>
+                </div>
+
+                <!-- 📝 DEBUG LOG -->
+                <div class="debug-info" id="debugLog">
+                    <div>> Array Rotation Carousel Initialized</div>
+                    <div>> Physical DOM manipulation enabled</div>
+                    <div>> Item 0 moves to end on each next()</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * 🔧 ARRAY ROTATION CAROUSEL
+         * Physically moves DOM elements instead of using clones
+         * Item 0 is moved to last position on each iteration
+         */
+        class ArrayRotationCarousel {
+            constructor() {
+                this.track = document.getElementById('carouselTrack');
+                this.items = Array.from(this.track.querySelectorAll('.carousel-item'));
+                this.currentIndex = 0;
+                this.isPlaying = false;
+                this.intervalId = null;
+                this.interactions = 0;
+                this.rotations = 0;
+
+                // Navigation component state
+                this.navigationConfig = {
+                    size: 60,
+                    spacing: 15,
+                    shape: 'circle'
+                };
+
+                this.config = {
+                    interval: 2000,
+                    transitionDuration: 300,
+                    infinite: true,
+                    pauseOnHover: false
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.setupControls();
+                this.setupNavigationControls();
+                this.updateItemIndices();
+                this.updateDisplay();
+                this.applyNavigationConfig();
+                this.log('Array rotation carousel with navigation initialized');
+            }
+
+            /**
+             * PHYSICAL DOM ROTATION METHODS
+             * Moves actual elements instead of using transform
+             */
+            rotateNext() {
+                // Move first element to end
+                const firstItem = this.items[0];
+                firstItem.classList.add('moving');
+
+                // Remove from current position and append to end
+                this.track.removeChild(firstItem);
+                this.track.appendChild(firstItem);
+
+                // Update items array
+                this.items.shift(); // Remove first
+                this.items.push(firstItem); // Add to end
+
+                // Update indices
+                this.updateItemIndices();
+                this.rotations++;
+
+                setTimeout(() => {
+                    firstItem.classList.remove('moving');
+                }, 100);
+
+                this.log(`Rotated next: moved ${firstItem.dataset.originalId} to end`);
+            }
+
+            rotatePrev() {
+                // Move last element to beginning
+                const lastItem = this.items[this.items.length - 1];
+                lastItem.classList.add('moving');
+
+                // Remove from current position and prepend
+                this.track.removeChild(lastItem);
+                this.track.insertBefore(lastItem, this.track.firstChild);
+
+                // Update items array
+                this.items.pop(); // Remove last
+                this.items.unshift(lastItem); // Add to beginning
+
+                // Update indices
+                this.updateItemIndices();
+                this.rotations++;
+
+                setTimeout(() => {
+                    lastItem.classList.remove('moving');
+                }, 100);
+
+                this.log(`Rotated prev: moved ${lastItem.dataset.originalId} to start`);
+            }
+
+            updateItemIndices() {
+                this.items.forEach((item, index) => {
+                    item.setAttribute('data-index', index);
+                });
+            }
+
+            setupControls() {
+                document.getElementById('prevBtn').addEventListener('click', () => {
+                    this.previous();
+                });
+
+                document.getElementById('nextBtn').addEventListener('click', () => {
+                    this.next();
+                });
+
+                document.getElementById('playBtn').addEventListener('click', () => {
+                    this.start();
+                });
+
+                document.getElementById('pauseBtn').addEventListener('click', () => {
+                    this.pause();
+                });
+
+                document.getElementById('goToBtn').addEventListener('click', () => {
+                    const index = parseInt(document.getElementById('indexInput').value);
+                    this.goTo(index);
+                });
+
+                document.getElementById('intervalInput').addEventListener('change', (e) => {
+                    this.config.interval = parseInt(e.target.value);
+                    this.log(`Interval: ${this.config.interval}ms`);
+                });
+
+                document.getElementById('durationInput').addEventListener('change', (e) => {
+                    this.config.transitionDuration = parseInt(e.target.value);
+                    this.applyTransitionDuration();
+                    this.log(`Transition: ${this.config.transitionDuration}ms`);
+                });
+
+                document.getElementById('infiniteLoop').addEventListener('change', (e) => {
+                    this.config.infinite = e.target.checked;
+                    this.log(`Infinite: ${this.config.infinite}`);
+                });
+
+                document.getElementById('pauseOnHover').addEventListener('change', (e) => {
+                    this.config.pauseOnHover = e.target.checked;
+                    this.setupHoverEvents();
+                    this.log(`Pause on hover: ${this.config.pauseOnHover}`);
+                });
+
+                document.getElementById('resetBtn').addEventListener('click', () => {
+                    this.reset();
+                });
+
+                document.getElementById('logBtn').addEventListener('click', () => {
+                    this.logCurrentState();
+                });
+
+                document.getElementById('showOrderBtn').addEventListener('click', () => {
+                    this.showDOMOrder();
+                });
+            }
+
+            /**
+             * NAVIGATION COMPONENT CONTROLS
+             * Manages navigation button appearance and behavior
+             * Following Single Responsibility Principle
+             */
+            setupNavigationControls() {
+                const navContainer = document.getElementById('navigationContainer');
+
+                // Size control
+                document.getElementById('navSizeInput').addEventListener('input', (e) => {
+                    this.navigationConfig.size = parseInt(e.target.value);
+                    document.getElementById('navSizeDisplay').textContent = `${this.navigationConfig.size}px`;
+                    this.applyNavigationConfig();
+                    this.log(`Nav size: ${this.navigationConfig.size}px`);
+                });
+
+                // Spacing control
+                document.getElementById('navSpacingInput').addEventListener('input', (e) => {
+                    this.navigationConfig.spacing = parseInt(e.target.value);
+                    document.getElementById('navSpacingDisplay').textContent = `${this.navigationConfig.spacing}px`;
+                    this.applyNavigationConfig();
+                    this.log(`Nav spacing: ${this.navigationConfig.spacing}px`);
+                });
+
+                // Shape control
+                document.getElementById('navShapeSelect').addEventListener('change', (e) => {
+                    this.navigationConfig.shape = e.target.value;
+                    this.applyNavigationConfig();
+                    this.log(`Nav shape: ${this.navigationConfig.shape}`);
+                });
+
+                // Add click handlers for navigation buttons (placeholder for now)
+                const navButtons = navContainer.querySelectorAll('.nav-button');
+                navButtons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const action = button.getAttribute('data-action');
+                        this.handleNavigationAction(action);
+                    });
+                });
+            }
+
+            /**
+             * Apply navigation configuration dynamically
+             * Updates CSS custom properties for responsive design
+             */
+            applyNavigationConfig() {
+                const navContainer = document.getElementById('navigationContainer');
+
+                // Apply CSS custom properties
+                navContainer.style.setProperty('--nav-size', `${this.navigationConfig.size}px`);
+                navContainer.style.setProperty('--nav-spacing', `${this.navigationConfig.spacing}px`);
+
+                // Update shape class
+                navContainer.className = `navigation-container nav-shape-${this.navigationConfig.shape}`;
+            }
+
+            /**
+             * Handle navigation button clicks
+             * Placeholder implementation for future functionality
+             */
+            handleNavigationAction(action) {
+                this.log(`Navigation action: ${action} (not implemented yet)`);
+
+                // Future implementation will handle:
+                // - prev-page: Navigate to previous page
+                // - home: Navigate to home page  
+                // - send-message: Open message dialog
+                // - contact: Open contact form
+                // - next-page: Navigate to next page
+            }
+
+            setupHoverEvents() {
+                const container = document.getElementById('carouselContainer');
+
+                container.onmouseenter = null;
+                container.onmouseleave = null;
+
+                if (this.config.pauseOnHover) {
+                    container.onmouseenter = () => {
+                        if (this.isPlaying) {
+                            this.pause();
+                            this.log('Paused on hover');
+                        }
+                    };
+
+                    container.onmouseleave = () => {
+                        if (!this.isPlaying) {
+                            this.start();
+                            this.log('Resumed after hover');
+                        }
+                    };
+                }
+            }
+
+            applyTransitionDuration() {
+                const duration = this.config.transitionDuration;
+                this.track.style.transition = duration > 0 ?
+                    `transform ${duration}ms ease` : 'none';
+            }
+
+            next() {
+                if (this.config.infinite) {
+                    this.rotateNext();
+                    // Current index stays the same (always looking at position 0)
+                } else {
+                    const nextIndex = Math.min(this.currentIndex + 1, this.items.length - 1);
+                    this.goTo(nextIndex);
+                }
+
+                this.interactions++;
+                this.updateDisplay();
+            }
+
+            previous() {
+                if (this.config.infinite) {
+                    this.rotatePrev();
+                    // Current index stays the same (always looking at position 0)
+                } else {
+                    const prevIndex = Math.max(this.currentIndex - 1, 0);
+                    this.goTo(prevIndex);
+                }
+
+                this.interactions++;
+                this.updateDisplay();
+            }
+
+            goTo(index) {
+                if (index < 0 || index >= this.items.length || index === this.currentIndex) {
+                    return;
+                }
+
+                this.currentIndex = index;
+                this.interactions++;
+                this.updatePosition();
+                this.updateDisplay();
+                this.log(`GoTo index ${index}`);
+            }
+
+            updatePosition() {
+                if (!this.config.infinite) {
+                    const translateX = -(this.currentIndex * 210);
+                    this.track.style.transform = `translateX(${translateX}px)`;
+                } else {
+                    // In infinite mode, always show first item (no transform needed)
+                    this.track.style.transform = 'translateX(0px)';
+                }
+            }
+
+            updateDisplay() {
+                // Remove all active classes
+                this.items.forEach(item => item.classList.remove('active'));
+
+                // Add active to current item
+                let activeIndex = this.config.infinite ? 0 : this.currentIndex;
+                if (this.items[activeIndex]) {
+                    this.items[activeIndex].classList.add('active');
+                }
+
+                // Update stats
+                document.getElementById('currentIndex').textContent = this.currentIndex;
+                document.getElementById('domPosition').textContent = this.config.infinite ? 0 : this.currentIndex;
+                document.getElementById('isPlaying').textContent = this.isPlaying;
+                document.getElementById('rotations').textContent = this.rotations;
+                document.getElementById('interactions').textContent = this.interactions;
+                document.getElementById('indexInput').value = this.currentIndex;
+                document.getElementById('navSize').textContent = `${this.navigationConfig.size}px`;
+                document.getElementById('navShape').textContent = this.navigationConfig.shape;
+
+                // Update button states
+                document.getElementById('playBtn').disabled = this.isPlaying;
+                document.getElementById('pauseBtn').disabled = !this.isPlaying;
+
+                if (!this.config.infinite) {
+                    document.getElementById('prevBtn').disabled = this.currentIndex === 0;
+                    document.getElementById('nextBtn').disabled = this.currentIndex === this.items.length - 1;
+                } else {
+                    document.getElementById('prevBtn').disabled = false;
+                    document.getElementById('nextBtn').disabled = false;
+                }
+
+                this.updatePosition();
+            }
+
+            start() {
+                if (this.isPlaying) return;
+
+                this.isPlaying = true;
+                this.intervalId = setInterval(() => {
+                    this.next();
+                }, this.config.interval);
+
+                this.updateDisplay();
+                this.log(`Started autoplay (${this.config.interval}ms)`);
+            }
+
+            pause() {
+                if (!this.isPlaying) return;
+
+                clearInterval(this.intervalId);
+                this.isPlaying = false;
+                this.intervalId = null;
+
+                this.updateDisplay();
+                this.log('Paused autoplay');
+            }
+
+            showDOMOrder() {
+                const order = this.items.map((item, index) =>
+                    `${index}: ${item.dataset.originalId} (${item.querySelector('h3').textContent})`
+                ).join(', ');
+
+                console.log('Current DOM Order:', order);
+                this.log('DOM order logged to console');
+            }
+
+            reset() {
+                this.pause();
+
+                // Reconstruct original order
+                const originalOrder = [
+                    { id: 'Node', title: 'Node.js', desc: 'Backend JavaScript', icon: 'fab fa-node-js', iconClass: 'node' },
+                    { id: 'Type', title: 'TypeScript', desc: 'Type Safety', icon: 'fas fa-code', iconClass: 'typescript' },
+                    { id: 'Nest', title: 'NestJS', desc: 'Enterprise Framework', icon: 'fas fa-server', iconClass: 'nest' },
+                    { id: 'Post', title: 'PostgreSQL', desc: 'Relational DB', icon: 'fas fa-database', iconClass: 'postgresql' },
+                    { id: 'Redis', title: 'Redis', desc: 'In-Memory Cache', icon: 'fas fa-memory', iconClass: 'redis' }
+                ];
+
+                // Clear track
+                this.track.innerHTML = '';
+
+                // Recreate items in original order
+                originalOrder.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'carousel-item';
+                    if (index === 0) div.classList.add('active');
+                    div.setAttribute('data-index', index);
+                    div.setAttribute('data-original-id', item.id);
+                    div.innerHTML = `
+                        <div class="tech-icon ${item.iconClass}">
+                            <i class="${item.icon}"></i>
+                        </div>
+                        <h3>${item.title}</h3>
+                        <p>${item.desc}</p>
+                    `;
+                    this.track.appendChild(div);
+                });
+
+                // Update references
+                this.items = Array.from(this.track.querySelectorAll('.carousel-item'));
+                this.currentIndex = 0;
+                this.interactions = 0;
+                this.rotations = 0;
+
+                this.config = {
+                    interval: 2000,
+                    transitionDuration: 300,
+                    infinite: true,
+                    pauseOnHover: false
+                };
+
+                // Reset UI
+                document.getElementById('intervalInput').value = 2000;
+                document.getElementById('durationInput').value = 300;
+                document.getElementById('infiniteLoop').checked = true;
+                document.getElementById('pauseOnHover').checked = false;
+
+                this.applyTransitionDuration();
+                this.setupHoverEvents();
+                this.updateDisplay();
+                this.log('Reset to original order');
+            }
+
+            logCurrentState() {
+                const state = {
+                    currentIndex: this.currentIndex,
+                    isPlaying: this.isPlaying,
+                    rotations: this.rotations,
+                    config: this.config,
+                    navigationConfig: this.navigationConfig,
+                    interactions: this.interactions,
+                    domOrder: this.items.map(item => item.dataset.originalId)
+                };
+
+                console.log('Rotation Carousel State:', state);
+                this.log('State logged to console');
+            }
+
+            log(message) {
+                const logElement = document.getElementById('debugLog');
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = document.createElement('div');
+                logEntry.textContent = `[${timestamp}] ${message}`;
+
+                logElement.appendChild(logEntry);
+                logElement.scrollTop = logElement.scrollHeight;
+
+                const logs = logElement.children;
+                if (logs.length > 20) {
+                    logElement.removeChild(logs[0]);
+                }
+            }
+        }
+
+        // 🚀 Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            window.carousel = new ArrayRotationCarousel();
+            console.log('Array rotation carousel ready');
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const homeButton = document.querySelector('[data-action="home"]');
+            homeButton.addEventListener('click', () => {
+                window.location.href = 'home.html';
+            });
+        });
+    </script>
+</body>
+
+</html>
+</body>
+
+</html>
