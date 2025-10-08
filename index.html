@@ -183,6 +183,19 @@
             color: #000;
         }
 
+        /* Enable text selection on mobile */
+        .terminal-content {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        /* Touch action optimization */
+        .terminal-content * {
+            touch-action: manipulation;
+        }
+
         .help-command {
             color: var(--matrix-green-dim);
             margin: 5px 0;
@@ -206,11 +219,28 @@
             text-decoration: underline;
             cursor: pointer;
             transition: color 0.2s ease;
+            -webkit-tap-highlight-color: rgba(0, 255, 65, 0.3);
+            user-select: text;
+            -webkit-user-select: text;
         }
 
         .clickable-link:hover {
             color: var(--matrix-green-dim);
             text-shadow: 0 0 5px var(--matrix-green);
+        }
+
+        /* Mobile: link touch feedback */
+        @media (max-width: 768px) {
+            .clickable-link {
+                padding: 2px 4px;
+                margin: -2px -4px;
+                display: inline-block;
+            }
+
+            .clickable-link:active {
+                background: rgba(0, 255, 65, 0.2);
+                color: var(--matrix-green-dim);
+            }
         }
 
         /* Typewriter effect per testo */
@@ -352,6 +382,43 @@
             }
         }
 
+        /* Hidden input for mobile keyboard support */
+        .mobile-input {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Mobile: show input when terminal is focused */
+        @media (max-width: 768px) {
+            .mobile-input {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 10px;
+                background: rgba(0, 0, 0, 0.9);
+                border: 1px solid var(--matrix-green);
+                color: var(--matrix-green);
+                font-family: var(--font-family);
+                font-size: 16px;
+                opacity: 1;
+                pointer-events: all;
+                z-index: 2000;
+                box-sizing: border-box;
+            }
+
+            .mobile-input:focus {
+                outline: 2px solid var(--matrix-green);
+            }
+
+            /* Adjust terminal content padding on mobile to avoid keyboard overlap */
+            .terminal-content {
+                padding-bottom: 80px;
+            }
+        }
+
         /* Matrix scanlines effect per fullscreen */
         .terminal-container::before {
             content: '';
@@ -420,6 +487,16 @@
                 <span class="cursor" id="cursor"></span>
             </div>
         </div>
+        
+        <!-- Hidden input for mobile keyboard support -->
+        <input type="text" 
+               id="mobileInput" 
+               class="mobile-input" 
+               autocomplete="off" 
+               autocorrect="off" 
+               autocapitalize="off" 
+               spellcheck="false"
+               placeholder="Digita un comando...">
     </div>
 
     <script>
@@ -614,7 +691,11 @@
                 this.addOutputLine('• Lavoro di squadra con mentoring e code review', 'output-text');
                 this.addOutputLine('• Esperienza consolidata in ambienti Agile (Scrum, Kanban, XP)', 'output-text');
                 this.addOutputLine('');
-                this.addOutputLine('💡 Suggerimento: Usa CTRL+Click sui link per aprirli', 'help-description');
+                const isMobile = window.innerWidth <= 768;
+                const linkHint = isMobile 
+                    ? '💡 Suggerimento: Tap sui link per aprirli' 
+                    : '💡 Suggerimento: CTRL+Click sui link per aprirli';
+                this.addOutputLine(linkHint, 'help-description');
             }
 
             // Skills Command Implementation
@@ -746,7 +827,11 @@
                 this.addOutputLine('• Collaborazioni su progetti enterprise', 'output-text');
                 this.addOutputLine('• Mentoring e formazione team', 'output-text');
                 this.addOutputLine('');
-                this.addOutputLine('💡 Suggerimento: CTRL+Click sui link per aprirli, click su email per scrivere', 'help-description');
+                const isMobile = window.innerWidth <= 768;
+                const contactHint = isMobile 
+                    ? '💡 Suggerimento: Tap sui link per aprirli, tap su email per scrivere' 
+                    : '💡 Suggerimento: CTRL+Click sui link per aprirli, click su email per scrivere';
+                this.addOutputLine(contactHint, 'help-description');
                 this.addOutputLineWithEmailLink('📄 Per referenze o approfondimenti, contattami via email.', 'email', 'output-text');
             }
 
@@ -773,14 +858,26 @@
                     link.href = cvPath;
                     link.download = 'Antonio_Cittadino_CV.pdf';
                     link.style.display = 'none';
+                    // Attributi per compatibilità mobile
+                    link.setAttribute('target', '_blank');
+                    link.setAttribute('rel', 'noopener noreferrer');
                     document.body.appendChild(link);
                     
-                    // Trigger del download
-                    link.click();
+                    // Trigger del download - compatibile mobile e desktop
+                    try {
+                        link.click();
+                        console.log('📥 Download triggered');
+                    } catch (error) {
+                        console.error('❌ Download error:', error);
+                        // Fallback per alcuni browser mobile
+                        window.open(cvPath, '_blank');
+                    }
                     
                     // Cleanup
                     setTimeout(() => {
-                        document.body.removeChild(link);
+                        if (document.body.contains(link)) {
+                            document.body.removeChild(link);
+                        }
                     }, 100);
                     
                     this.addOutputLine('💡 Se il download non parte automaticamente, controlla che il file cv.pdf', 'output-text');
@@ -1060,14 +1157,29 @@
                     linkSpan.setAttribute('data-url', url.startsWith('http') ? url : `https://${url}`);
                     linkSpan.title = 'CTRL+Click per aprire';
                     
-                    // Event listener per CTRL+Click
+                    // Event listener per CTRL+Click (desktop) o tap (mobile)
                     linkSpan.addEventListener('click', (e) => {
-                        if (e.ctrlKey || e.metaKey) { // Ctrl su Windows/Linux, Cmd su Mac
+                        // Mobile: direct tap opens link
+                        // Desktop: CTRL+Click opens link
+                        const isMobile = window.innerWidth <= 768;
+                        const shouldOpen = isMobile || e.ctrlKey || e.metaKey;
+                        
+                        if (shouldOpen) {
                             e.preventDefault();
+                            e.stopPropagation();
                             const fullUrl = linkSpan.getAttribute('data-url');
-                            window.open(fullUrl, '_blank');
+                            window.open(fullUrl, '_blank', 'noopener,noreferrer');
                             console.log('🔗 Link aperto:', fullUrl);
                         }
+                    });
+
+                    // Touch event for better mobile experience
+                    linkSpan.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const fullUrl = linkSpan.getAttribute('data-url');
+                        window.open(fullUrl, '_blank', 'noopener,noreferrer');
+                        console.log('📱 Link aperto (touch):', fullUrl);
                     });
                     
                     span.appendChild(linkSpan);
@@ -1111,9 +1223,10 @@
                     emailSpan.textContent = emailOrWord;
                     emailSpan.title = 'Click per aprire client email';
                     
-                    // Event listener per click diretto (senza CTRL)
-                    emailSpan.addEventListener('click', (e) => {
+                    // Event listener per click diretto (senza CTRL) e touch
+                    const openEmail = (e) => {
                         e.preventDefault();
+                        e.stopPropagation();
                         // Se è un indirizzo email completo, usalo, altrimenti usa quello di default
                         const emailAddress = emailOrWord.includes('@') 
                             ? emailOrWord 
@@ -1122,7 +1235,10 @@
                         const mailtoLink = `mailto:${emailAddress}`;
                         window.location.href = mailtoLink;
                         console.log('📧 Client email aperto per:', emailAddress);
-                    });
+                    };
+
+                    emailSpan.addEventListener('click', openEmail);
+                    emailSpan.addEventListener('touchend', openEmail);
                     
                     span.appendChild(emailSpan);
                     
@@ -1238,6 +1354,10 @@
             resetInput() {
                 this.currentInput = '';
                 document.getElementById('userInput').textContent = '';
+                const mobileInput = document.getElementById('mobileInput');
+                if (mobileInput) {
+                    mobileInput.value = '';
+                }
                 this.isWaitingForInput = true;
             }
 
@@ -1250,12 +1370,40 @@
             // Event Binding
             bindEvents() {
                 const terminal = document.querySelector('.terminal-content');
+                const mobileInput = document.getElementById('mobileInput');
                 terminal.setAttribute('tabindex', '0');
 
+                // Desktop: keyboard handling on terminal
                 terminal.addEventListener('keydown', (e) => this.handleKeyPress(e));
-                terminal.addEventListener('click', () => terminal.focus());
+                terminal.addEventListener('click', () => {
+                    // On mobile, focus the mobile input; on desktop, focus terminal
+                    if (window.innerWidth <= 768) {
+                        mobileInput.focus();
+                    } else {
+                        terminal.focus();
+                    }
+                });
                 
-                // Gestione paste (Ctrl+V)
+                // Mobile: handle input from mobile input field
+                mobileInput.addEventListener('input', (e) => {
+                    if (!this.isWaitingForInput || this.isTyping) return;
+                    
+                    this.currentInput = e.target.value;
+                    const userInputElement = document.getElementById('userInput');
+                    userInputElement.innerHTML = this.currentInput.replace(/ /g, '&nbsp;');
+                });
+
+                mobileInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        if (this.currentInput.trim()) {
+                            this.processCommand(this.currentInput);
+                            e.target.value = '';
+                        }
+                    }
+                });
+
+                // Gestione paste (Ctrl+V) - Desktop
                 terminal.addEventListener('paste', (e) => {
                     if (!this.isWaitingForInput || this.isTyping) return;
                     
@@ -1265,6 +1413,57 @@
                     const userInputElement = document.getElementById('userInput');
                     userInputElement.innerHTML = this.currentInput.replace(/ /g, '&nbsp;');
                     console.log('📋 DEBUG - Testo incollato:', pastedText);
+                });
+
+                // Gestione paste - Mobile input
+                mobileInput.addEventListener('paste', (e) => {
+                    if (!this.isWaitingForInput || this.isTyping) return;
+                    
+                    // Let the mobile input handle paste naturally
+                    setTimeout(() => {
+                        this.currentInput = mobileInput.value;
+                        const userInputElement = document.getElementById('userInput');
+                        userInputElement.innerHTML = this.currentInput.replace(/ /g, '&nbsp;');
+                        console.log('📋 DEBUG - Testo incollato (mobile):', this.currentInput);
+                    }, 10);
+                });
+
+                // Enable copy from terminal content
+                this.enableCopyFunctionality();
+
+                // Auto-focus mobile input on load for mobile devices
+                if (window.innerWidth <= 768) {
+                    setTimeout(() => mobileInput.focus(), 1000);
+                }
+            }
+
+            // Enable copy functionality for terminal content
+            enableCopyFunctionality() {
+                const terminal = document.querySelector('.terminal-content');
+                
+                // Add copy button on selection (mobile-friendly)
+                document.addEventListener('selectionchange', () => {
+                    const selection = window.getSelection();
+                    if (selection.toString().length > 0) {
+                        console.log('📋 Testo selezionato:', selection.toString().substring(0, 50) + '...');
+                    }
+                });
+
+                // Long press for context menu on mobile
+                let longPressTimer;
+                terminal.addEventListener('touchstart', (e) => {
+                    longPressTimer = setTimeout(() => {
+                        // Enable native context menu for copy
+                        console.log('📱 Long press detected - context menu available');
+                    }, 500);
+                });
+
+                terminal.addEventListener('touchend', () => {
+                    clearTimeout(longPressTimer);
+                });
+
+                terminal.addEventListener('touchmove', () => {
+                    clearTimeout(longPressTimer);
                 });
             }
 
