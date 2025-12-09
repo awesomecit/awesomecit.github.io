@@ -108,6 +108,312 @@
             font-weight: normal;
         }
 
+        /* View Toggle Button */
+        .view-toggle {
+            margin-left: auto;
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: var(--font-family);
+            font-size: 11px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .view-toggle:hover {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+
+        .view-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* Simple View Styles - Professional Minimalist */
+        .simple-view {
+            display: none;
+            padding: 0;
+            background: #ffffff;
+            color: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', sans-serif;
+            line-height: 1.7;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .simple-view.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .hero .tagline {
+            font-size: 1.1em;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Contact Links */
+        .contact-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .contact-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Content Container */
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #2d3748;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        /* Project Cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: #cbd5e0;
+        }
+
+        .project-card h3 {
+            font-size: 1.4em;
+            margin: 0 0 10px 0;
+            color: #2d3748;
+        }
+
+        .project-card .subtitle {
+            color: #718096;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .project-card .description {
+            color: #4a5568;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .project-card .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            background: #edf2f7;
+            border-radius: 12px;
+            font-size: 0.85em;
+            color: #4a5568;
+        }
+
+        /* Experience Timeline */
+        .experience-item {
+            margin-bottom: 40px;
+            padding-left: 30px;
+            border-left: 3px solid #e2e8f0;
+            position: relative;
+        }
+
+        .experience-item:before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+        }
+
+        .experience-item h3 {
+            font-size: 1.3em;
+            margin: 0 0 5px 0;
+            color: #2d3748;
+        }
+
+        .experience-item .meta {
+            color: #718096;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .experience-item ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .experience-item li {
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .skill-category h4 {
+            margin: 0 0 12px 0;
+            color: #2d3748;
+            font-size: 1.1em;
+        }
+
+        .skill-category ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .skill-category li {
+            margin-bottom: 6px;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+
+        .info-box h4 {
+            margin: 0 0 15px 0;
+            font-size: 1.3em;
+        }
+
+        .info-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1em;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+
+            .section-title {
+                font-size: 1.6em;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Terminal content area - fullscreen */
         .terminal-content {
             flex: 1;
@@ -467,6 +773,10 @@
                 <button class="terminal-button maximize" aria-label="Massimizza" tabindex="-1"></button>
             </div>
             <div class="terminal-title">cittadino@ntonio:~$</div>
+            <button class="view-toggle" id="viewToggle" aria-label="Cambia visualizzazione">
+                <span>📄</span>
+                <span id="toggleText">Simple View</span>
+            </button>
         </div>
 
         <!-- Terminal content area -->
@@ -485,6 +795,214 @@
                 <span class="prompt">cittadino@ntonio:~$</span>
                 <span class="user-input" id="userInput"></span>
                 <span class="cursor" id="cursor"></span>
+            </div>
+        </div>
+        
+        <!-- Simple View - Professional Portfolio -->
+        <div class="simple-view" id="simpleView">
+            <!-- Hero Section -->
+            <div class="hero">
+                <h1>Antonio Cittadino</h1>
+                <div class="subtitle">Senior Backend Engineer | Software Architect | Tech Lead</div>
+                <div class="tagline">
+                    Started as an electronics engineer specialized in microelectronics.<br>
+                    Ended up building healthcare software, leading backend teams, and teaching modern development.
+                </div>
+                <div class="contact-links">
+                    <a href="mailto:awesome.cit.dev@gmail.com">📧 Email</a>
+                    <a href="https://linkedin.com/in/antonio-cittadino-9362b179" target="_blank">💼 LinkedIn</a>
+                    <a href="https://github.com/awesomecit" target="_blank">💻 GitHub</a>
+                    <a href="./cv.pdf" download>📥 Download CV</a>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- Best Projects Section -->
+                <div class="section">
+                    <h2 class="section-title">Best Projects</h2>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <h3>🏥 SISOS Healthcare Suite</h3>
+                            <div class="subtitle">Software gestionale sale operatorie</div>
+                            <div class="description">
+                                Referente tecnico per sistema mission-critical utilizzato in strutture sanitarie italiane.
+                                Cartella clinica digitale, firma digitale, integrazioni HL7/FHIR.
+                            </div>
+                            <div class="tags">
+                                <span class="tag">healthcare</span>
+                                <span class="tag">hl7</span>
+                                <span class="tag">fhir</span>
+                                <span class="tag">nestjs</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <h3>📚 Modern Backend Course</h3>
+                            <div class="subtitle">Da zero a professionista in 100+ ore</div>
+                            <div class="description">
+                                Corso completo su sviluppo backend moderno: Node.js, TypeScript, TDD, CI/CD,
+                                observability, AI locale, compliance healthcare.
+                            </div>
+                            <div class="tags">
+                                <span class="tag">education</span>
+                                <span class="tag">tdd</span>
+                                <span class="tag">ai-assisted</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <h3>🚀 Tech Citizen Gateway</h3>
+                            <div class="subtitle">API Gateway healthcare open source</div>
+                            <div class="description">
+                                API Gateway con Platformatic Watt. Circuit Breaker, Rate Limiting,
+                                stack observability completo (Prometheus, Grafana, Loki).
+                            </div>
+                            <div class="tags">
+                                <span class="tag">open-source</span>
+                                <span class="tag">fastify</span>
+                                <span class="tag">observability</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Section -->
+                <div class="section">
+                    <h2 class="section-title">About Me</h2>
+                    <p>
+                        Senior Backend Engineer con <strong>7+ anni di esperienza</strong> nello sviluppo di sistemi distribuiti, 
+                        API e architetture scalabili. Background in Elettronica e Microelettronica, con competenze trasversali 
+                        da sistemi embedded a soluzioni enterprise.
+                    </p>
+                    <p>
+                        <strong>Settori:</strong> Healthcare IT, Energetico (microgrid), Startup AI (Price Intelligence)
+                    </p>
+                    <p>
+                        Approccio artigianale: focus su qualità, best practices (SOLID, DDD, TDD, Clean Code) e metodologie Agile. 
+                        Ethical AI addicted: utilizzo responsabile dell'AI come copilot con review obbligatoria.
+                    </p>
+                </div>
+
+                <!-- Experience Section -->
+                <div class="section">
+                    <h2 class="section-title">Experience</h2>
+                    
+                    <div class="experience-item">
+                        <h3>Full Stack Developer | Tech Lead</h3>
+                        <div class="meta">ICT Group (Promedital) • Reggio Emilia • 2023 - Present</div>
+                        <p>
+                            Referente tecnico SISOS (Soluzione Informatica Sala Operatoria Sicura), software gestionale 
+                            per sale operatorie in strutture sanitarie italiane.
+                        </p>
+                        <ul>
+                            <li>Architettura cartella clinica digitale con firma digitale</li>
+                            <li>Integrazioni healthcare: FHIR, HL7 v2/v3, SOAP, MLLP</li>
+                            <li>Real-time data sync con WebSocket e incident resolution</li>
+                            <li>Redesign UX: riduzione 40% click nei workflow operativi</li>
+                            <li>Coordinamento tecnico con CTO, CEO e stakeholder</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <h3>Backend API Team Lead | R&D Engineer</h3>
+                        <div class="meta">Competitoor • Remote • 2020 - 2023</div>
+                        <p>
+                            Team Lead di 4 sviluppatori per piattaforma Price & Market Intelligence. 
+                            Monitoring 50+ milioni pagine prodotto su 450k siti in 40 paesi.
+                        </p>
+                        <ul>
+                            <li>Leadership team backend + collaborazione team ML</li>
+                            <li>Migrazione legacy + caching distribuito (Redis)</li>
+                            <li>60% riduzione deployment time</li>
+                            <li>Test coverage: 30% → 85%</li>
+                            <li>Onboarding: 3 settimane → 1 settimana</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <h3>Software Engineer</h3>
+                        <div class="meta">Siemens • 2019 - 2020</div>
+                        <p>
+                            Sviluppo DEOP (Distributed Energy Optimization Platform) per ottimizzazione energetica 
+                            e gestione microgrid.
+                        </p>
+                        <ul>
+                            <li>Cloud Foundry integration + SSO implementation</li>
+                            <li>Refactoring JavaScript ES5 → ES6+</li>
+                            <li>CI/CD pipeline + test funzionali</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Skills Section -->
+                <div class="section">
+                    <h2 class="section-title">Skills</h2>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h4>Backend & APIs</h4>
+                            <ul>
+                                <li>Node.js, TypeScript</li>
+                                <li>Fastify, Platformatic Watt</li>
+                                <li>NestJS, Express</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Database & Storage</h4>
+                            <ul>
+                                <li>PostgreSQL, MySQL</li>
+                                <li>Redis, Elasticsearch</li>
+                                <li>MongoDB, MinIO</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Healthcare</h4>
+                            <ul>
+                                <li>FHIR, HL7 v2/v3</li>
+                                <li>DICOM, MLLP</li>
+                                <li>GDPR, HIPAA compliance</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>DevOps & Infrastructure</h4>
+                            <ul>
+                                <li>Docker, Kubernetes</li>
+                                <li>GitHub Actions, Jenkins</li>
+                                <li>Ansible, Terraform</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Observability</h4>
+                            <ul>
+                                <li>Prometheus, Grafana</li>
+                                <li>Loki, Tempo</li>
+                                <li>ELK Stack, OpenTelemetry</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>AI-Assisted Dev</h4>
+                            <ul>
+                                <li>Claude, GitHub Copilot</li>
+                                <li>Cursor, Ollama</li>
+                                <li>LangChain, RAG</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Looking For Section -->
+                <div class="section">
+                    <div class="info-box">
+                        <h4>💼 Looking For</h4>
+                        <ul>
+                            <li><strong>Role:</strong> Senior Backend Engineer / Tech Lead</li>
+                            <li><strong>RAL:</strong> €45.000</li>
+                            <li><strong>Contract:</strong> 6 months fixed-term → permanent / P.IVA</li>
+                            <li><strong>Mode:</strong> Full Remote, Smart Working</li>
+                            <li><strong>Location:</strong> Emilia Romagna / Calabria, Italy</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -1612,6 +2130,46 @@
             setTimeout(() => {
                 document.querySelector('.terminal-content').focus();
             }, 100);
+            
+            // View Toggle Functionality
+            const viewToggle = document.getElementById('viewToggle');
+            const terminalContent = document.getElementById('terminalContent');
+            const simpleView = document.getElementById('simpleView');
+            const toggleText = document.getElementById('toggleText');
+            const mobileInput = document.getElementById('mobileInput');
+            
+            let isSimpleView = false;
+            
+            viewToggle.addEventListener('click', () => {
+                isSimpleView = !isSimpleView;
+                
+                if (isSimpleView) {
+                    // Switch to simple view
+                    terminalContent.style.display = 'none';
+                    mobileInput.style.display = 'none';
+                    simpleView.classList.add('active');
+                    toggleText.textContent = 'Terminal View';
+                    viewToggle.querySelector('span:first-child').textContent = '🖥️';
+                } else {
+                    // Switch to terminal view
+                    terminalContent.style.display = 'flex';
+                    if (window.innerWidth <= 768) {
+                        mobileInput.style.display = 'block';
+                    }
+                    simpleView.classList.remove('active');
+                    toggleText.textContent = 'Simple View';
+                    viewToggle.querySelector('span:first-child').textContent = '📄';
+                    
+                    // Re-focus terminal
+                    setTimeout(() => {
+                        if (window.innerWidth <= 768) {
+                            mobileInput.focus();
+                        } else {
+                            terminalContent.focus();
+                        }
+                    }, 100);
+                }
+            });
 
             // Permetti context menu per copy/paste
             // Commentiamo il blocco per permettere interazioni native del browser
