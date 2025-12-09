@@ -1,51 +1,102 @@
-# Antonio Cittadino - Portfolio
+# Antonio Cittadino - Terminal Portfolio
 
-🚀 **Senior Backend Developer** specializzato in Node.js, NestJS e TypeScript
+Un portfolio interattivo in stile Matrix con interfaccia a terminale.
 
-## 🌟 Highlights
+## 🎯 About
 
-- **6+ anni di esperienza** nel backend development
-- **Specializzato in Node.js, NestJS, TypeScript**
-- **Leader tecnico** con esperienza nella gestione team
-- **50+ progetti completati** in diversi settori
-- **Disponibile per freelance e consulenze**
+Portfolio personale costruito come terminale interattivo Matrix-style. Naviga il mio CV attraverso comandi di terminale per esplorare competenze, esperienze lavorative, progetti e molto altro.
+
+**Live Demo:** [awesomecit.github.io](https://awesomecit.github.io)
+
+## ✨ Features
+
+- 🖥️ **Interfaccia terminale Matrix-style** - Esperienza utente immersiva con effetti visivi
+- ⌨️ **Navigazione a comandi** - Esplora il CV con comandi terminale intuitivi
+- 📱 **Mobile-first** - Ottimizzato per dispositivi mobile con tastiera touch
+- 🔗 **Link interattivi** - CTRL+Click su desktop, tap diretto su mobile
+- 📧 **Email integration** - Apri il client email con un click
+- 📥 **CV Download** - Scarica il CV in formato PDF
+- 🎨 **Effetti Matrix** - Cursore lampeggiante, scanlines, effetti glitch
+- 🌐 **Social integration** - Modalità interattiva per profili social
+
+## 🚀 Quick Start
+
+### Test Locale
+
+Apri direttamente nel browser:
+
+```bash
+xdg-open index.html 2>/dev/null || echo "file://$(pwd)/index.html"
+```
+
+Oppure avvia un server HTTP locale:
+
+```bash
+python3 -m http.server 8000
+# Poi apri http://localhost:8000 nel browser
+```
+
+### Comandi Disponibili
+
+Una volta aperto il terminale, prova questi comandi:
+
+```bash
+help                 # Mostra tutti i comandi disponibili
+cit --help          # Comandi CV completi
+cit --about         # Profilo professionale
+cit --skills        # Competenze tecniche
+cit --experience    # Esperienza lavorativa
+cit --projects      # Portfolio progetti
+cit --contact       # Informazioni contatto
+cit --download      # Scarica CV PDF
+social              # Apri profili social
+sendmail            # Componi email
+clear               # Pulisci terminale
+```
 
 ## 🛠️ Tech Stack
 
-**Backend:** Node.js, TypeScript, NestJS, Express, Fastify
-**Database:** PostgreSQL, MySQL, Redis, Elasticsearch
-**DevOps:** Docker, Jenkins, GitHub Actions, CI/CD
-**Metodologie:** TDD, DDD, Clean Code, SOLID, Agile/Scrum
+**Frontend:** Vanilla JavaScript, HTML5, CSS3  
+**Design:** Matrix theme, Terminal UI, Mobile-first responsive  
+**Features:** Command-line interface, Touch events, WebSocket ready
 
-## 🤝 Collaborazioni
+## 📱 Mobile Support
 
-- **Promedital (ICT-Group)** - Backend Developer & Project Lead
-- **Competitoor** - Tech Lead & Backend Developer  
-- **Siemens/Horsa** - Backend Developer
+- ✅ Tastiera touch nativa
+- ✅ Touch events per link e azioni
+- ✅ Copy/paste ottimizzato
+- ✅ Responsive design
+- ✅ Auto-focus input
 
-## 🎓 Background
+## 🎨 Features Tecniche
 
-**Laurea Triennale** in Ingegneria Elettronica - Università della Calabria (100/100)
-**Diploma** di Perito Capotecnico - ITIS G. Gronchi (100/100, media più alta dell'istituto)
+- **Command System**: Architettura basata su Map per estensibilità
+- **Interactive Modes**: Sistema a stati per workflow multi-step (social, email)
+- **History Navigation**: ArrowUp/Down per navigare comandi precedenti
+- **Event-driven**: Gestione eventi keyboard e touch ottimizzata
+- **Accessibility**: Supporto screen reader, reduced motion, high contrast
 
-- Specializzazione in microelettronica e telecomunicazioni
-- Da ingegnere elettronico a software developer: un percorso di evoluzione continua
-- Background tecnico solido: Assembly, VHDL, C/C++, MATLAB, LabVIEW
+## 📂 Struttura Progetto
+
+```text
+.
+├── index.html              # Single-page application
+├── cv.pdf                  # CV in formato PDF
+├── CV_Antonio_Cittadino.pdf
+└── README.md
+```
+
+## 📄 License
+
+MIT License - Sentiti libero di usare questo template per il tuo portfolio!
 
 ## 📞 Contatti
 
-- **Email:** <awesome.cit.dev@gmail.com>
-- **LinkedIn:** [antonio-cittadino-9362b179](https://www.linkedin.com/in/antonio-cittadino-9362b179/)
-- **Instagram:** [@_tech_citizen_](https://www.instagram.com/_tech_citizen_/)
+- **Email:** [awesome.cit.dev@gmail.com](mailto:awesome.cit.dev@gmail.com)
+- **LinkedIn:** [antonio-cittadino-9362b179](https://linkedin.com/in/antonio-cittadino-9362b179)
 - **GitHub:** [awesomecit](https://github.com/awesomecit)
-
-## 🚀 Iniziamo il tuo progetto
-
-Disponibilità limitata - Accetto solo **3 nuovi progetti al mese**.
-Risposta garantita entro 24 ore.
-
-[Contattami ora](mailto:awesome.cit.dev@gmail.com) per discutere il tuo progetto!
+- **Portfolio:** [awesomecit.github.io](https://awesomecit.github.io)
 
 ---
 
-⭐ **Trusted by:** Promedital | Competitoor | Siemens
+⭐ **Se ti piace questo progetto, lascia una stella!**

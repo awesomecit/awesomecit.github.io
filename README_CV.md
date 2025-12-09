@@ -28,14 +28,17 @@ Hai 3 opzioni per creare il file `cv.pdf` che sarà scaricabile dal terminale:
 Se hai già un CV in formato PDF:
 
 1. Rinominalo in `cv.pdf`
-2. Copialo nella cartella `/home/antoniocittadino/MyRepos/awesomecit.github.io/`
+2. Copialo nella cartella del progetto:
+
+```bash
+cp /percorso/tuo/cv.pdf $(pwd)/cv.pdf
+```
 
 ## Opzione 4: Usare wkhtmltopdf (Linux)
 
 Se hai wkhtmltopdf installato:
 
 ```bash
-cd /home/antoniocittadino/MyRepos/awesomecit.github.io/
 wkhtmltopdf CV_TEMPLATE.html cv.pdf
 ```
 
@@ -51,12 +54,17 @@ sudo dnf install wkhtmltopdf      # Fedora
 
 Dopo aver creato il file `cv.pdf`:
 
-1. Verifica che si trovi in `/home/antoniocittadino/MyRepos/awesomecit.github.io/cv.pdf`
+1. Verifica che il file esista nella directory del progetto:
+
+   ```bash
+   ls -la $(pwd)/cv.pdf
+   ```
+
 2. Apri il terminale nel browser
 3. Esegui il comando: `cit download`
 4. Il download dovrebbe partire automaticamente!
 
 ---
 
-**Nota:** Il file `CV_TEMPLATE.html` contiene già tutte le informazioni del tuo CV formattate in modo professionale. 
+**Nota:** Il file `CV_TEMPLATE.html` contiene già tutte le informazioni del tuo CV formattate in modo professionale.
 Puoi personalizzarlo ulteriormente prima di convertirlo in PDF se necessario.
