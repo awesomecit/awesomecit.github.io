@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV · Antonio Cittadino</title>
+<meta name="description" content="Curriculum di Antonio Cittadino, senior backend engineer e tech lead.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&family=Lexend:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+/* Sorgente unica del CV: cv.pdf si genera da qui (vedi README). */
+:root{--ink:#142B40;--ionio:#17344F;--muted:#56687A;--line:#D6DEE2;--accent:#C7D13B;--sila:#2F6B4F;--side:#F3F6F5;
+  --f-display:"Lexend",system-ui,sans-serif;--f-body:"Atkinson Hyperlegible",system-ui,sans-serif;--f-mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:A4;margin:0}
+html{background:#DDE4E7}
+body{font:400 10pt/1.5 var(--f-body);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+a{color:inherit;text-decoration:none}
+.sheet{width:210mm;min-height:297mm;margin:12mm auto;background:#fff;display:grid;grid-template-columns:64mm 1fr;box-shadow:0 10px 40px rgba(23,52,79,.18)}
+@media print{html{background:#fff}.sheet{margin:0;box-shadow:none;min-height:0;height:593mm;overflow:hidden}.toolbar{display:none!important}main h2{break-after:avoid}aside,main{-webkit-box-decoration-break:clone;box-decoration-break:clone}}
+
+aside{background:var(--ionio);color:#E6EDF1;padding:14mm 8mm 12mm 10mm}
+.photo{width:36mm;height:36mm;border-radius:50%;object-fit:cover;display:block;margin:0 auto 7mm;box-shadow:0 0 0 1.2mm var(--ionio),0 0 0 2mm var(--accent)}
+aside h2{font:500 7.5pt var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:7mm 0 2.5mm}
+aside p,aside li{font-size:8.8pt;color:#C9D6DF}
+aside ul{list-style:none;display:grid;gap:1.6mm}
+aside .contact li{display:grid;grid-template-columns:15mm 1fr;font-size:8.4pt}
+aside .contact span{font:400 7.5pt var(--f-mono);color:#8FA6B6}
+aside .skill b{display:block;color:#fff;font-weight:700;font-size:8.6pt}
+
+main{padding:14mm 13mm 12mm 11mm}
+.label{font:500 7.5pt var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.label b{color:var(--sila)}
+h1{font:300 25pt/1.05 var(--f-display);letter-spacing:-.02em;margin:2.5mm 0 1.5mm;color:var(--ionio)}
+h1 strong{font-weight:700}
+.role{font:500 10.5pt var(--f-display);color:var(--ionio)}
+.role em{font-style:normal;background:var(--accent);padding:0 1.2mm;border-radius:1mm}
+.profile{margin-top:5mm;font-size:9.6pt}
+.nums{display:grid;grid-template-columns:repeat(4,1fr);margin:6mm 0 2mm;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.nums div{padding:3mm 2mm 3mm 0}
+.nums b{display:block;font:700 14pt var(--f-display);color:var(--ionio)}
+.nums span{font-size:7.6pt;color:var(--muted);line-height:1.3;display:block}
+main h2{font:500 7.5pt var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--sila);margin:7mm 0 3mm;display:flex;align-items:center;gap:3mm}
+main h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.job{display:grid;grid-template-columns:22mm 1fr;gap:4mm;margin-bottom:5mm;break-inside:avoid}
+.when{font:400 7.8pt/1.4 var(--f-mono);color:var(--muted)}
+.when b{display:block;color:var(--ink);font-weight:500}
+.job h3{font:500 11pt/1.25 var(--f-display);color:var(--ionio)}
+.job h3 small{display:block;font:400 9pt var(--f-body);color:var(--muted)}
+.job p{margin-top:1.5mm;font-size:9.2pt}
+.job ul{margin-top:1.5mm;list-style:none;display:grid;gap:.8mm}
+.job li{font-size:9pt;padding-left:4mm;position:relative}
+.job li::before{content:"→";position:absolute;left:0;color:var(--sila);font-family:var(--f-mono);font-size:8pt}
+.tags{margin-top:2mm;font:400 7.6pt var(--f-mono);color:var(--muted)}
+.foot{margin-top:6mm;font:400 7.2pt var(--f-mono);color:var(--muted)}
+
+.toolbar{position:fixed;top:12px;right:12px;display:flex;gap:8px;font:500 12px var(--f-mono)}
+.toolbar a{background:var(--ionio);color:#fff;padding:9px 14px;border-radius:8px}
+.toolbar a.alt{background:var(--accent);color:var(--ionio)}
+@media screen and (max-width:820px){.sheet{width:auto;margin:0;grid-template-columns:1fr;min-height:0}.toolbar{position:static;padding:12px}}
+</style>
+</head>
+<body>
+<nav class="toolbar"><a href="./">← sito</a><a class="alt" href="cv.pdf" download="CV_Antonio_Cittadino.pdf">scarica pdf ↓</a></nav>
+
+<div class="sheet">
+<aside>
+  <img class="photo" src="assets/avatar.jpg" alt="Antonio Cittadino">
+
+  <h2>contatti</h2>
+  <ul class="contact">
+    <li><span>email</span><a href="mailto:awesome.cit.dev@gmail.com">awesome.cit.dev@gmail.com</a></li>
+    <li><span>tel</span><a href="tel:+393804611277">+39 380 461 1277</a></li>
+    <li><span>web</span><a href="https://awesomecit.github.io">awesomecit.github.io</a></li>
+    <li><span>linkedin</span><a href="https://linkedin.com/in/antonio-cittadino-9362b179">in/antonio-cittadino-9362b179</a></li>
+    <li><span>github</span><a href="https://github.com/awesomecit">github.com/awesomecit</a></li>
+    <li><span>base</span>Calabria / Emilia · full remote</li>
+  </ul>
+
+  <h2>competenze</h2>
+  <ul class="skill">
+    <li><b>Backend</b>Node.js, TypeScript, Fastify, Platformatic Watt, NestJS</li>
+    <li><b>Healthcare</b>FHIR, HL7 v2/v3, SOAP, MLLP, CDA, DICOM</li>
+    <li><b>Dati e messaggi</b>PostgreSQL, Redis, MongoDB, Elasticsearch, RabbitMQ, MinIO</li>
+    <li><b>Auth</b>Keycloak, OAuth 2.0, OIDC, SAML, RBAC</li>
+    <li><b>Infra</b>Docker, Caddy, Ansible, Cloudflare, Linux</li>
+    <li><b>Osservabilità</b>Prometheus, Grafana, Loki, Tempo, OpenTelemetry, ELK</li>
+    <li><b>Test</b>Jest, Playwright, Cucumber, Supertest, mutation testing</li>
+    <li><b>Frontend</b>React, React Native, LitElement, WebSocket</li>
+    <li><b>AI</b>Claude Code, agenti su issue, Ollama, RAG</li>
+  </ul>
+
+  <h2>metodo</h2>
+  <p>XP guidato da spec, DDD, BDD, TDD, Clean Code, ADR, trunk-based, Conventional Commits.</p>
+
+  <h2>formazione</h2>
+  <ul>
+    <li><b style="color:#fff">Laurea in Elettronica – Microelettronica</b><br>100/110 · tesi su preprocessing di dati fMRI</li>
+    <li><b style="color:#fff">Diploma ITIS Elettronica e Telecomunicazioni</b><br>100/100</li>
+  </ul>
+
+  <h2>lingue</h2>
+  <p>Italiano madrelingua · Inglese tecnico B2</p>
+</aside>
+
+<main>
+  <p class="label"><b>●</b> curriculum vitae</p>
+  <h1>Antonio <strong>Cittadino</strong></h1>
+  <p class="role"><em>Senior backend engineer</em> · tech lead · software architect</p>
+
+  <p class="profile">Sette anni a costruire sistemi distribuiti, API e architetture che devono reggere: sale operatorie, reti energetiche, una piattaforma che monitora 50 milioni di pagine al giorno. Vengo dall'elettronica, quindi penso in segnali, tempi e guasti. Lavoro da artigiano (DDD, TDD, XP) e uso l'AI come copilota, con review obbligatoria.</p>
+
+  <div class="nums">
+    <div><b>−40%</b><span>click nei flussi di sala operatoria</span></div>
+    <div><b>30→85%</b><span>copertura dei test</span></div>
+    <div><b>−60%</b><span>tempo di deploy</span></div>
+    <div><b>3→1</b><span>settimane di onboarding</span></div>
+  </div>
+
+  <h2>esperienza</h2>
+
+  <div class="job">
+    <div class="when"><b>2023 — oggi</b>Reggio Emilia<br>remoto</div>
+    <div>
+      <h3>Full stack developer · tech lead<small>ICT Group – Promedital</small></h3>
+      <p>Referente tecnico di SISOS, gestionale delle sale operatorie in strutture sanitarie pubbliche e private.</p>
+      <ul>
+        <li>Cartella clinica digitale con firma e catena di validità</li>
+        <li>Integrazioni FHIR, HL7 v2/v3, SOAP, MLLP</li>
+        <li>Sincronizzazione in tempo reale via WebSocket e gestione incidenti</li>
+        <li>Redesign UX: 40% di click in meno; raccordo tecnico con CTO e CEO</li>
+      </ul>
+      <p class="tags">TypeScript · Node.js · React · PostgreSQL · Redis · Docker</p>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="when"><b>2020 — 2023</b>remoto</div>
+    <div>
+      <h3>Backend API team lead · R&amp;D engineer<small>Competitoor (Dispell Magic srl)</small></h3>
+      <p>Guida di 4 sviluppatori sulla piattaforma di price intelligence basata su AI: 50+ milioni di pagine prodotto, 450.000 siti, 40 paesi.</p>
+      <ul>
+        <li>Migrazione del legacy e cache distribuita su Redis</li>
+        <li>Logging centralizzato con ELK e report distribuiti</li>
+        <li>Semantic versioning, CI/CD e test first: deploy −60%, coverage 30→85%</li>
+        <li>Onboarding ridotto da 3 settimane a 1</li>
+      </ul>
+      <p class="tags">Node.js · TypeScript · Python · Redis · Elasticsearch · Jenkins</p>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="when"><b>2019 — 2020</b>via Horsa /<br>Siglatech</div>
+    <div>
+      <h3>Software engineer<small>Siemens · DEOP</small></h3>
+      <p>Piattaforma di ottimizzazione energetica e microgrid: SSO su Cloud Foundry, refactoring ES5 → ES6+, pipeline CI/CD, test funzionali e dashboard dei consumi con dati IoT.</p>
+    </div>
+  </div>
+
+  <h2>progetti</h2>
+
+  <div class="job">
+    <div class="when"><b>in corso</b>side project</div>
+    <div>
+      <h3>TechCitizen<small>techcitizen.it · ricerca e sviluppo dalla Calabria</small></h3>
+      <p>Software civico con un piccolo team: CityCat (beta con i volontari), Scorza (demo online), siti per artisti e chef. Infrastruttura su VPS con Caddy, deploy automatico, agenti AI che lavorano su issue.</p>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="when"><b>open source</b>didattico</div>
+    <div>
+      <h3>Tech Citizen SW Gateway · corso Modern Backend<small>API gateway healthcare e corso di 100+ ore</small></h3>
+      <p>Gateway su Platformatic Watt e Fastify con circuit breaker, rate limiting, FHIR/HL7, Keycloak e osservabilità completa; il corso lo costruisce da zero.</p>
+    </div>
+  </div>
+
+  <p class="foot">Autorizzo il trattamento dei dati personali ai sensi del Reg. UE 2016/679 (GDPR). · Aggiornato a novembre 2026</p>
+</main>
+</div>
+</body>
+</html>
