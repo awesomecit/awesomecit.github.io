@@ -19,6 +19,12 @@ Poi apri <http://localhost:8000>.
 
 - Testi: direttamente in `index.html`; la shell li prende dalla pagina.
 - Telefono e WhatsApp: cerca `393804611277` in `index.html`.
-- CV: `cv.pdf` (fonte in `CV.md`).
+- CV: la sorgente è `cv.html`; `cv.pdf` si rigenera da lì, con il server locale acceso:
+
+```bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer --virtual-time-budget=8000 --print-to-pdf=cv.pdf http://localhost:8000/cv.html
+```
+
+- Foto: `assets/avatar.jpg` (360 px, ritagliata in cerchio via CSS).
 
 Le versioni precedenti (terminale Matrix e versione visuale) sono nella storia git, fino al commit `f12001a`.

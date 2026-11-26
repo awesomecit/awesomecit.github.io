@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Antonio Cittadino · backend engineer</title>
 <meta name="description" content="Antonio Cittadino, senior backend engineer e tech lead. Node.js, TypeScript, sistemi sanitari ed event-driven. Parte del team TechCitizen.">
+<meta property="og:image" content="https://awesomecit.github.io/assets/avatar.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500;700&family=Lexend:wght@300;500;700&display=swap" rel="stylesheet">
@@ -65,6 +66,10 @@ nav a:hover{color:var(--ink)}
 .status .head{display:flex;gap:6px;margin-bottom:12px}
 .status .head span{width:10px;height:10px;border-radius:50%;background:var(--line)}
 
+.me{display:flex;align-items:center;gap:16px;margin:4px 0 14px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.avatar{width:104px;height:104px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--accent)}
+.me b{display:block;font:500 17px var(--f-display);color:var(--ink)}
+.me span{color:var(--muted)}
 /* trace motif */
 .trace{position:absolute;inset:auto 0 0 0;height:1px;background:var(--line)}
 .trace::after{content:"";position:absolute;left:0;top:-1px;height:3px;width:120px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:run 6s linear infinite}
@@ -205,12 +210,16 @@ body.shell main,body.shell footer{visibility:hidden}
       <div class="cta">
         <a class="btn primary" href="https://wa.me/393804611277?text=Ciao%20Antonio%2C%20ho%20visto%20il%20tuo%20sito" rel="noopener">scrivimi su WhatsApp →</a>
         <a class="btn" href="mailto:awesome.cit.dev@gmail.com">email</a>
-        <a class="btn" href="cv.pdf">cv.pdf ↓</a>
+        <a class="btn" href="cv.pdf" download="CV_Antonio_Cittadino.pdf">cv.pdf ↓</a>
         <a class="btn" href="https://github.com/awesomecit">github</a>
       </div>
     </div>
     <aside class="status" aria-label="Stato attuale">
       <div class="head" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="me">
+        <img class="avatar" src="assets/avatar.jpg" width="104" height="104" alt="Antonio Cittadino, sorridente, camicia bianca e cravatta">
+        <div><b>Antonio Cittadino</b><span>backend · tech lead</span></div>
+      </div>
       <div class="row"><span class="k">ruolo</span><span class="v">tech lead · SISOS</span></div>
       <div class="row"><span class="k">dominio</span><span class="v">healthcare IT</span></div>
       <div class="row"><span class="k">base</span><span class="v">Calabria / Emilia</span></div>
@@ -374,8 +383,9 @@ body.shell main,body.shell footer{visibility:hidden}
       <a class="btn" href="mailto:awesome.cit.dev@gmail.com">awesome.cit.dev@gmail.com</a>
       <a class="btn" href="tel:+393804611277">chiama</a>
       <a class="btn" href="https://linkedin.com/in/antonio-cittadino-9362b179">linkedin ↗</a>
+      <a class="btn" href="cv.html">cv online</a>
       <a class="btn" href="https://github.com/awesomecit">github ↗</a>
-      <a class="btn" href="cv.pdf">cv.pdf ↓</a>
+      <a class="btn" href="cv.pdf" download="CV_Antonio_Cittadino.pdf">cv.pdf ↓</a>
     </div>
   </div>
 </section>
@@ -417,7 +427,7 @@ const commands = {
   whatsapp   scrivimi in chat
   stack      gli attrezzi
   contatti   come trovarmi
-  cv         scarica il cv in pdf
+  cv         scarica il cv in pdf (o apri cv.html)
   page       torna alla pagina
   clear      pulisce lo schermo
 <span class="m">e poi ci sono comandi che non trovi qui. coffee, per esempio.</span>`,
@@ -441,7 +451,7 @@ ${$('.hero p.lead').textContent.trim()}
   contatti: () => `email     <a href="mailto:awesome.cit.dev@gmail.com">awesome.cit.dev@gmail.com</a>
 linkedin  <a href="https://linkedin.com/in/antonio-cittadino-9362b179">in/antonio-cittadino-9362b179</a>
 github    <a href="https://github.com/awesomecit">github.com/awesomecit</a>`,
-  cv: () => { window.open('cv.pdf'); return '<span class="m">apro cv.pdf…</span>'; },
+  cv: () => { const a = document.createElement('a'); a.href = 'cv.pdf'; a.download = 'CV_Antonio_Cittadino.pdf'; a.click(); return '<span class="m">scarico cv.pdf… la versione da leggere è su</span> <a href="cv.html">cv.html</a>'; },
   page: () => { setMode('page'); return ''; },
   clear: () => { out.innerHTML = ''; return null; },
   lab: () => text('.prod').map(a => `<span class="g">▸</span> <span class="h">${a.querySelector('b').textContent.padEnd(15)}</span><span class="p">[${a.querySelector('.pill').textContent.replace('● ','')}]</span> <a href="${a.href}">apri</a>\n  <span class="m">${a.querySelector('span:not(.pill)').textContent}</span>`).join('\n'),
