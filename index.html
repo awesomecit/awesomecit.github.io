@@ -1,2195 +1,516 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cit's Terminal - Landing Page</title>
-    <style>
-        /* CSS Custom Properties per theming sistemico */
-        :root {
-            --matrix-green: #00ff41;
-            --matrix-green-dim: #00cc33;
-            --terminal-bg: rgba(0, 0, 0, 0.85);
-            --frame-color: #666;
-            --font-family: 'Courier New', 'Lucida Console', monospace;
-            --cursor-blink: 1s;
-        }
-
-        /* Reset e base styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-family);
-            background: linear-gradient(135deg, #0d1117 0%, #1a1a1a 100%);
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Matrix rain background effect */
-        .matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.1;
-        }
-
-        /* Terminal container fullscreen */
-        .terminal-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            background: var(--terminal-bg);
-            backdrop-filter: blur(2px);
-            border: none;
-            border-radius: 0;
-            box-shadow:
-                inset 0 0 100px rgba(0, 255, 65, 0.1),
-                inset 0 0 50px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Terminal header bar */
-        .terminal-header {
-            background: linear-gradient(to bottom, #333, #111);
-            padding: 12px 20px;
-            border-bottom: 1px solid var(--frame-color);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .terminal-buttons {
-            display: flex;
-            gap: 6px;
-        }
-
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-        }
-
-        .close {
-            background: #ff5f56;
-        }
-
-        .minimize {
-            background: #ffbd2e;
-        }
-
-        .maximize {
-            background: #27ca3f;
-        }
-
-        .terminal-title {
-            color: #ccc;
-            font-size: 12px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: normal;
-        }
-
-        /* View Toggle Button */
-        .view-toggle {
-            margin-left: auto;
-            background: rgba(0, 255, 65, 0.1);
-            border: 1px solid var(--matrix-green);
-            color: var(--matrix-green);
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: var(--font-family);
-            font-size: 11px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .view-toggle:hover {
-            background: rgba(0, 255, 65, 0.2);
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
-        }
-
-        .view-toggle:active {
-            transform: scale(0.95);
-        }
-
-        /* Simple View Styles - Professional Minimalist */
-        .simple-view {
-            display: none;
-            padding: 0;
-            background: #ffffff;
-            color: #1a1a1a;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', sans-serif;
-            line-height: 1.7;
-            overflow-y: auto;
-            height: 100%;
-        }
-
-        .simple-view.active {
-            display: block;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 40px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3em;
-            margin: 0 0 10px 0;
-            font-weight: 700;
-        }
-
-        .hero .subtitle {
-            font-size: 1.3em;
-            opacity: 0.95;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        .hero .tagline {
-            font-size: 1.1em;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        /* Contact Links */
-        .contact-links {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .contact-links a {
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .contact-links a:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Content Container */
-        .content {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 60px 40px;
-        }
-
-        /* Section */
-        .section {
-            margin-bottom: 60px;
-        }
-
-        .section-title {
-            font-size: 2em;
-            margin-bottom: 30px;
-            color: #2d3748;
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 2px;
-        }
-
-        /* Project Cards */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .project-card {
-            background: #f7fafc;
-            border-radius: 12px;
-            padding: 30px;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-color: #cbd5e0;
-        }
-
-        .project-card h3 {
-            font-size: 1.4em;
-            margin: 0 0 10px 0;
-            color: #2d3748;
-        }
-
-        .project-card .subtitle {
-            color: #718096;
-            margin-bottom: 15px;
-            font-size: 0.95em;
-        }
-
-        .project-card .description {
-            color: #4a5568;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .project-card .tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            padding: 4px 12px;
-            background: #edf2f7;
-            border-radius: 12px;
-            font-size: 0.85em;
-            color: #4a5568;
-        }
-
-        /* Experience Timeline */
-        .experience-item {
-            margin-bottom: 40px;
-            padding-left: 30px;
-            border-left: 3px solid #e2e8f0;
-            position: relative;
-        }
-
-        .experience-item:before {
-            content: '';
-            position: absolute;
-            left: -7px;
-            top: 5px;
-            width: 12px;
-            height: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-        }
-
-        .experience-item h3 {
-            font-size: 1.3em;
-            margin: 0 0 5px 0;
-            color: #2d3748;
-        }
-
-        .experience-item .meta {
-            color: #718096;
-            margin-bottom: 15px;
-            font-size: 0.95em;
-        }
-
-        .experience-item ul {
-            margin: 15px 0;
-            padding-left: 20px;
-        }
-
-        .experience-item li {
-            margin-bottom: 8px;
-            color: #4a5568;
-        }
-
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .skill-category {
-            background: #f7fafc;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .skill-category h4 {
-            margin: 0 0 12px 0;
-            color: #2d3748;
-            font-size: 1.1em;
-        }
-
-        .skill-category ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .skill-category li {
-            margin-bottom: 6px;
-            color: #4a5568;
-            font-size: 0.95em;
-        }
-
-        /* Info Box */
-        .info-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 12px;
-            margin-top: 30px;
-        }
-
-        .info-box h4 {
-            margin: 0 0 15px 0;
-            font-size: 1.3em;
-        }
-
-        .info-box ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        .info-box li {
-            margin-bottom: 8px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                padding: 60px 20px;
-            }
-
-            .hero h1 {
-                font-size: 2em;
-            }
-
-            .hero .subtitle {
-                font-size: 1.1em;
-            }
-
-            .content {
-                padding: 40px 20px;
-            }
-
-            .section-title {
-                font-size: 1.6em;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Terminal content area - fullscreen */
-        .terminal-content {
-            flex: 1;
-            padding: 30px;
-            color: var(--matrix-green);
-            font-size: 16px;
-            line-height: 1.6;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--matrix-green) transparent;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        /* Terminal prompt styling */
-        .terminal-line {
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
-
-        .prompt {
-            color: var(--matrix-green-dim);
-            margin-right: 8px;
-        }
-
-        .command {
-            color: var(--matrix-green);
-        }
-
-        /* Cursore lampeggiante */
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 16px;
-            background: var(--matrix-green);
-            animation: blink var(--cursor-blink) infinite;
-            margin-left: 2px;
-        }
-
-        @keyframes blink {
-
-            0%,
-            50% {
-                opacity: 1;
-            }
-
-            51%,
-            100% {
-                opacity: 0;
-            }
-        }
-
-        /* Output text styling */
-        .output-text {
-            color: var(--matrix-green);
-            font-weight: normal;
-        }
-
-        .user-input {
-            color: var(--matrix-green);
-        }
-
-        /* Stile per testo selezionato - migliora la visibilità per copy/paste */
-        ::selection {
-            background: var(--matrix-green);
-            color: #000;
-        }
-
-        ::-moz-selection {
-            background: var(--matrix-green);
-            color: #000;
-        }
-
-        /* Enable text selection on mobile */
-        .terminal-content {
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
-        }
-
-        /* Touch action optimization */
-        .terminal-content * {
-            touch-action: manipulation;
-        }
-
-        .help-command {
-            color: var(--matrix-green-dim);
-            margin: 5px 0;
-            padding-left: 20px;
-        }
-
-        .help-description {
-            color: #888;
-            margin-left: 10px;
-        }
-
-        .help-header {
-            color: var(--matrix-green);
-            font-weight: bold;
-            margin: 10px 0 5px 0;
-        }
-
-        /* Stili per link cliccabili con CTRL+Click */
-        .clickable-link {
-            color: var(--matrix-green);
-            text-decoration: underline;
-            cursor: pointer;
-            transition: color 0.2s ease;
-            -webkit-tap-highlight-color: rgba(0, 255, 65, 0.3);
-            user-select: text;
-            -webkit-user-select: text;
-        }
-
-        .clickable-link:hover {
-            color: var(--matrix-green-dim);
-            text-shadow: 0 0 5px var(--matrix-green);
-        }
-
-        /* Mobile: link touch feedback */
-        @media (max-width: 768px) {
-            .clickable-link {
-                padding: 2px 4px;
-                margin: -2px -4px;
-                display: inline-block;
-            }
-
-            .clickable-link:active {
-                background: rgba(0, 255, 65, 0.2);
-                color: var(--matrix-green-dim);
-            }
-        }
-
-        /* Typewriter effect per testo */
-        .typewriter-char {
-            opacity: 0;
-            animation: fadeInChar 0.05s ease-in-out forwards;
-        }
-
-        @keyframes fadeInChar {
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Glitch effect per comando speciali */
-        .glitch {
-            position: relative;
-            animation: glitch 0.3s ease-in-out;
-        }
-
-        @keyframes glitch {
-            0% {
-                transform: translate(0);
-            }
-
-            20% {
-                transform: translate(-2px, 2px);
-            }
-
-            40% {
-                transform: translate(-2px, -2px);
-            }
-
-            60% {
-                transform: translate(2px, 2px);
-            }
-
-            80% {
-                transform: translate(2px, -2px);
-            }
-
-            100% {
-                transform: translate(0);
-            }
-        }
-
-        /* Smooth scroll per contenuto lungo */
-        .terminal-content::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        .terminal-content::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .terminal-content::-webkit-scrollbar-thumb {
-            background: var(--matrix-green);
-            border-radius: 6px;
-            border: 2px solid rgba(0, 0, 0, 0.3);
-        }
-
-        .terminal-content::-webkit-scrollbar-thumb:hover {
-            background: var(--matrix-green-dim);
-        }
-
-        /* Responsive design fullscreen */
-        @media (max-width: 768px) {
-            .terminal-content {
-                padding: 20px 15px;
-                font-size: 14px;
-                line-height: 1.5;
-            }
-
-            .terminal-header {
-                padding: 10px 15px;
-            }
-
-            .terminal-title {
-                font-size: 11px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .terminal-content {
-                padding: 15px 10px;
-                font-size: 13px;
-            }
-
-            .terminal-header {
-                padding: 8px 10px;
-            }
-        }
-
-        /* Large screens optimization */
-        @media (min-width: 1920px) {
-            .terminal-content {
-                font-size: 18px;
-                padding: 40px;
-            }
-        }
-
-        /* Safe area support for mobile */
-        @supports (padding: max(0px)) {
-            .terminal-content {
-                padding-left: max(30px, env(safe-area-inset-left));
-                padding-right: max(30px, env(safe-area-inset-right));
-                padding-bottom: max(30px, env(safe-area-inset-bottom));
-            }
-        }
-
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            :root {
-                --matrix-green: #ffffff;
-                --matrix-green-dim: #cccccc;
-                --terminal-bg: rgba(0, 0, 0, 0.95);
-            }
-
-            .terminal-container::before,
-            .terminal-container::after {
-                display: none;
-            }
-        }
-
-        /* Accessibility: Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-
-            .cursor,
-            .typewriter-char {
-                animation: none;
-            }
-
-            .cursor {
-                opacity: 1;
-            }
-
-            .terminal-container::before {
-                display: none;
-            }
-        }
-
-        /* Hidden input for mobile keyboard support */
-        .mobile-input {
-            position: absolute;
-            left: -9999px;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Mobile: show input when terminal is focused */
-        @media (max-width: 768px) {
-            .mobile-input {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                padding: 10px;
-                background: rgba(0, 0, 0, 0.9);
-                border: 1px solid var(--matrix-green);
-                color: var(--matrix-green);
-                font-family: var(--font-family);
-                font-size: 16px;
-                opacity: 1;
-                pointer-events: all;
-                z-index: 2000;
-                box-sizing: border-box;
-            }
-
-            .mobile-input:focus {
-                outline: 2px solid var(--matrix-green);
-            }
-
-            /* Adjust terminal content padding on mobile to avoid keyboard overlap */
-            .terminal-content {
-                padding-bottom: 80px;
-            }
-        }
-
-        /* Matrix scanlines effect per fullscreen */
-        .terminal-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(transparent 50%,
-                    rgba(0, 255, 65, 0.03) 50%);
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        /* Subtle grid overlay */
-        .terminal-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.02;
-            background-image:
-                linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-            pointer-events: none;
-            z-index: 999;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Antonio Cittadino · backend engineer</title>
+<meta name="description" content="Antonio Cittadino, senior backend engineer e tech lead. Node.js, TypeScript, sistemi sanitari ed event-driven. Parte del team TechCitizen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500;700&family=Lexend:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D1A26; --band:#112131; --surface:#152A3D; --ink:#E6EDF1; --muted:#9DB0BF;
+  --line:#24394C; --accent:#C7D13B; --sila:#77B593; --ionio:#17344F;
+  --f-display:"Lexend",system-ui,sans-serif; --f-body:"Atkinson Hyperlegible",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  --w:1120px;
+}
+@media (prefers-color-scheme: light){
+  :root{--bg:#F3F6F5;--band:#FFFFFF;--surface:#FFFFFF;--ink:#142B40;--muted:#56687A;--line:#D6DEE2;--sila:#2F6B4F}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 24px}
+.mono{font-family:var(--f-mono)}
+.label{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.label b{color:var(--accent);font-weight:500}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:24px;height:60px}
+.brand{font:500 14px var(--f-mono);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand i{width:9px;height:9px;border-radius:50%;background:var(--sila);box-shadow:0 0 0 3px color-mix(in srgb,var(--sila) 25%,transparent)}
+nav{margin-left:auto;display:flex;gap:22px}
+nav a{font:400 14px var(--f-mono);color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--ink)}
+.mode{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;font:500 12px var(--f-mono)}
+.mode button{all:unset;cursor:pointer;padding:5px 12px;border-radius:999px;color:var(--muted)}
+.mode button[aria-pressed=true]{background:var(--accent);color:#17344F}
+.mode button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* hero */
+.hero{padding:96px 0 72px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.35fr .9fr;gap:56px;align-items:end}
+.hero h1{font:300 clamp(40px,6.2vw,76px)/1.02 var(--f-display);letter-spacing:-.03em;margin:22px 0 28px}
+.hero h1 strong{font-weight:700}
+.hero h1 em{font-style:normal;background:var(--accent);color:#17344F;padding:0 .12em;border-radius:4px}
+.hero p.lead{font-size:20px;max-width:34ch;color:var(--muted)}
+.hero p.lead strong{color:var(--ink);font-weight:700}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:10px;font:500 14px var(--f-mono);text-decoration:none;border:1px solid var(--line)}
+.btn.primary{background:var(--accent);color:#17344F;border-color:var(--accent)}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* status card */
+.status{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;font:400 13px/1.9 var(--f-mono)}
+.status .row{display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed var(--line);padding:4px 0}
+.status .row:last-child{border:0}
+.status .k{color:var(--muted)}
+.status .v{text-align:right}
+.status .ok{color:var(--sila)}
+.status .head{display:flex;gap:6px;margin-bottom:12px}
+.status .head span{width:10px;height:10px;border-radius:50%;background:var(--line)}
+
+/* trace motif */
+.trace{position:absolute;inset:auto 0 0 0;height:1px;background:var(--line)}
+.trace::after{content:"";position:absolute;left:0;top:-1px;height:3px;width:120px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:run 6s linear infinite}
+@keyframes run{from{transform:translateX(-120px)}to{transform:translateX(100vw)}}
+@media (prefers-reduced-motion:reduce){.trace::after{animation:none}}
+
+/* numbers */
+.numbers{background:var(--band);border-bottom:1px solid var(--line)}
+.numbers .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.num{padding:34px 24px 34px 0;border-right:1px solid var(--line)}
+.num+.num{padding-left:24px}
+.num:last-child{border:0}
+.num b{display:block;font:700 40px/1 var(--f-display);letter-spacing:-.02em}
+.num span{display:block;margin-top:10px;font-size:14px;color:var(--muted)}
+
+/* sections */
+section.block{padding:96px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:220px 1fr;gap:40px;margin-bottom:48px}
+.sec-head h2{font:500 clamp(28px,3.4vw,40px)/1.15 var(--f-display);letter-spacing:-.02em;max-width:22ch}
+.sec-body{display:grid;grid-template-columns:220px 1fr;gap:40px}
+
+/* method */
+.method{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.method div{background:var(--bg);padding:28px}
+.method h3{font:500 18px var(--f-display);margin:12px 0 8px}
+.method p{color:var(--muted);font-size:15px}
+
+/* timeline */
+.log{list-style:none}
+.log li{display:grid;grid-template-columns:220px 1fr;gap:40px;padding:32px 0;border-top:1px solid var(--line)}
+.log li:first-child{border-top:0;padding-top:0}
+.log .when{font:400 13px var(--f-mono);color:var(--muted)}
+.log .when b{display:block;color:var(--ink);font-weight:500;font-size:14px;margin-bottom:4px}
+.log h3{font:500 22px/1.3 var(--f-display)}
+.log h3 small{font:400 15px var(--f-body);color:var(--muted);display:block;margin-top:2px}
+.log p{margin-top:12px;max-width:62ch}
+.log ul.pts{margin:14px 0 0 0;list-style:none;display:grid;gap:6px}
+.log ul.pts li{display:block;padding:0 0 0 22px;border:0;position:relative;font-size:15px;color:var(--muted)}
+.log ul.pts li::before{content:"→";position:absolute;left:0;color:var(--sila);font-family:var(--f-mono)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tags span{font:400 12px var(--f-mono);padding:4px 9px;border:1px solid var(--line);border-radius:6px;color:var(--muted)}
+
+/* team */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;text-decoration:none;min-height:250px;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.card .swatch{height:72px;border-radius:10px;margin-bottom:20px;display:flex;align-items:flex-end;padding:10px;font:500 11px var(--f-mono)}
+.card h3{font:500 20px var(--f-display)}
+.card p{color:var(--muted);font-size:15px;margin-top:6px;flex:1}
+.card .url{font:400 12px var(--f-mono);color:var(--sila);margin-top:18px}
+.card .role{font:400 12px var(--f-mono);color:var(--muted);margin-top:4px}
+
+/* lab */
+.lab{margin-top:28px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.lab-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 22px;background:var(--band);border-bottom:1px solid var(--line)}
+.k{color:var(--muted);font-size:12px}
+.prod{display:grid;grid-template-columns:120px 160px 1fr auto;gap:20px;align-items:center;padding:18px 22px;border-top:1px solid var(--line);text-decoration:none}
+.prod:first-of-type{border-top:0}
+.prod:hover{background:var(--surface)}
+.prod b{font:500 17px var(--f-display)}
+.prod span:not(.pill){color:var(--muted);font-size:15px}
+.prod i{font:normal 12px var(--f-mono);color:var(--sila)}
+.pill{font:500 11px var(--f-mono);padding:4px 10px;border-radius:999px;border:1px solid var(--line);justify-self:start}
+.pill.live{background:var(--accent);color:#17344F;border-color:var(--accent)}
+.pill.beta{color:var(--sila);border-color:var(--sila)}
+.pill.proto{color:var(--muted)}
+.lead2{margin-top:20px;color:var(--muted);font-size:18px;max-width:46ch}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#17344F;font:500 14px var(--f-mono);padding:12px 18px;border-radius:10px;z-index:50}
+/* stack */
+.stack{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 40px}
+.stack h3{font:500 12px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:10px}
+.stack p{font-size:15px;color:var(--muted)}
+
+/* contact */
+.contact{padding:120px 0}
+.contact h2{font:300 clamp(36px,5.4vw,64px)/1.05 var(--f-display);letter-spacing:-.03em;max-width:16ch}
+.contact h2 strong{font-weight:700}
+.contact .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
+footer{border-top:1px solid var(--line);padding:28px 0;font:400 12px var(--f-mono);color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer kbd{border:1px solid var(--line);border-radius:4px;padding:1px 6px}
+
+/* shell */
+#shell{position:fixed;inset:60px 0 0 0;z-index:15;background:#08121B;color:#D7E3EA;font:400 14px/1.65 var(--f-mono);display:none;overflow:auto;padding:28px 0 60px}
+body.shell #shell{display:block}
+body.shell main,body.shell footer{visibility:hidden}
+#shell .wrap{max-width:900px}
+#out .p{color:var(--accent)}
+#out .m{color:#7E93A3}
+#out .g{color:#77B593}
+#out .h{color:#fff;font-weight:700}
+#out a{color:#77B593}
+#out pre{font:inherit;white-space:pre-wrap}
+.prompt{display:flex;gap:10px;align-items:center}
+.prompt label{color:var(--accent);white-space:nowrap}
+.prompt input{all:unset;flex:1;caret-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+.chips button{all:unset;cursor:pointer;border:1px solid #24394C;border-radius:6px;padding:3px 10px;color:#9DB0BF;font-size:12px}
+.chips button:hover{border-color:var(--accent);color:#fff}
+
+/* responsive */
+@media (max-width:900px){
+  nav{display:none}
+  .hero{padding:64px 0 48px}
+  .hero .wrap,.sec-head,.sec-body,.log li{grid-template-columns:1fr;gap:20px}
+  .numbers .wrap{grid-template-columns:repeat(2,1fr)}
+  .num{padding:24px 16px!important;border-bottom:1px solid var(--line)}
+  .num:nth-child(2){border-right:0}
+  .team,.stack,.method{grid-template-columns:1fr}
+  .prod{grid-template-columns:1fr;gap:6px}
+  section.block{padding:64px 0}
+}
+</style>
 </head>
-
 <body>
-    <!-- Matrix background effect placeholder -->
-    <div class="matrix-bg" id="matrixBg"></div>
 
-    <!-- Main terminal container -->
-    <div class="terminal-container" role="main" aria-label="Terminal simulato in stile Matrix">
-        <!-- Terminal header with classic window controls -->
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <button class="terminal-button close" aria-label="Chiudi" tabindex="-1"></button>
-                <button class="terminal-button minimize" aria-label="Minimizza" tabindex="-1"></button>
-                <button class="terminal-button maximize" aria-label="Massimizza" tabindex="-1"></button>
-            </div>
-            <div class="terminal-title">cittadino@ntonio:~$</div>
-            <button class="view-toggle" id="viewToggle" aria-label="Cambia visualizzazione">
-                <span>📄</span>
-                <span id="toggleText">Simple View</span>
-            </button>
-        </div>
-
-        <!-- Terminal content area -->
-        <div class="terminal-content" id="terminalContent">
-            <div class="terminal-line">
-                <span class="prompt">cittadino@ntonio:~$</span>
-                <span class="command">echo "Hello World"</span>
-            </div>
-            <div class="terminal-line">
-                <span class="command">Hello World</span>
-            </div>
-            <div class="terminal-line">
-                <span class="output-text" id="welcomeMessage"></span>
-            </div>
-            <div class="terminal-line" id="currentLine">
-                <span class="prompt">cittadino@ntonio:~$</span>
-                <span class="user-input" id="userInput"></span>
-                <span class="cursor" id="cursor"></span>
-            </div>
-        </div>
-        
-        <!-- Simple View - Professional Portfolio -->
-        <div class="simple-view" id="simpleView">
-            <!-- Hero Section -->
-            <div class="hero">
-                <h1>Antonio Cittadino</h1>
-                <div class="subtitle">Senior Backend Engineer | Software Architect | Tech Lead</div>
-                <div class="tagline">
-                    Started as an electronics engineer specialized in microelectronics.<br>
-                    Ended up building healthcare software, leading backend teams, and teaching modern development.
-                </div>
-                <div class="contact-links">
-                    <a href="mailto:awesome.cit.dev@gmail.com">📧 Email</a>
-                    <a href="https://linkedin.com/in/antonio-cittadino-9362b179" target="_blank">💼 LinkedIn</a>
-                    <a href="https://github.com/awesomecit" target="_blank">💻 GitHub</a>
-                    <a href="./cv.pdf" download>📥 Download CV</a>
-                </div>
-            </div>
-
-            <!-- Content -->
-            <div class="content">
-                <!-- Best Projects Section -->
-                <div class="section">
-                    <h2 class="section-title">Best Projects</h2>
-                    <div class="projects-grid">
-                        <div class="project-card">
-                            <h3>🏥 SISOS Healthcare Suite</h3>
-                            <div class="subtitle">Software gestionale sale operatorie</div>
-                            <div class="description">
-                                Referente tecnico per sistema mission-critical utilizzato in strutture sanitarie italiane.
-                                Cartella clinica digitale, firma digitale, integrazioni HL7/FHIR.
-                            </div>
-                            <div class="tags">
-                                <span class="tag">healthcare</span>
-                                <span class="tag">hl7</span>
-                                <span class="tag">fhir</span>
-                                <span class="tag">nestjs</span>
-                            </div>
-                        </div>
-
-                        <div class="project-card">
-                            <h3>📚 Modern Backend Course</h3>
-                            <div class="subtitle">Da zero a professionista in 100+ ore</div>
-                            <div class="description">
-                                Corso completo su sviluppo backend moderno: Node.js, TypeScript, TDD, CI/CD,
-                                observability, AI locale, compliance healthcare.
-                            </div>
-                            <div class="tags">
-                                <span class="tag">education</span>
-                                <span class="tag">tdd</span>
-                                <span class="tag">ai-assisted</span>
-                            </div>
-                        </div>
-
-                        <div class="project-card">
-                            <h3>🚀 Tech Citizen Gateway</h3>
-                            <div class="subtitle">API Gateway healthcare open source</div>
-                            <div class="description">
-                                API Gateway con Platformatic Watt. Circuit Breaker, Rate Limiting,
-                                stack observability completo (Prometheus, Grafana, Loki).
-                            </div>
-                            <div class="tags">
-                                <span class="tag">open-source</span>
-                                <span class="tag">fastify</span>
-                                <span class="tag">observability</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Profile Section -->
-                <div class="section">
-                    <h2 class="section-title">About Me</h2>
-                    <p>
-                        Senior Backend Engineer con <strong>7+ anni di esperienza</strong> nello sviluppo di sistemi distribuiti, 
-                        API e architetture scalabili. Background in Elettronica e Microelettronica, con competenze trasversali 
-                        da sistemi embedded a soluzioni enterprise.
-                    </p>
-                    <p>
-                        <strong>Settori:</strong> Healthcare IT, Energetico (microgrid), Startup AI (Price Intelligence)
-                    </p>
-                    <p>
-                        Approccio artigianale: focus su qualità, best practices (SOLID, DDD, TDD, Clean Code) e metodologie Agile. 
-                        Ethical AI addicted: utilizzo responsabile dell'AI come copilot con review obbligatoria.
-                    </p>
-                </div>
-
-                <!-- Experience Section -->
-                <div class="section">
-                    <h2 class="section-title">Experience</h2>
-                    
-                    <div class="experience-item">
-                        <h3>Full Stack Developer | Tech Lead</h3>
-                        <div class="meta">ICT Group (Promedital) • Reggio Emilia • 2023 - Present</div>
-                        <p>
-                            Referente tecnico SISOS (Soluzione Informatica Sala Operatoria Sicura), software gestionale 
-                            per sale operatorie in strutture sanitarie italiane.
-                        </p>
-                        <ul>
-                            <li>Architettura cartella clinica digitale con firma digitale</li>
-                            <li>Integrazioni healthcare: FHIR, HL7 v2/v3, SOAP, MLLP</li>
-                            <li>Real-time data sync con WebSocket e incident resolution</li>
-                            <li>Redesign UX: riduzione 40% click nei workflow operativi</li>
-                            <li>Coordinamento tecnico con CTO, CEO e stakeholder</li>
-                        </ul>
-                    </div>
-
-                    <div class="experience-item">
-                        <h3>Backend API Team Lead | R&D Engineer</h3>
-                        <div class="meta">Competitoor • Remote • 2020 - 2023</div>
-                        <p>
-                            Team Lead di 4 sviluppatori per piattaforma Price & Market Intelligence. 
-                            Monitoring 50+ milioni pagine prodotto su 450k siti in 40 paesi.
-                        </p>
-                        <ul>
-                            <li>Leadership team backend + collaborazione team ML</li>
-                            <li>Migrazione legacy + caching distribuito (Redis)</li>
-                            <li>60% riduzione deployment time</li>
-                            <li>Test coverage: 30% → 85%</li>
-                            <li>Onboarding: 3 settimane → 1 settimana</li>
-                        </ul>
-                    </div>
-
-                    <div class="experience-item">
-                        <h3>Software Engineer</h3>
-                        <div class="meta">Siemens • 2019 - 2020</div>
-                        <p>
-                            Sviluppo DEOP (Distributed Energy Optimization Platform) per ottimizzazione energetica 
-                            e gestione microgrid.
-                        </p>
-                        <ul>
-                            <li>Cloud Foundry integration + SSO implementation</li>
-                            <li>Refactoring JavaScript ES5 → ES6+</li>
-                            <li>CI/CD pipeline + test funzionali</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Skills Section -->
-                <div class="section">
-                    <h2 class="section-title">Skills</h2>
-                    <div class="skills-grid">
-                        <div class="skill-category">
-                            <h4>Backend & APIs</h4>
-                            <ul>
-                                <li>Node.js, TypeScript</li>
-                                <li>Fastify, Platformatic Watt</li>
-                                <li>NestJS, Express</li>
-                            </ul>
-                        </div>
-                        <div class="skill-category">
-                            <h4>Database & Storage</h4>
-                            <ul>
-                                <li>PostgreSQL, MySQL</li>
-                                <li>Redis, Elasticsearch</li>
-                                <li>MongoDB, MinIO</li>
-                            </ul>
-                        </div>
-                        <div class="skill-category">
-                            <h4>Healthcare</h4>
-                            <ul>
-                                <li>FHIR, HL7 v2/v3</li>
-                                <li>DICOM, MLLP</li>
-                                <li>GDPR, HIPAA compliance</li>
-                            </ul>
-                        </div>
-                        <div class="skill-category">
-                            <h4>DevOps & Infrastructure</h4>
-                            <ul>
-                                <li>Docker, Kubernetes</li>
-                                <li>GitHub Actions, Jenkins</li>
-                                <li>Ansible, Terraform</li>
-                            </ul>
-                        </div>
-                        <div class="skill-category">
-                            <h4>Observability</h4>
-                            <ul>
-                                <li>Prometheus, Grafana</li>
-                                <li>Loki, Tempo</li>
-                                <li>ELK Stack, OpenTelemetry</li>
-                            </ul>
-                        </div>
-                        <div class="skill-category">
-                            <h4>AI-Assisted Dev</h4>
-                            <ul>
-                                <li>Claude, GitHub Copilot</li>
-                                <li>Cursor, Ollama</li>
-                                <li>LangChain, RAG</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Looking For Section -->
-                <div class="section">
-                    <div class="info-box">
-                        <h4>💼 Looking For</h4>
-                        <ul>
-                            <li><strong>Role:</strong> Senior Backend Engineer / Tech Lead</li>
-                            <li><strong>RAL:</strong> €45.000</li>
-                            <li><strong>Contract:</strong> 6 months fixed-term → permanent / P.IVA</li>
-                            <li><strong>Mode:</strong> Full Remote, Smart Working</li>
-                            <li><strong>Location:</strong> Emilia Romagna / Calabria, Italy</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Hidden input for mobile keyboard support -->
-        <input type="text" 
-               id="mobileInput" 
-               class="mobile-input" 
-               autocomplete="off" 
-               autocorrect="off" 
-               autocapitalize="off" 
-               spellcheck="false"
-               placeholder="Digita un comando...">
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top"><i aria-hidden="true"></i>antonio.cittadino</a>
+    <nav aria-label="Sezioni">
+      <a href="#metodo">metodo</a><a href="#lavoro">lavoro</a><a href="#team">team</a><a href="#stack">stack</a><a href="#contatti">contatti</a>
+    </nav>
+    <div class="mode" role="group" aria-label="Modalità di lettura">
+      <button type="button" id="m-page" aria-pressed="true">pagina</button>
+      <button type="button" id="m-shell" aria-pressed="false">shell</button>
     </div>
-
-    <script>
-        // Command System - Clean Architecture Pattern
-        class TerminalCommandSystem {
-            constructor() {
-                this.commands = new Map();
-                this.isTyping = false;
-                this.currentInput = '';
-                this.isWaitingForInput = true;
-                this.commandHistory = []; // History dei comandi eseguiti
-                this.historyIndex = -1; // Indice corrente nella history
-                
-                // Interactive mode state
-                this.interactiveMode = null; // 'social', 'email', etc.
-                this.interactiveData = {}; // Dati temporanei per modalità interattive
-                this.interactiveStep = 0; // Step corrente nella modalità interattiva
-                
-                this.initializeCommands();
-                this.bindEvents();
-            }
-
-            // Command Registration - Open/Closed Principle
-            initializeCommands() {
-                this.commands.set('cit', {
-                    description: 'Comando principale per navigare il CV',
-                    execute: (args) => this.handleCitCommand(args)
-                });
-
-                this.commands.set('help', {
-                    description: 'Mostra i comandi disponibili',
-                    execute: () => this.showHelp()
-                });
-
-                this.commands.set('about', {
-                    description: 'Mostra informazioni personali e summary',
-                    execute: () => this.showAbout()
-                });
-
-                this.commands.set('clear', {
-                    description: 'Pulisce il terminale',
-                    execute: () => this.clearTerminal()
-                });
-
-                this.commands.set('social', {
-                    description: 'Apri i profili social in modo interattivo',
-                    execute: () => this.startSocialMode()
-                });
-
-                this.commands.set('sendmail', {
-                    description: 'Invia un messaggio via email',
-                    execute: () => this.startEmailMode()
-                });
-            }
-
-            // CV Navigation Commands Structure
-            getCvCommands() {
-                return {
-                    'cit --help': 'Mostra tutti i comandi disponibili',
-                    'cit --about': 'Informazioni personali e summary',
-                    'cit --skills': 'Competenze tecniche e soft skills',
-                    'cit --experience': 'Esperienza lavorativa e progetti',
-                    'cit --education': 'Formazione e certificazioni',
-                    'cit --projects': 'Portfolio progetti principali',
-                    'cit --contact': 'Informazioni di contatto',
-                    'cit --download': 'Scarica CV in formato PDF'
-                };
-            }
-
-            // Typewriter Effect Implementation
-            async typeText(text, element, speed = 50) {
-                this.isTyping = true;
-                element.textContent = '';
-
-                for (let i = 0; i < text.length; i++) {
-                    if (!this.isTyping) break; // Allow interruption
-
-                    const char = document.createElement('span');
-                    char.textContent = text[i];
-                    char.className = 'typewriter-char';
-                    char.style.animationDelay = `${i * speed}ms`;
-                    element.appendChild(char);
-
-                    await new Promise(resolve => setTimeout(resolve, speed));
-                }
-
-                this.isTyping = false;
-            }
-
-            // Welcome Message with Typewriter
-            async showWelcomeMessage() {
-                const welcomeElement = document.getElementById('welcomeMessage');
-                const message = 'Per saperne di più esegui il comando "cit --help"';
-
-                await new Promise(resolve => setTimeout(resolve, 1000)); // Pausa dopo Hello World
-                await this.typeText(message, welcomeElement, 60);
-
-                // Enable input after welcome message
-                this.enableInput();
-            }
-
-            // Help Command Implementation
-            handleCitCommand(args) {
-                console.log('🔍 DEBUG handleCitCommand - Args ricevuti:', args);
-                
-                if (args.includes('--help')) {
-                    this.showCvHelp();
-                } else if (args.length === 0) {
-                    this.addOutputLine('Usa "cit --help" per vedere i comandi disponibili');
-                } else {
-                    // Gestione dei sottocomandi di cit
-                    // Rimuovi il -- se presente per normalizzare il comando
-                    let subcommand = args[0];
-                    if (subcommand.startsWith('--')) {
-                        subcommand = subcommand.substring(2);
-                    }
-                    
-                    console.log('🔍 DEBUG handleCitCommand - Subcommand normalizzato:', subcommand);
-                    
-                    switch(subcommand) {
-                        case 'about':
-                            console.log('✅ Eseguendo showAbout()');
-                            this.showAbout();
-                            break;
-                        case 'skills':
-                            console.log('✅ Eseguendo showSkills()');
-                            this.showSkills();
-                            break;
-                        case 'experience':
-                            console.log('✅ Eseguendo showExperience()');
-                            this.showExperience();
-                            break;
-                        case 'education':
-                            console.log('✅ Eseguendo showEducation()');
-                            this.showEducation();
-                            break;
-                        case 'contact':
-                            console.log('✅ Eseguendo showContact()');
-                            this.showContact();
-                            break;
-                        case 'projects':
-                            console.log('✅ Eseguendo showProjects()');
-                            this.showProjects();
-                            break;
-                        case 'download':
-                            console.log('✅ Eseguendo downloadCV()');
-                            this.downloadCV();
-                            break;
-                        default:
-                            console.log('❌ Subcommand non riconosciuto:', subcommand);
-                            this.addOutputLine(`Comando non riconosciuto: cit ${args.join(' ')}`);
-                            this.addOutputLine('Usa "cit --help" per l\'elenco completo');
-                    }
-                }
-            }
-
-            // CV Commands Help Display
-            showCvHelp() {
-                this.addOutputLine('', 'help-header', 'COMANDO CIT - CURRICULUM VITAE NAVIGATION');
-                this.addOutputLine('');
-                this.addOutputLine('Comandi disponibili:', 'help-header');
-
-                const commands = this.getCvCommands();
-                Object.entries(commands).forEach(([command, description]) => {
-                    this.addCommandHelp(command, description);
-                });
-
-                this.addOutputLine('');
-                this.addOutputLine('Suggerimento: Inizia con "cit --about" per una panoramica generale', 'help-description');
-            }
-
-            // About Command Implementation
-            showAbout() {
-                this.addOutputLine('', 'help-header', '👤 PROFILO PROFESSIONALE');
-                this.addOutputLine('');
-                this.addOutputLine('Antonio Cittadino', 'help-header');
-                this.addOutputLine('Senior Backend Engineer | Software Architect | Tech Lead', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('📧 awesome.cit.dev@gmail.com', 'output-text');
-                this.addOutputLine('📱 +39 380 461 2277', 'output-text');
-                this.addOutputLineWithLink('🔗 LinkedIn: linkedin.com/in/antonio-cittadino-9362b179', 'linkedin.com/in/antonio-cittadino-9362b179', 'output-text');
-                this.addOutputLineWithLink('💻 GitHub: github.com/awesomecit', 'github.com/awesomecit', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('📝 Profilo:', 'help-header');
-                this.addOutputLine('Senior Backend Engineer con 7+ anni di esperienza nello sviluppo di sistemi', 'output-text');
-                this.addOutputLine('distribuiti, API e architetture scalabili. Background in Elettronica e', 'output-text');
-                this.addOutputLine('Microelettronica, con competenze trasversali da sistemi embedded a soluzioni', 'output-text');
-                this.addOutputLine('enterprise. Esperienza in leadership tecnica, R&D e modernizzazione di legacy', 'output-text');
-                this.addOutputLine('systems.', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Settori: Healthcare IT, Energetico (microgrid), Startup AI (Price Intelligence)', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Approccio artigianale: focus su qualità, best practices (SOLID, DDD, TDD, Clean', 'output-text');
-                this.addOutputLine('Code) e metodologie Agile. Ethical AI addicted: utilizzo responsabile dell\'AI', 'output-text');
-                this.addOutputLine('come copilot con review obbligatoria.', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('💡 Soft Skills:', 'help-header');
-                this.addOutputLine('• Leadership Tecnica', 'output-text');
-                this.addOutputLine('• Mentoring e Comunicazione Business-Tech', 'output-text');
-                this.addOutputLine('• Problem Solving Strutturato', 'output-text');
-                this.addOutputLine('• Continuous Improvement', 'output-text');
-                this.addOutputLine('');
-                const isMobile = window.innerWidth <= 768;
-                const linkHint = isMobile 
-                    ? '💡 Suggerimento: Tap sui link per aprirli' 
-                    : '💡 Suggerimento: CTRL+Click sui link per aprirli';
-                this.addOutputLine(linkHint, 'help-description');
-            }
-
-            // Skills Command Implementation
-            showSkills() {
-                this.addOutputLine('', 'help-header', '⚙️ COMPETENZE TECNICHE');
-                this.addOutputLine('');
-                this.addOutputLine('💻 Backend & Frontend:', 'help-header');
-                this.addOutputLine('• Backend: Node.js, TypeScript, Fastify, Platformatic Watt, NestJS, Express', 'output-text');
-                this.addOutputLine('• Frontend: React, React Native, LitElement, TypeScript, WebSocket', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('🗄️ Database & Storage:', 'help-header');
-                this.addOutputLine('• PostgreSQL, MySQL, MongoDB, Redis, RediSearch, Elasticsearch', 'output-text');
-                this.addOutputLine('• MinIO (S3-compatible), Document Management', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('🏥 Healthcare & Integration:', 'help-header');
-                this.addOutputLine('• FHIR, HL7 v2/v3, SOAP, MLLP, CDA, DICOM', 'output-text');
-                this.addOutputLine('• RabbitMQ, CloudEvents, Dead Letter Queues', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('🐳 Infrastructure & DevOps:', 'help-header');
-                this.addOutputLine('• Docker, Docker Swarm, Cloud Foundry, Ansible', 'output-text');
-                this.addOutputLine('• Git, GitHub Actions, Jenkins, GitLab CI, CI/CD', 'output-text');
-                this.addOutputLine('• Hetzner Cloud, Cloudflare (WAF, DDoS)', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('🔒 Security & Auth:', 'help-header');
-                this.addOutputLine('• Keycloak, OAuth 2.0, OIDC, SAML 2.0, JWT, SSO, RBAC', 'output-text');
-                this.addOutputLine('• TLS/SSL, UFW, Fail2Ban, SSH hardening', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('📊 Observability & Monitoring:', 'help-header');
-                this.addOutputLine('• Prometheus, Grafana, Loki, Tempo, ELK Stack', 'output-text');
-                this.addOutputLine('• OpenTelemetry, Pino, APM', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('🧪 Testing:', 'help-header');
-                this.addOutputLine('• Jest, Mocha, Playwright, Cypress, Cucumber/Gherkin (BDD)', 'output-text');
-                this.addOutputLine('• TDD, Supertest, MSW, Smoke Tests', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('🤖 AI-Assisted Development:', 'help-header');
-                this.addOutputLine('• Claude, GitHub Copilot, Cursor, Ollama, LangChain', 'output-text');
-                this.addOutputLine('• LLM, AI Agents, Prompt Engineering, RAG', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('📐 Architecture & Patterns:', 'help-header');
-                this.addOutputLine('• Circuit Breaker, Rate Limiting, Saga, CQRS, Event Sourcing', 'output-text');
-                this.addOutputLine('• Repository, Factory, Strategy, Clean Code, SOLID, DDD', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('⚖️ Compliance:', 'help-header');
-                this.addOutputLine('• GDPR, HIPAA, Privacy by Design, Audit Logging', 'output-text');
-            }
-
-            // Experience Command Implementation
-            showExperience() {
-                this.addOutputLine('', 'help-header', '💼 ESPERIENZA LAVORATIVA');
-                this.addOutputLine('');
-                this.addOutputLine('🏢 Full Stack Developer | Tech Lead', 'help-header');
-                this.addOutputLine('ICT Group - Promedital | Reggio Emilia | 2023 - Presente', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Referente tecnico SISOS (Soluzione Informatica Sala Operatoria Sicura),', 'output-text');
-                this.addOutputLine('software gestionale per sale operatorie in strutture sanitarie italiane.', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Responsabilità:', 'output-text');
-                this.addOutputLine('• Architettura cartella clinica digitale con firma digitale', 'output-text');
-                this.addOutputLine('• Integrazioni healthcare: FHIR, HL7 v2/v3, SOAP, MLLP', 'output-text');
-                this.addOutputLine('• Real-time data sync con WebSocket e incident resolution', 'output-text');
-                this.addOutputLine('• Redesign UX: riduzione 40% click nei workflow operativi', 'output-text');
-                this.addOutputLine('• Coordinamento tecnico con CTO, CEO e stakeholder', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Stack: TypeScript, Node.js, React, PostgreSQL, Redis, Docker, WebSocket', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('🚀 Backend API Team Lead | R&D Engineer', 'help-header');
-                this.addOutputLine('Competitoor (Dispell Magic srl) | Remoto | 2020 - 2023', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Team Lead di 4 sviluppatori per piattaforma Price & Market Intelligence.', 'output-text');
-                this.addOutputLine('Monitoring 50+ milioni pagine prodotto su 450k siti in 40 paesi.', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Responsabilità:', 'output-text');
-                this.addOutputLine('• Leadership team backend + collaborazione team ML', 'output-text');
-                this.addOutputLine('• Migrazione legacy + caching distribuito (Redis)', 'output-text');
-                this.addOutputLine('• Logging centralizzato (ELK Stack) + reportistica distribuita', 'output-text');
-                this.addOutputLine('• Semantic versioning, CI/CD, test-first approach', 'output-text');
-                this.addOutputLine('• Onboarding: 3 settimane → 1 settimana', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Risultati: 60% riduzione deployment time, Test coverage 30% → 85%', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Stack: Node.js, TypeScript, React, Python, Redis, Elasticsearch, Docker', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('⚡ Software Engineer', 'help-header');
-                this.addOutputLine('Siemens (via Horsa/Siglatech) | 2019 - 2020', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Sviluppo DEOP (Distributed Energy Optimization Platform) per ottimizzazione', 'output-text');
-                this.addOutputLine('energetica e gestione microgrid.', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('• Cloud Foundry integration + SSO implementation', 'output-text');
-                this.addOutputLine('• Refactoring JavaScript ES5 → ES6+', 'output-text');
-                this.addOutputLine('• CI/CD pipeline + test funzionali', 'output-text');
-                this.addOutputLine('• Dashboard monitoraggio con integrazione IoT', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Stack: JavaScript ES6+, Cloud Foundry, Jenkins, REST APIs', 'output-text');
-            }
-
-            // Education Command Implementation
-            showEducation() {
-                this.addOutputLine('', 'help-header', '🎓 FORMAZIONE');
-                this.addOutputLine('');
-                this.addOutputLine('📚 Laurea Triennale in Elettronica - Microelettronica', 'help-header');
-                this.addOutputLine('🏛️ Università della Calabria', 'output-text');
-                this.addOutputLine('🎯 Voto: 100/110', 'output-text');
-                this.addOutputLine('📌 Tesi: Risonanza Magnetica Funzionale (fMRI) - Preprocessing e analisi dati', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('⚡ Diploma ITIS Elettronica e Telecomunicazioni', 'help-header');
-                this.addOutputLine('🎯 Voto: 100/100 (media più alta dell\'istituto)', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('🌍 Lingue:', 'help-header');
-                this.addOutputLine('• Italiano (madrelingua)', 'output-text');
-                this.addOutputLine('• Inglese tecnico (B2)', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('📍 Informazioni:', 'help-header');
-                this.addOutputLine('• Località: Emilia Romagna / Calabria', 'output-text');
-                this.addOutputLine('• Modalità: Full Remote preferito', 'output-text');
-                this.addOutputLine('• Disponibilità: Trasferte occasionali, valuto relocation e ibrido', 'output-text');
-            }
-
-            // Projects Command Implementation
-            showProjects() {
-                this.addOutputLine('', 'help-header', '🚀 PROGETTI');
-                this.addOutputLine('');
-                this.addOutputLine('💡 Tech Citizen SW Gateway (Open Source)', 'help-header');
-                this.addOutputLine('📝 Descrizione:', 'output-text');
-                this.addOutputLine('API Gateway per healthcare costruito con Platformatic Watt, Fastify e stack di', 'output-text');
-                this.addOutputLine('observability completo. Progetto didattico e production-ready.', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Features:', 'output-text');
-                this.addOutputLine('• Circuit Breaker, Rate Limiting, FHIR/HL7 integration', 'output-text');
-                this.addOutputLine('• Prometheus/Grafana monitoring', 'output-text');
-                this.addOutputLine('• Docker multi-environment, Keycloak auth', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLineWithLink('🔗 GitHub: github.com/awesomecit/tech-citizen-sw-gateway', 'github.com/awesomecit/tech-citizen-sw-gateway', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('📚 Corso: Modern Backend Development with AI', 'help-header');
-                this.addOutputLine('📝 Descrizione:', 'output-text');
-                this.addOutputLine('Corso completo (100+ ore) da principiante a professionista attraverso la', 'output-text');
-                this.addOutputLine('costruzione di un API Gateway reale.', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('Topics:', 'output-text');
-                this.addOutputLine('• Node.js, TypeScript, Docker, Redis, RabbitMQ, MinIO, Keycloak', 'output-text');
-                this.addOutputLine('• Testing BDD/TDD, CI/CD, Ansible', 'output-text');
-                this.addOutputLine('• Observability: Prometheus, Grafana, Loki, Tempo', 'output-text');
-                this.addOutputLine('• AI locale: Ollama, Stregatto, automazioni n8n', 'output-text');
-                this.addOutputLine('• Compliance GDPR/healthcare, protocolli HL7/FHIR', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLineWithLink('🎙️ Podcast: open.spotify.com/episode/5nKTnrEtglgQwplaMeLQsk', 'open.spotify.com/episode/5nKTnrEtglgQwplaMeLQsk', 'output-text');
-            }
-
-            // Contact Command Implementation
-            showContact() {
-                this.addOutputLine('', 'help-header', '📞 INFORMAZIONI DI CONTATTO');
-                this.addOutputLine('');
-                this.addOutputLine('👤 Antonio Cittadino', 'help-header');
-                this.addOutputLine('Senior Backend Engineer | Software Architect | Tech Lead', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLineWithEmailLink('📧 Email: awesome.cit.dev@gmail.com', 'awesome.cit.dev@gmail.com', 'output-text');
-                this.addOutputLine('📱 Telefono: +39 380 461 2277', 'output-text');
-                this.addOutputLine('📍 Località: Emilia Romagna / Calabria', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('🌐 Link Social & Professionali:', 'help-header');
-                this.addOutputLineWithLink('• GitHub: https://github.com/awesomecit', 'https://github.com/awesomecit', 'output-text');
-                this.addOutputLineWithLink('• LinkedIn: https://linkedin.com/in/antonio-cittadino-9362b179', 'https://linkedin.com/in/antonio-cittadino-9362b179', 'output-text');
-                this.addOutputLineWithLink('• Portfolio: https://awesomecit.github.io', 'https://awesomecit.github.io', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('💼 Posizione Ricercata:', 'help-header');
-                this.addOutputLine('• RAL: €45.000', 'output-text');
-                this.addOutputLine('• Contratto: 6 mesi determinato → indeterminato / P.IVA', 'output-text');
-                this.addOutputLine('• Modalità: Full Remote, Smart Working per obiettivi', 'output-text');
-                this.addOutputLine('• Disponibilità colloquio: Meeting + code challenge (max 2 ore)', 'output-text');
-                this.addOutputLine('');
-                const isMobile = window.innerWidth <= 768;
-                const contactHint = isMobile 
-                    ? '💡 Suggerimento: Tap sui link per aprirli, tap su email per scrivere' 
-                    : '💡 Suggerimento: CTRL+Click sui link per aprirli, click su email per scrivere';
-                this.addOutputLine(contactHint, 'help-description');
-                this.addOutputLineWithEmailLink('📄 Per referenze o approfondimenti, contattami via email.', 'email', 'output-text');
-            }
-
-            // Download CV Command Implementation
-            downloadCV() {
-                this.addOutputLine('', 'help-header', '📥 DOWNLOAD CURRICULUM VITAE');
-                this.addOutputLine('');
-                this.addOutputLine('🔄 Preparazione download del CV in formato PDF...', 'output-text');
-                this.addOutputLine('');
-                
-                // Verifica se esiste il file CV
-                const cvPath = './cv.pdf';
-                
-                // Simula un piccolo delay per l'effetto di caricamento
-                setTimeout(() => {
-                    this.addOutputLine('✅ Download avviato!', 'output-text');
-                    this.addOutputLine('');
-                    this.addOutputLine('📄 File: Antonio_Cittadino_CV.pdf', 'output-text');
-                    this.addOutputLine('📊 Formato: PDF', 'output-text');
-                    this.addOutputLine('');
-                    
-                    // Crea un link temporaneo e triggera il download
-                    const link = document.createElement('a');
-                    link.href = cvPath;
-                    link.download = 'Antonio_Cittadino_CV.pdf';
-                    link.style.display = 'none';
-                    // Attributi per compatibilità mobile
-                    link.setAttribute('target', '_blank');
-                    link.setAttribute('rel', 'noopener noreferrer');
-                    document.body.appendChild(link);
-                    
-                    // Trigger del download - compatibile mobile e desktop
-                    try {
-                        link.click();
-                        console.log('📥 Download triggered');
-                    } catch (error) {
-                        console.error('❌ Download error:', error);
-                        // Fallback per alcuni browser mobile
-                        window.open(cvPath, '_blank');
-                    }
-                    
-                    // Cleanup
-                    setTimeout(() => {
-                        if (document.body.contains(link)) {
-                            document.body.removeChild(link);
-                        }
-                    }, 100);
-                    
-                    this.addOutputLine('💡 Se il download non parte automaticamente, controlla che il file cv.pdf', 'output-text');
-                    this.addOutputLine('   sia presente nella cartella del progetto.', 'output-text');
-                }, 800);
-            }
-
-            // Social Mode - Interactive social profile selector
-            startSocialMode() {
-                this.addOutputLine('', 'help-header', '🌐 PROFILI SOCIAL');
-                this.addOutputLine('');
-                this.addOutputLine('Seleziona un profilo da aprire:', 'output-text');
-                this.addOutputLine('');
-                this.addOutputLine('1. GitHub (github.com/awesomecit)', 'help-command');
-                this.addOutputLine('2. LinkedIn (linkedin.com/in/antonio-cittadino-9362b179)', 'help-command');
-                this.addOutputLine('3. Email (awesome.cit.dev@gmail.com)', 'help-command');
-                this.addOutputLine('');
-                this.addOutputLine('Digita il numero (1-3) o "cancel" per annullare:', 'output-text');
-                
-                // Attiva modalità interattiva
-                this.interactiveMode = 'social';
-                this.interactiveStep = 0;
-            }
-
-            handleSocialModeInput(input) {
-                const choice = input.trim();
-                
-                if (choice.toLowerCase() === 'cancel') {
-                    this.addOutputLine('❌ Operazione annullata', 'output-text');
-                    this.exitInteractiveMode();
-                    return;
-                }
-
-                const socialLinks = {
-                    '1': { name: 'GitHub', url: 'https://github.com/awesomecit', icon: '💻' },
-                    '2': { name: 'LinkedIn', url: 'https://www.linkedin.com/in/antonio-cittadino-9362b179', icon: '💼' },
-                    '3': { name: 'Email', url: 'mailto:awesome.cit.dev@gmail.com', icon: '📧' }
-                };
-
-                if (this.interactiveStep === 0) {
-                    // Prima scelta: seleziona il profilo
-                    if (socialLinks[choice]) {
-                        this.interactiveData.selectedProfile = socialLinks[choice];
-                        this.addOutputLine('');
-                        this.addOutputLine(`${socialLinks[choice].icon} Hai selezionato: ${socialLinks[choice].name}`, 'output-text');
-                        this.addOutputLine(`🔗 URL: ${socialLinks[choice].url}`, 'output-text');
-                        this.addOutputLine('');
-                        this.addOutputLine('Confermi apertura in nuova tab? (y/n):', 'output-text');
-                        this.interactiveStep = 1;
-                    } else {
-                        this.addOutputLine('❌ Scelta non valida. Digita 1, 2 o 3:', 'output-text');
-                    }
-                } else if (this.interactiveStep === 1) {
-                    // Seconda scelta: conferma apertura
-                    if (choice.toLowerCase() === 'y' || choice.toLowerCase() === 'yes') {
-                        this.addOutputLine('');
-                        this.addOutputLine(`✅ Apertura ${this.interactiveData.selectedProfile.name} in corso...`, 'output-text');
-                        
-                        // Apri in nuova tab
-                        window.open(this.interactiveData.selectedProfile.url, '_blank');
-                        
-                        this.addOutputLine(`🚀 Profilo aperto in una nuova tab!`, 'output-text');
-                        this.exitInteractiveMode();
-                    } else if (choice.toLowerCase() === 'n' || choice.toLowerCase() === 'no') {
-                        this.addOutputLine('❌ Operazione annullata', 'output-text');
-                        this.exitInteractiveMode();
-                    } else {
-                        this.addOutputLine('❌ Risposta non valida. Digita y o n:', 'output-text');
-                    }
-                }
-            }
-
-            // Email Mode - Interactive email composer
-            startEmailMode() {
-                this.addOutputLine('', 'help-header', '📧 INVIA MESSAGGIO');
-                this.addOutputLine('');
-                this.addOutputLine('Compila i seguenti campi per inviare un messaggio:', 'output-text');
-                this.addOutputLine('(Digita "cancel" in qualsiasi momento per annullare)', 'help-description');
-                this.addOutputLine('');
-                this.addOutputLine('📝 Inserisci il tuo nome:', 'output-text');
-                
-                this.interactiveMode = 'email';
-                this.interactiveStep = 0;
-                this.interactiveData = {};
-            }
-
-            handleEmailModeInput(input) {
-                const value = input.trim();
-                
-                if (value.toLowerCase() === 'cancel') {
-                    this.addOutputLine('❌ Operazione annullata', 'output-text');
-                    this.exitInteractiveMode();
-                    return;
-                }
-
-                switch(this.interactiveStep) {
-                    case 0: // Nome mittente
-                        if (value) {
-                            this.interactiveData.senderName = value;
-                            this.addOutputLine(`✅ Nome: ${value}`, 'output-text');
-                            this.addOutputLine('');
-                            this.addOutputLine('📧 Inserisci la tua email:', 'output-text');
-                            this.interactiveStep = 1;
-                        } else {
-                            this.addOutputLine('❌ Il nome non può essere vuoto:', 'output-text');
-                        }
-                        break;
-
-                    case 1: // Email mittente
-                        if (value && value.includes('@')) {
-                            this.interactiveData.senderEmail = value;
-                            this.addOutputLine(`✅ Email: ${value}`, 'output-text');
-                            this.addOutputLine('');
-                            this.addOutputLine('📋 Inserisci l\'oggetto del messaggio:', 'output-text');
-                            this.interactiveStep = 2;
-                        } else {
-                            this.addOutputLine('❌ Inserisci un indirizzo email valido:', 'output-text');
-                        }
-                        break;
-
-                    case 2: // Oggetto
-                        if (value) {
-                            this.interactiveData.subject = value;
-                            this.addOutputLine(`✅ Oggetto: ${value}`, 'output-text');
-                            this.addOutputLine('');
-                            this.addOutputLine('💬 Inserisci il messaggio (premi invio per terminare):', 'output-text');
-                            this.interactiveStep = 3;
-                        } else {
-                            this.addOutputLine('❌ L\'oggetto non può essere vuoto:', 'output-text');
-                        }
-                        break;
-
-                    case 3: // Messaggio
-                        if (value) {
-                            this.interactiveData.message = value;
-                            this.addOutputLine('');
-                            this.addOutputLine('📋 Riepilogo:', 'help-header');
-                            this.addOutputLine(`👤 Da: ${this.interactiveData.senderName} (${this.interactiveData.senderEmail})`, 'output-text');
-                            this.addOutputLine(`📧 A: awesome.cit.dev@gmail.com`, 'output-text');
-                            this.addOutputLine(`📌 Oggetto: ${this.interactiveData.subject}`, 'output-text');
-                            this.addOutputLine(`💬 Messaggio: ${this.interactiveData.message.substring(0, 50)}${this.interactiveData.message.length > 50 ? '...' : ''}`, 'output-text');
-                            this.addOutputLine('');
-                            this.addOutputLine('Aprire il client email? (y/n):', 'output-text');
-                            this.interactiveStep = 4;
-                        } else {
-                            this.addOutputLine('❌ Il messaggio non può essere vuoto:', 'output-text');
-                        }
-                        break;
-
-                    case 4: // Conferma
-                        if (value.toLowerCase() === 'y' || value.toLowerCase() === 'yes') {
-                            this.addOutputLine('');
-                            this.addOutputLine('✅ Apertura client email...', 'output-text');
-                            
-                            // Costruisci il mailto link
-                            const body = `Mittente: ${this.interactiveData.senderName}%0D%0AEmail: ${this.interactiveData.senderEmail}%0D%0A%0D%0A${encodeURIComponent(this.interactiveData.message)}`;
-                            const subject = encodeURIComponent(this.interactiveData.subject);
-                            const mailtoLink = `mailto:awesome.cit.dev@gmail.com?subject=${subject}&body=${body}`;
-                            
-                            // Apri il client email
-                            window.location.href = mailtoLink;
-                            
-                            this.addOutputLine('🚀 Client email aperto!', 'output-text');
-                            this.addOutputLine('📬 Completa e invia il messaggio dal tuo client email.', 'output-text');
-                            this.exitInteractiveMode();
-                        } else if (value.toLowerCase() === 'n' || value.toLowerCase() === 'no') {
-                            this.addOutputLine('❌ Operazione annullata', 'output-text');
-                            this.exitInteractiveMode();
-                        } else {
-                            this.addOutputLine('❌ Risposta non valida. Digita y o n:', 'output-text');
-                        }
-                        break;
-                }
-            }
-
-            // Exit Interactive Mode
-            exitInteractiveMode() {
-                this.interactiveMode = null;
-                this.interactiveStep = 0;
-                this.interactiveData = {};
-            }
-
-            // Clear Terminal Implementation
-            clearTerminal() {
-                const terminalContent = document.getElementById('terminalContent');
-                const currentLine = document.getElementById('currentLine');
-                
-                // Remove all lines except the current input line
-                while (terminalContent.firstChild && terminalContent.firstChild !== currentLine) {
-                    terminalContent.removeChild(terminalContent.firstChild);
-                }
-                
-                // Terminal completamente pulito - nessun messaggio aggiuntivo
-            }
-
-            // General Help Command
-            showHelp() {
-                this.addOutputLine('', 'help-header', '📋 COMANDI DISPONIBILI');
-                this.addOutputLine('');
-                this.addOutputLine('Comandi principali:', 'help-header');
-                this.addCommandHelp('help', 'Mostra questo messaggio di aiuto');
-                this.addCommandHelp('cit --help', 'Mostra tutti i comandi del CV');
-                this.addCommandHelp('cit about', 'Profilo professionale e informazioni personali');
-                this.addCommandHelp('cit skills', 'Competenze tecniche e metodologie');
-                this.addCommandHelp('cit experience', 'Esperienza lavorativa dettagliata');
-                this.addCommandHelp('cit education', 'Formazione e certificazioni');
-                this.addCommandHelp('cit projects', 'Portfolio progetti personali');
-                this.addCommandHelp('cit contact', 'Informazioni di contatto');
-                this.addCommandHelp('cit download', 'Scarica il CV in formato PDF');
-                this.addOutputLine('');
-                this.addOutputLine('Comandi interattivi:', 'help-header');
-                this.addCommandHelp('social', 'Apri profili social (GitHub, LinkedIn) in modo interattivo');
-                this.addCommandHelp('sendmail', 'Compila e invia un messaggio via email');
-                this.addOutputLine('');
-                this.addOutputLine('Altri comandi:', 'help-header');
-                this.addCommandHelp('clear', 'Pulisce il terminale');
-                this.addOutputLine('');
-                this.addOutputLine('💡 Suggerimento: Inizia con "cit about" per una panoramica generale', 'help-description');
-            }
-
-            // Add Command Help Line
-            addCommandHelp(command, description) {
-                const line = document.createElement('div');
-                line.className = 'terminal-line';
-
-                const commandSpan = document.createElement('span');
-                commandSpan.className = 'help-command';
-                commandSpan.textContent = command;
-
-                const descSpan = document.createElement('span');
-                descSpan.className = 'help-description';
-                descSpan.textContent = ` - ${description}`;
-
-                line.appendChild(commandSpan);
-                line.appendChild(descSpan);
-
-                this.insertBeforeCurrentLine(line);
-            }
-
-            // Add Output Line to Terminal
-            addOutputLine(text, className = 'output-text', content = null) {
-                const line = document.createElement('div');
-                line.className = 'terminal-line';
-
-                const span = document.createElement('span');
-                span.className = className;
-                span.textContent = content || text;
-
-                line.appendChild(span);
-                this.insertBeforeCurrentLine(line);
-            }
-
-            // Add Output Line with Clickable Link (CTRL+Click)
-            addOutputLineWithLink(text, url, className = 'output-text') {
-                const line = document.createElement('div');
-                line.className = 'terminal-line';
-
-                const span = document.createElement('span');
-                span.className = className;
-                
-                // Split text to find URL part
-                const urlStart = text.indexOf(url);
-                if (urlStart !== -1) {
-                    // Testo prima del link
-                    const beforeLink = text.substring(0, urlStart);
-                    const afterLink = text.substring(urlStart + url.length);
-                    
-                    // Aggiungi testo prima del link
-                    if (beforeLink) {
-                        span.appendChild(document.createTextNode(beforeLink));
-                    }
-                    
-                    // Crea elemento link cliccabile
-                    const linkSpan = document.createElement('span');
-                    linkSpan.className = 'clickable-link';
-                    linkSpan.textContent = url;
-                    linkSpan.setAttribute('data-url', url.startsWith('http') ? url : `https://${url}`);
-                    linkSpan.title = 'CTRL+Click per aprire';
-                    
-                    // Event listener per CTRL+Click (desktop) o tap (mobile)
-                    linkSpan.addEventListener('click', (e) => {
-                        // Mobile: direct tap opens link
-                        // Desktop: CTRL+Click opens link
-                        const isMobile = window.innerWidth <= 768;
-                        const shouldOpen = isMobile || e.ctrlKey || e.metaKey;
-                        
-                        if (shouldOpen) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            const fullUrl = linkSpan.getAttribute('data-url');
-                            window.open(fullUrl, '_blank', 'noopener,noreferrer');
-                            console.log('🔗 Link aperto:', fullUrl);
-                        }
-                    });
-
-                    // Touch event for better mobile experience
-                    linkSpan.addEventListener('touchend', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const fullUrl = linkSpan.getAttribute('data-url');
-                        window.open(fullUrl, '_blank', 'noopener,noreferrer');
-                        console.log('📱 Link aperto (touch):', fullUrl);
-                    });
-                    
-                    span.appendChild(linkSpan);
-                    
-                    // Aggiungi testo dopo il link
-                    if (afterLink) {
-                        span.appendChild(document.createTextNode(afterLink));
-                    }
-                } else {
-                    // Se non trova l'URL, aggiungi solo il testo
-                    span.textContent = text;
-                }
-
-                line.appendChild(span);
-                this.insertBeforeCurrentLine(line);
-            }
-
-            // Add Output Line with Clickable Email Link
-            addOutputLineWithEmailLink(text, emailOrWord, className = 'output-text') {
-                const line = document.createElement('div');
-                line.className = 'terminal-line';
-
-                const span = document.createElement('span');
-                span.className = className;
-                
-                // Trova la posizione della parola da rendere cliccabile
-                const wordStart = text.indexOf(emailOrWord);
-                if (wordStart !== -1) {
-                    // Testo prima della parola cliccabile
-                    const beforeWord = text.substring(0, wordStart);
-                    const afterWord = text.substring(wordStart + emailOrWord.length);
-                    
-                    // Aggiungi testo prima
-                    if (beforeWord) {
-                        span.appendChild(document.createTextNode(beforeWord));
-                    }
-                    
-                    // Crea elemento cliccabile per email
-                    const emailSpan = document.createElement('span');
-                    emailSpan.className = 'clickable-link';
-                    emailSpan.textContent = emailOrWord;
-                    emailSpan.title = 'Click per aprire client email';
-                    
-                    // Event listener per click diretto (senza CTRL) e touch
-                    const openEmail = (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        // Se è un indirizzo email completo, usalo, altrimenti usa quello di default
-                        const emailAddress = emailOrWord.includes('@') 
-                            ? emailOrWord 
-                            : 'awesome.cit.dev@gmail.com';
-                        
-                        const mailtoLink = `mailto:${emailAddress}`;
-                        window.location.href = mailtoLink;
-                        console.log('📧 Client email aperto per:', emailAddress);
-                    };
-
-                    emailSpan.addEventListener('click', openEmail);
-                    emailSpan.addEventListener('touchend', openEmail);
-                    
-                    span.appendChild(emailSpan);
-                    
-                    // Aggiungi testo dopo
-                    if (afterWord) {
-                        span.appendChild(document.createTextNode(afterWord));
-                    }
-                } else {
-                    // Se non trova la parola, aggiungi solo il testo
-                    span.textContent = text;
-                }
-
-                line.appendChild(span);
-                this.insertBeforeCurrentLine(line);
-            }
-
-            // Insert Line Before Current Input Line
-            insertBeforeCurrentLine(element) {
-                const currentLine = document.getElementById('currentLine');
-                currentLine.parentNode.insertBefore(element, currentLine);
-                this.scrollToBottom();
-            }
-
-            // Scroll Terminal to Bottom - optimized for fullscreen
-            scrollToBottom() {
-                const terminal = document.querySelector('.terminal-content');
-                // Smooth scroll per better UX su fullscreen
-                terminal.scrollTo({
-                    top: terminal.scrollHeight,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Command Processing
-            processCommand(input) {
-                console.log('🔍 DEBUG - Input ricevuto:', `"${input}"`);
-                console.log('🔍 DEBUG - Modalità interattiva:', this.interactiveMode);
-                
-                // Se siamo in modalità interattiva, gestisci l'input diversamente
-                if (this.interactiveMode) {
-                    this.addCommandToHistory(input);
-                    
-                    // Routing per le diverse modalità interattive
-                    switch(this.interactiveMode) {
-                        case 'social':
-                            this.handleSocialModeInput(input);
-                            break;
-                        case 'email':
-                            this.handleEmailModeInput(input);
-                            break;
-                    }
-                    
-                    this.resetInput();
-                    return;
-                }
-                
-                // Normale processing dei comandi
-                console.log('🔍 DEBUG - Input trimmed:', `"${input.trim()}"`);
-                
-                // Add command to history
-                this.addCommandToHistory(input);
-                
-                // Aggiungi comando alla history per navigazione
-                if (input.trim()) {
-                    this.commandHistory.push(input.trim());
-                    this.historyIndex = this.commandHistory.length;
-                }
-
-                // Parse command
-                const parts = input.trim().split(' ');
-                const command = parts[0].toLowerCase();
-                const args = parts.slice(1);
-                
-                console.log('🔍 DEBUG - Comando parsed:', command);
-                console.log('🔍 DEBUG - Args parsed:', args);
-                console.log('🔍 DEBUG - Comandi disponibili:', Array.from(this.commands.keys()));
-                console.log('🔍 DEBUG - Comando trovato?', this.commands.has(command));
-
-                // Execute command
-                if (this.commands.has(command)) {
-                    console.log('✅ Eseguendo comando:', command);
-                    this.commands.get(command).execute(args);
-                } else {
-                    console.log('❌ Comando non trovato:', command);
-                    this.addOutputLine(`Comando non trovato: ${command}`);
-                    this.addOutputLine('Digita "help" per vedere i comandi disponibili');
-                }
-
-                // Reset input
-                this.resetInput();
-            }
-
-            // Add Command to History Display
-            addCommandToHistory(input) {
-                const line = document.createElement('div');
-                line.className = 'terminal-line';
-
-                const prompt = document.createElement('span');
-                prompt.className = 'prompt';
-                prompt.textContent = 'cittadino@ntonio:~$ ';
-
-                const command = document.createElement('span');
-                command.className = 'command';
-                command.textContent = input;
-
-                line.appendChild(prompt);
-                line.appendChild(command);
-
-                this.insertBeforeCurrentLine(line);
-            }
-
-            // Reset Input State
-            resetInput() {
-                this.currentInput = '';
-                document.getElementById('userInput').textContent = '';
-                const mobileInput = document.getElementById('mobileInput');
-                if (mobileInput) {
-                    mobileInput.value = '';
-                }
-                this.isWaitingForInput = true;
-            }
-
-            // Enable Input Handling
-            enableInput() {
-                this.isWaitingForInput = true;
-                document.querySelector('.terminal-content').focus();
-            }
-
-            // Event Binding
-            bindEvents() {
-                const terminal = document.querySelector('.terminal-content');
-                const mobileInput = document.getElementById('mobileInput');
-                terminal.setAttribute('tabindex', '0');
-
-                // Desktop: keyboard handling on terminal
-                terminal.addEventListener('keydown', (e) => this.handleKeyPress(e));
-                terminal.addEventListener('click', () => {
-                    // On mobile, focus the mobile input; on desktop, focus terminal
-                    if (window.innerWidth <= 768) {
-                        mobileInput.focus();
-                    } else {
-                        terminal.focus();
-                    }
-                });
-                
-                // Mobile: handle input from mobile input field
-                mobileInput.addEventListener('input', (e) => {
-                    if (!this.isWaitingForInput || this.isTyping) return;
-                    
-                    this.currentInput = e.target.value;
-                    const userInputElement = document.getElementById('userInput');
-                    userInputElement.innerHTML = this.currentInput.replace(/ /g, '&nbsp;');
-                });
-
-                mobileInput.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        if (this.currentInput.trim()) {
-                            this.processCommand(this.currentInput);
-                            e.target.value = '';
-                        }
-                    }
-                });
-
-                // Gestione paste (Ctrl+V) - Desktop
-                terminal.addEventListener('paste', (e) => {
-                    if (!this.isWaitingForInput || this.isTyping) return;
-                    
-                    e.preventDefault();
-                    const pastedText = e.clipboardData.getData('text');
-                    this.currentInput += pastedText;
-                    const userInputElement = document.getElementById('userInput');
-                    userInputElement.innerHTML = this.currentInput.replace(/ /g, '&nbsp;');
-                    console.log('📋 DEBUG - Testo incollato:', pastedText);
-                });
-
-                // Gestione paste - Mobile input
-                mobileInput.addEventListener('paste', (e) => {
-                    if (!this.isWaitingForInput || this.isTyping) return;
-                    
-                    // Let the mobile input handle paste naturally
-                    setTimeout(() => {
-                        this.currentInput = mobileInput.value;
-                        const userInputElement = document.getElementById('userInput');
-                        userInputElement.innerHTML = this.currentInput.replace(/ /g, '&nbsp;');
-                        console.log('📋 DEBUG - Testo incollato (mobile):', this.currentInput);
-                    }, 10);
-                });
-
-                // Enable copy from terminal content
-                this.enableCopyFunctionality();
-
-                // Auto-focus mobile input on load for mobile devices
-                if (window.innerWidth <= 768) {
-                    setTimeout(() => mobileInput.focus(), 1000);
-                }
-            }
-
-            // Enable copy functionality for terminal content
-            enableCopyFunctionality() {
-                const terminal = document.querySelector('.terminal-content');
-                
-                // Add copy button on selection (mobile-friendly)
-                document.addEventListener('selectionchange', () => {
-                    const selection = window.getSelection();
-                    if (selection.toString().length > 0) {
-                        console.log('📋 Testo selezionato:', selection.toString().substring(0, 50) + '...');
-                    }
-                });
-
-                // Long press for context menu on mobile
-                let longPressTimer;
-                terminal.addEventListener('touchstart', (e) => {
-                    longPressTimer = setTimeout(() => {
-                        // Enable native context menu for copy
-                        console.log('📱 Long press detected - context menu available');
-                    }, 500);
-                });
-
-                terminal.addEventListener('touchend', () => {
-                    clearTimeout(longPressTimer);
-                });
-
-                terminal.addEventListener('touchmove', () => {
-                    clearTimeout(longPressTimer);
-                });
-            }
-
-            // Keyboard Event Handler
-            handleKeyPress(event) {
-                // Permetti F12, F5, e altri tasti funzione del browser
-                if (event.key.startsWith('F') || event.metaKey) {
-                    return; // Non bloccare i tasti funzione
-                }
-
-                // Permetti Ctrl+C, Ctrl+V, Ctrl+A, Ctrl+X per copy/paste/select all
-                if (event.ctrlKey && ['c', 'v', 'a', 'x'].includes(event.key.toLowerCase())) {
-                    return; // Permetti operazioni di clipboard
-                }
-
-                if (!this.isWaitingForInput || this.isTyping) return;
-
-                const userInputElement = document.getElementById('userInput');
-
-                switch (event.key) {
-                    case 'Enter':
-                        if (this.currentInput.trim()) {
-                            this.processCommand(this.currentInput);
-                        } else {
-                            this.resetInput();
-                        }
-                        event.preventDefault();
-                        break;
-
-                    case 'Backspace':
-                        this.currentInput = this.currentInput.slice(0, -1);
-                        userInputElement.innerHTML = this.currentInput.replace(/ /g, '&nbsp;');
-                        console.log('🔍 DEBUG - Backspace | Input corrente:', `"${this.currentInput}"`);
-                        event.preventDefault();
-                        break;
-
-                    case 'ArrowUp':
-                        // Naviga all'indietro nella history
-                        if (this.commandHistory.length > 0 && this.historyIndex > 0) {
-                            this.historyIndex--;
-                            this.currentInput = this.commandHistory[this.historyIndex];
-                            userInputElement.innerHTML = this.currentInput.replace(/ /g, '&nbsp;');
-                            console.log('🔍 DEBUG - ArrowUp | History Index:', this.historyIndex, '| Comando:', this.currentInput);
-                        }
-                        event.preventDefault();
-                        break;
-
-                    case 'ArrowDown':
-                        // Naviga in avanti nella history
-                        if (this.historyIndex < this.commandHistory.length - 1) {
-                            this.historyIndex++;
-                            this.currentInput = this.commandHistory[this.historyIndex];
-                            userInputElement.innerHTML = this.currentInput.replace(/ /g, '&nbsp;');
-                            console.log('🔍 DEBUG - ArrowDown | History Index:', this.historyIndex, '| Comando:', this.currentInput);
-                        } else if (this.historyIndex === this.commandHistory.length - 1) {
-                            // Ritorna all'input vuoto se siamo all'ultimo comando
-                            this.historyIndex = this.commandHistory.length;
-                            this.currentInput = '';
-                            userInputElement.textContent = '';
-                            console.log('🔍 DEBUG - ArrowDown | Ritorno a input vuoto');
-                        }
-                        event.preventDefault();
-                        break;
-
-                    case 'Tab':
-                        // Future: Autocomplete implementation
-                        event.preventDefault();
-                        break;
-
-                    default:
-                        if (event.key.length === 1 && !event.ctrlKey && !event.altKey) {
-                            this.currentInput += event.key;
-                            // Usa innerHTML con &nbsp; per gli spazi per preservarli visivamente
-                            userInputElement.textContent = this.currentInput;
-                            // Aggiungi uno zero-width space dopo per far vedere meglio il cursore
-                            if (event.key === ' ') {
-                                userInputElement.innerHTML = this.currentInput.replace(/ /g, '&nbsp;');
-                            }
-                            // Reset history index quando l'utente inizia a digitare
-                            this.historyIndex = this.commandHistory.length;
-                            console.log('🔍 DEBUG - Tasto premuto:', event.key, '| Input corrente:', `"${this.currentInput}"`);
-                            event.preventDefault(); // Previeni solo per caratteri normali
-                        }
-                        break;
-                }
-            }
-        }
-
-        // Initialization
-        document.addEventListener('DOMContentLoaded', function () {
-            const terminal = new TerminalCommandSystem();
-
-            // Start welcome sequence
-            terminal.showWelcomeMessage();
-
-            // Focus terminal for immediate interaction
-            setTimeout(() => {
-                document.querySelector('.terminal-content').focus();
-            }, 100);
-            
-            // View Toggle Functionality
-            const viewToggle = document.getElementById('viewToggle');
-            const terminalContent = document.getElementById('terminalContent');
-            const simpleView = document.getElementById('simpleView');
-            const toggleText = document.getElementById('toggleText');
-            const mobileInput = document.getElementById('mobileInput');
-            
-            let isSimpleView = false;
-            
-            viewToggle.addEventListener('click', () => {
-                isSimpleView = !isSimpleView;
-                
-                if (isSimpleView) {
-                    // Switch to simple view
-                    terminalContent.style.display = 'none';
-                    mobileInput.style.display = 'none';
-                    simpleView.classList.add('active');
-                    toggleText.textContent = 'Terminal View';
-                    viewToggle.querySelector('span:first-child').textContent = '🖥️';
-                } else {
-                    // Switch to terminal view
-                    terminalContent.style.display = 'flex';
-                    if (window.innerWidth <= 768) {
-                        mobileInput.style.display = 'block';
-                    }
-                    simpleView.classList.remove('active');
-                    toggleText.textContent = 'Simple View';
-                    viewToggle.querySelector('span:first-child').textContent = '📄';
-                    
-                    // Re-focus terminal
-                    setTimeout(() => {
-                        if (window.innerWidth <= 768) {
-                            mobileInput.focus();
-                        } else {
-                            terminalContent.focus();
-                        }
-                    }, 100);
-                }
-            });
-
-            // Permetti context menu per copy/paste
-            // Commentiamo il blocco per permettere interazioni native del browser
-            // document.addEventListener('contextmenu', (e) => {
-            //     e.preventDefault();
-            // });
-
-            // Handle window resize for fullscreen optimization
-            window.addEventListener('resize', () => {
-                // Force recalculation of terminal height on mobile orientation change
-                const terminal = document.querySelector('.terminal-content');
-                terminal.style.height = '0';
-                setTimeout(() => {
-                    terminal.style.height = '';
-                }, 10);
-            });
-
-            console.log('Matrix Terminal Fullscreen with CV Navigation initialized');
-        });
-    </script>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="label"><b>●</b> senior backend engineer · tech lead · ex saldatore di circuiti</p>
+      <h1>Software che <strong>regge</strong> dove <em>non può</em> cadere.</h1>
+      <p class="lead">Sale operatorie, reti energetiche, <strong>50 milioni di pagine</strong> monitorate ogni giorno. Sette anni di Node.js e TypeScript, con un passato da elettronico.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://wa.me/393804611277?text=Ciao%20Antonio%2C%20ho%20visto%20il%20tuo%20sito" rel="noopener">scrivimi su WhatsApp →</a>
+        <a class="btn" href="mailto:awesome.cit.dev@gmail.com">email</a>
+        <a class="btn" href="cv.pdf">cv.pdf ↓</a>
+        <a class="btn" href="https://github.com/awesomecit">github</a>
+      </div>
+    </div>
+    <aside class="status" aria-label="Stato attuale">
+      <div class="head" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="row"><span class="k">ruolo</span><span class="v">tech lead · SISOS</span></div>
+      <div class="row"><span class="k">dominio</span><span class="v">healthcare IT</span></div>
+      <div class="row"><span class="k">base</span><span class="v">Calabria / Emilia</span></div>
+      <div class="row"><span class="k">modalità</span><span class="v">full remote</span></div>
+      <div class="row"><span class="k">side project</span><span class="v">TechCitizen</span></div>
+      <div class="row"><span class="k">uptime</span><span class="v" id="uptime">dal 2019</span></div>
+      <div class="row"><span class="k">caffè oggi</span><span class="v">☕ ☕ ☕ <span class="k">(stabile)</span></span></div>
+      <div class="row"><span class="k">tab o spazi</span><span class="v">2 spazi, e ne discutiamo</span></div>
+      <div class="row"><span class="k">aperto a proposte</span><span class="v ok">● sì</span></div>
+    </aside>
+  </div>
+  <div class="trace" aria-hidden="true"></div>
+</section>
+
+<div class="numbers">
+  <div class="wrap">
+    <div class="num"><b>−40%</b><span>click nei flussi della sala operatoria</span></div>
+    <div class="num"><b>30→85%</b><span>copertura dei test, team Competitoor</span></div>
+    <div class="num"><b>−60%</b><span>tempo di deploy dopo CI/CD</span></div>
+    <div class="num"><b>3→1</b><span>settimane di onboarding per un nuovo dev</span></div>
+  </div>
+</div>
+
+<section class="block" id="metodo">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">01 · metodo</p>
+      <h2>Lavoro come un artigiano, con gli agenti come apprendisti.</h2>
+    </div>
+    <div class="sec-body">
+      <div></div>
+      <div class="method">
+        <div><p class="label">spec first</p><h3>Una spec per ogni issue</h3><p>Prima scrivo cosa deve succedere, in parole che capisce anche chi non programma. Poi il codice.</p></div>
+        <div><p class="label">DDD · BDD · TDD</p><h3>Test che sanno di dominio</h3><p>Scenari Gherkin, test prima del codice, mutation testing per sapere se i test mordono davvero.</p></div>
+        <div><p class="label">XP</p><h3>Piccoli passi, mai su main</h3><p>Branch brevi, Conventional Commits, una seconda revisione che prova a smontare ogni scelta.</p></div>
+        <div><p class="label">AI con giudizio</p><h3>L'AI scrive, io firmo</h3><p>Claude e gli altri lavorano su issue, con review obbligatoria. Dico sempre dove l'AI sbaglia.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="lavoro">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">02 · lavoro</p>
+      <h2>Dalla microgrid alla cartella clinica.</h2>
+    </div>
+    <ol class="log">
+      <li>
+        <div class="when"><b>2023 — oggi</b>Reggio Emilia · remoto</div>
+        <div>
+          <h3>Full stack developer · tech lead<small>ICT Group – Promedital</small></h3>
+          <p>Referente tecnico di <strong>SISOS</strong>, il gestionale delle sale operatorie usato in strutture sanitarie pubbliche e private italiane.</p>
+          <ul class="pts">
+            <li>Cartella clinica digitale con firma e catena di validità</li>
+            <li>Integrazioni FHIR, HL7 v2/v3, SOAP, MLLP</li>
+            <li>Sincronizzazione in tempo reale via WebSocket</li>
+            <li>Redesign UX: 40% di click in meno nei flussi operativi</li>
+          </ul>
+          <div class="tags"><span>TypeScript</span><span>Node.js</span><span>React</span><span>PostgreSQL</span><span>Redis</span><span>Docker</span></div>
+        </div>
+      </li>
+      <li>
+        <div class="when"><b>2020 — 2023</b>remoto</div>
+        <div>
+          <h3>Backend API team lead · R&amp;D<small>Competitoor (Dispell Magic srl)</small></h3>
+          <p>Guida di 4 sviluppatori sulla piattaforma di price intelligence: 50+ milioni di pagine prodotto, 450.000 siti, 40 paesi.</p>
+          <ul class="pts">
+            <li>Migrazione del legacy e cache distribuita su Redis</li>
+            <li>Logging centralizzato con ELK e report distribuiti</li>
+            <li>Semantic versioning, CI/CD, test first</li>
+          </ul>
+          <div class="tags"><span>Node.js</span><span>TypeScript</span><span>Python</span><span>Elasticsearch</span><span>Jenkins</span></div>
+        </div>
+      </li>
+      <li>
+        <div class="when"><b>2019 — 2020</b>via Horsa / Siglatech</div>
+        <div>
+          <h3>Software engineer<small>Siemens · DEOP</small></h3>
+          <p>Piattaforma di ottimizzazione energetica e gestione delle microgrid: SSO su Cloud Foundry, refactoring ES5 → ES6+, pipeline e dashboard dei consumi con dati IoT.</p>
+          <div class="tags"><span>JavaScript</span><span>Cloud Foundry</span><span>Jenkins</span><span>IoT</span></div>
+        </div>
+      </li>
+      <li>
+        <div class="when"><b>prima</b>formazione</div>
+        <div>
+          <h3>Laurea in Elettronica – Microelettronica<small>100/110 · tesi sul preprocessing di dati fMRI</small></h3>
+          <p>Diploma ITIS in Elettronica e Telecomunicazioni con 100/100. Da lì viene l'abitudine di pensare in segnali, tempi e guasti.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="team">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">03 · team</p>
+      <h2>Fuori orario costruiamo cose per le persone vicine.</h2>
+    </div>
+    <div class="team">
+      <a class="card" href="https://techcitizen.it">
+        <div class="swatch" style="background:#17344F;color:#C7D13B">radici che uniscono</div>
+        <h3>TechCitizen</h3>
+        <p>Progetto di ricerca e sviluppo dalla Calabria: software civico, colonie feline, ricette di famiglia, cura di quartiere.</p>
+        <span class="role">fondatore · sviluppo e infrastruttura</span>
+        <span class="url">techcitizen.it ↗</span>
+      </a>
+      <a class="card" href="https://www.gennarolanzo.it">
+        <div class="swatch" style="background:#111;color:#fff">pennarello su tela</div>
+        <h3>BEG · Gennaro Lanzo</h3>
+        <p>Portfolio dell'artista: opere vere, filtro per anno, scheda in modale e contatto che parte dall'opera.</p>
+        <span class="role">sviluppo · React, Vite, Playwright</span>
+        <span class="url">gennarolanzo.it ↗</span>
+      </a>
+      <a class="card" href="https://techcitizen.it/team/chef-kixo/">
+        <div class="swatch" style="background:#E9DFCF;color:#5A3A22">it · en · de</div>
+        <h3>Chef Kixò</h3>
+        <p>Il sito di Vincenzo Lanzo in tre lingue, generato da JSON: servizi, luoghi, blog e prenotazioni.</p>
+        <span class="role">sviluppo · generatore statico</span>
+        <span class="url">techcitizen.it/team/chef-kixo ↗</span>
+      </a>
+    </div>
+    <div class="lab">
+      <div class="lab-head"><p class="label"><b>●</b> in laboratorio su TechCitizen</p><span class="mono k">stati veri, niente vaporware</span></div>
+      <a class="prod" href="https://techcitizen.it/demo/scorza/"><span class="pill live">● demo online</span><b>Scorza</b><span>Ricette di famiglia al bergamotto, con il nome di chi le ha fatte.</span><i>prova la demo ↗</i></a>
+      <a class="prod" href="https://techcitizen.it/#prodotti"><span class="pill beta">beta</span><b>CityCat</b><span>Rete per colonie feline, rifugi, veterinari e comuni. In prova con i volontari in Calabria.</span><i>scheda ↗</i></a>
+      <a class="prod" href="https://techcitizen.it/#prodotti"><span class="pill beta">5 numeri</span><b>La Tana Today</b><span>Il giornale che non mente.</span><i>scheda ↗</i></a>
+      <a class="prod" href="https://techcitizen.it/#prodotti"><span class="pill proto">prototipo</span><b>Zona Cesarini</b><span>La telecronaca in diretta con la voce che scegli tu.</span><i>scheda ↗</i></a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">04 · stack</p>
+      <h2>Gli attrezzi, in ordine d'uso.</h2>
+    </div>
+    <div class="stack">
+      <div><h3>backend</h3><p>Node.js, TypeScript, Fastify, Platformatic Watt, NestJS, Undici, Pino</p></div>
+      <div><h3>healthcare</h3><p>FHIR, HL7 v2/v3, SOAP, MLLP, CDA, DICOM</p></div>
+      <div><h3>dati e messaggi</h3><p>PostgreSQL, Redis, MongoDB, Elasticsearch, RabbitMQ, CloudEvents, MinIO</p></div>
+      <div><h3>auth</h3><p>Keycloak, OAuth 2.0, OIDC, SAML, PKCE, RBAC</p></div>
+      <div><h3>infra e osservabilità</h3><p>Docker, Caddy, Ansible, Hetzner, Contabo, Cloudflare, Prometheus, Grafana, Loki, Tempo, OpenTelemetry</p></div>
+      <div><h3>test</h3><p>Jest, Playwright, Cucumber, Supertest, MSW, mutation testing</p></div>
+      <div><h3>architettura</h3><p>DDD, CQRS, event sourcing, saga, circuit breaker, ADR</p></div>
+      <div><h3>frontend</h3><p>React, React Native, LitElement, WebSocket, Y.js / CRDT</p></div>
+      <div><h3>AI</h3><p>Claude Code, agenti su issue, Ollama, RAG con Qdrant e ChromaDB</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contatti">
+  <div class="wrap">
+    <p class="label"><b>●</b> 05 · contatti</p>
+    <h2 style="margin-top:22px">Hai un sistema che <strong>non può fermarsi?</strong> Parliamone.</h2>
+    <p class="lead2">Rispondo di solito entro un giorno. Più in fretta se c'è un incidente in produzione, o un buon caffè.</p>
+    <div class="links">
+      <a class="btn primary" href="https://wa.me/393804611277?text=Ciao%20Antonio%2C%20ho%20visto%20il%20tuo%20sito" rel="noopener">WhatsApp →</a>
+      <a class="btn" href="mailto:awesome.cit.dev@gmail.com">awesome.cit.dev@gmail.com</a>
+      <a class="btn" href="tel:+393804611277">chiama</a>
+      <a class="btn" href="https://linkedin.com/in/antonio-cittadino-9362b179">linkedin ↗</a>
+      <a class="btn" href="https://github.com/awesomecit">github ↗</a>
+      <a class="btn" href="cv.pdf">cv.pdf ↓</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Antonio Cittadino · parte del team <a href="https://techcitizen.it">TechCitizen</a></span>
+    <span>scritto a mano, zero framework, nessun dato tracciato · premi <kbd>`</kbd> per la shell · ↑↑↓↓←→←→ B A</span>
+  </div>
+</footer>
+
+<div id="shell" aria-label="Versione terminale">
+  <div class="wrap">
+    <div id="out" aria-live="polite"></div>
+    <form class="prompt" id="form" autocomplete="off">
+      <label for="cmd">antonio@awesomecit:~$</label>
+      <input id="cmd" spellcheck="false" aria-label="Comando">
+    </form>
+    <div class="chips" id="chips"></div>
+  </div>
+</div>
+
+<script>
+// Un solo contenuto per due viste: la shell legge dalla pagina stessa,
+// così CV, lavoro e team restano scritti una volta sola.
+const $ = s => document.querySelector(s);
+const out = $('#out'), cmd = $('#cmd');
+const text = sel => [...document.querySelectorAll(sel)];
+
+const commands = {
+  help: () => `<span class="h">comandi</span>
+  whoami     chi sono
+  metodo     come lavoro
+  lavoro     esperienze, dalla più recente
+  team       i siti costruiti col team
+  lab        i prodotti in beta su TechCitizen
+  whatsapp   scrivimi in chat
+  stack      gli attrezzi
+  contatti   come trovarmi
+  cv         scarica il cv in pdf
+  page       torna alla pagina
+  clear      pulisce lo schermo
+<span class="m">e poi ci sono comandi che non trovi qui. coffee, per esempio.</span>`,
+  whoami: () => `<span class="h">Antonio Cittadino</span>
+senior backend engineer · tech lead
+${$('.hero p.lead').textContent.trim()}
+<span class="m">base: Calabria / Emilia · full remote · aperto a proposte</span> <span class="g">●</span>`,
+  metodo: () => text('.method > div').map(d =>
+    `<span class="g">▸</span> <span class="h">${d.querySelector('h3').textContent}</span>\n  <span class="m">${d.querySelector('p:last-child').textContent}</span>`).join('\n'),
+  lavoro: () => text('.log > li').map(li => {
+    const when = li.querySelector('.when b').textContent;
+    const h = li.querySelector('h3').firstChild.textContent.trim();
+    const at = li.querySelector('h3 small').textContent;
+    const items = [...li.querySelectorAll('.pts li')].map(p => `  - ${p.textContent}`).join('\n');
+    return `<span class="p">${when.padEnd(14)}</span><span class="h">${h}</span>\n${' '.repeat(14)}<span class="m">${at}</span>${items ? '\n' + items : ''}`;
+  }).join('\n\n'),
+  team: () => text('.team .card').map(c =>
+    `<span class="g">▸</span> <span class="h">${c.querySelector('h3').textContent}</span>  <a href="${c.href}">${c.querySelector('.url').textContent.replace(' ↗','')}</a>\n  <span class="m">${c.querySelector('p').textContent}</span>`).join('\n'),
+  stack: () => text('.stack > div').map(d =>
+    `<span class="p">${d.querySelector('h3').textContent.padEnd(22)}</span>${d.querySelector('p').textContent}`).join('\n'),
+  contatti: () => `email     <a href="mailto:awesome.cit.dev@gmail.com">awesome.cit.dev@gmail.com</a>
+linkedin  <a href="https://linkedin.com/in/antonio-cittadino-9362b179">in/antonio-cittadino-9362b179</a>
+github    <a href="https://github.com/awesomecit">github.com/awesomecit</a>`,
+  cv: () => { window.open('cv.pdf'); return '<span class="m">apro cv.pdf…</span>'; },
+  page: () => { setMode('page'); return ''; },
+  clear: () => { out.innerHTML = ''; return null; },
+  lab: () => text('.prod').map(a => `<span class="g">▸</span> <span class="h">${a.querySelector('b').textContent.padEnd(15)}</span><span class="p">[${a.querySelector('.pill').textContent.replace('● ','')}]</span> <a href="${a.href}">apri</a>\n  <span class="m">${a.querySelector('span:not(.pill)').textContent}</span>`).join('\n'),
+  whatsapp: () => { window.open('https://wa.me/393804611277?text=Ciao%20Antonio%2C%20ho%20visto%20il%20tuo%20sito'); return '<span class="m">apro WhatsApp…</span>'; },
+  coffee: () => `<span class="p">    ( (
+     ) )
+  ........
+  |      |]
+  \\      /
+   '----'</span>  <span class="m">caffè erogato. build sbloccata.</span>`,
+  ping: () => '<span class="g">PONG</span> <span class="m">· 1 ms da Calabria, 2 da Reggio Emilia, 0 se mi scrivi su WhatsApp</span>',
+  fortune: () => { const f = ['Funziona sulla mia macchina. Quindi spediamo la mia macchina.','Il test più veloce è quello che hai scritto prima del codice.','Ci sono due problemi difficili: cache, nomi e off-by-one.','In sala operatoria non esiste "riprova più tardi".','Un ADR oggi ti risparmia una riunione domani.']; return '<span class="m">' + f[Math.floor(Math.random()*f.length)] + '</span>'; },
+  sudo: () => '<span class="m">antonio non è nel file sudoers. Questo incidente verrà segnalato… via email, con gentilezza.</span>',
+  'sudo make me a sandwich': () => '<span class="g">ok.</span> <span class="m">(xkcd 149, ovviamente)</span>',
+  'rm -rf /': () => '<span class="m">bel tentativo. C\'è un backup, e pure un test che lo verifica.</span>',
+  exit: () => { setMode('page'); return ''; },
+};
+
+const hist = []; let hi = 0;
+function run(raw) {
+  const c = raw.trim().toLowerCase().replace(/^cit\s+--?/, '');
+  if (raw.trim()) { hist.push(raw.trim()); hi = hist.length; }
+  const echo = `<div><span class="p">antonio@awesomecit:~$</span> ${raw.replace(/</g,'&lt;')}</div>`;
+  if (!c) { out.insertAdjacentHTML('beforeend', echo); return; }
+  const fn = commands[c];
+  const res = fn ? fn() : `<span class="m">comando non trovato: ${c.replace(/</g,'&lt;')}. Prova</span> help`;
+  if (res === null) return;
+  out.insertAdjacentHTML('beforeend', echo + (res ? `<pre>${res}</pre><br>` : ''));
+  $('#shell').scrollTop = 1e9;
+}
+
+$('#form').addEventListener('submit', e => { e.preventDefault(); run(cmd.value); cmd.value = ''; });
+cmd.addEventListener('keydown', e => {
+  if (e.key === 'ArrowUp' && hi > 0) { cmd.value = hist[--hi]; e.preventDefault(); }
+  if (e.key === 'ArrowDown') { hi = Math.min(hist.length, hi + 1); cmd.value = hist[hi] || ''; }
+});
+$('#chips').innerHTML = ['whoami','lavoro','team','lab','whatsapp','coffee','page'].map(c => `<button type="button">${c}</button>`).join('');
+$('#chips').addEventListener('click', e => { if (e.target.tagName === 'BUTTON') { run(e.target.textContent); cmd.focus(); } });
+
+let booted = false;
+function setMode(m) {
+  const shell = m === 'shell';
+  document.body.classList.toggle('shell', shell);
+  $('#m-page').setAttribute('aria-pressed', !shell);
+  $('#m-shell').setAttribute('aria-pressed', shell);
+  history.replaceState(null, '', shell ? '#shell' : location.pathname);
+  if (shell) {
+    if (!booted) { booted = true; run('whoami'); out.insertAdjacentHTML('beforeend', '<span class="m">scrivi help per i comandi.</span><br><br>'); }
+    cmd.focus();
+  }
+}
+$('#m-page').onclick = () => setMode('page');
+$('#m-shell').onclick = () => setMode('shell');
+document.addEventListener('keydown', e => {
+  if (e.key === '`') { e.preventDefault(); setMode(document.body.classList.contains('shell') ? 'page' : 'shell'); }
+  if (e.key === 'Escape' && document.body.classList.contains('shell')) setMode('page');
+});
+if (location.hash === '#shell') setMode('shell');
+
+// uptime dal primo lavoro da sviluppatore (2019)
+const days = Math.floor((Date.now() - new Date('2019-01-01')) / 864e5);
+$('#uptime').textContent = `${days.toLocaleString('it-IT')} giorni`;
+
+// ↑↑↓↓←→←→BA
+const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a']; let k = 0;
+document.addEventListener('keydown', e => {
+  k = e.key === seq[k] ? k + 1 : (e.key === seq[0] ? 1 : 0);
+  if (k === seq.length) { k = 0; const t = document.createElement('div'); t.className = 'toast'; t.textContent = '+30 vite · god mode attivo · i test passano tutti (per oggi)'; document.body.append(t); setTimeout(() => t.remove(), 3500); }
+});
+</script>
 </body>
-
 </html>
