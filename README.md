@@ -1,6 +1,6 @@
 # awesomecit.github.io
 
-Landing da sviluppatore di Antonio Cittadino: <https://awesomecit.github.io>.
+Landing da sviluppatore di Antonio Cittadino. Indirizzo principale (canonical): <https://techcitizen.it/team/antonio-cittadino/>, pubblicata da deploy-pull a ogni merge su `main` (techcitizen-infra#67). Resta anche su <https://awesomecit.github.io>.
 
 Una pagina sola (`index.html`, HTML/CSS/JS senza build) con due viste:
 
@@ -14,6 +14,20 @@ python3 -m http.server 8000
 ```
 
 Poi apri <http://localhost:8000>.
+
+## Regole per techcitizen.it
+
+La pagina gira in una sottocartella e sotto una CSP stretta (`default-src 'self'`, niente inline):
+
+- solo percorsi relativi (`assets/…`, `cv.pdf`), mai `/…`;
+- CSS in `assets/site.css` e `assets/cv.css`, JS in `assets/site.js`: niente `<style>`, `<script>` inline, attributi `style` o `onclick`;
+- font in locale in `assets/fonts/` (licenza in `assets/fonts/OFL.txt`), nessuna risorsa da altri domini.
+
+Il test le controlla:
+
+```bash
+node --test tests/
+```
 
 ## Dove si cambia cosa
 
