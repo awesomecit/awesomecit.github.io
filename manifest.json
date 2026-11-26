@@ -2,7 +2,7 @@
   "name": "Antonio Cittadino Portfolio",
   "short_name": "AC Portfolio",
   "description": "Portfolio professionale di Antonio Cittadino - Backend Software Developer",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0D1A26",
   "theme_color": "#17344F",

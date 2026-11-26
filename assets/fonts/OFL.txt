@@ -1,0 +1,9 @@
+Font usati dalla landing, copiati in locale da Google Fonts (sottoinsieme latin, woff2)
+perché la Content-Security-Policy di techcitizen.it ammette solo font dello stesso sito.
+
+- Atkinson Hyperlegible: Copyright 2020 Braille Institute of America, Inc.
+- JetBrains Mono: Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
+- Lexend: Copyright 2018 The Lexend Project Authors (https://github.com/googlefonts/lexend)
+
+Tutti e tre sono distribuiti con la SIL Open Font License, Version 1.1:
+https://openfontlicense.org/open-font-license-official-text/

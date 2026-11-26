@@ -1,0 +1,5 @@
+/* Font in locale (SIL Open Font License 1.1, vedi fonts/OFL.txt): la CSP ammette solo 'self'. */
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/atkinson-hyperlegible-400.woff2) format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/atkinson-hyperlegible-700.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:100 800;font-display:swap;src:url(fonts/jetbrains-mono.woff2) format("woff2")}
+@font-face{font-family:"Lexend";font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/lexend.woff2) format("woff2")}
